@@ -5,6 +5,7 @@
 #include "Managers/AnimationManager.hpp" 
 #include "GameMap.hpp" 
 
+#include <exception>
 #include <stack>
 #include <string>
 
@@ -14,8 +15,14 @@ typedef sf::Texture texture_t;
 
 int main(int argc, char* argv[])
 {
-
-    Game game; game.run();
+    
+    try {
+        Game game; 
+        game.run();
+    }
+    catch (const std::ios_base::failure  & e) { 
+        std::cout << "Exception:" << std::endl << "    " << e.what();
+    }
 //{{{
     //sf::RenderWindow window( sf::VideoMode(600, 400), "Test!");
     //

@@ -25,7 +25,7 @@ public:
     Cell(cellID_t cellID, bool solid = false);
     Cell();
     ~Cell();
-    inline cellID_t getCellID()
+    inline cellID_t getID()
     {
         return this->cellID;
     }
@@ -33,6 +33,9 @@ public:
     {
         return solid;
     }
+    void setTile(std::string);
+    void setSolid(bool solid = true);
+    void setID(cellID_t);
     
 };
 

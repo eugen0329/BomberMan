@@ -26,6 +26,8 @@ private:
     AnimationManager animationManager;
     actions_t act;
     PlayerEventManager eventManager;
+
+    void checkForCollisions();
     
 public:
     Player(GameMap &, std::vector<WorldsObject*> &, renderWindow_t &);

@@ -6,17 +6,17 @@ GameMap::GameMap(size_t xSize, size_t ySize) : grid(xSize, ySize)
 
 GameMap::GameMap() 
 {
-    size.x = 20;
-    size.y = 15;
-    grid.setSize(size.x, size.y);
+    loadGrid();
 
-    if(! rendTexture.create(size.x * 32, size.y * 32) ) {
+    if(! rendTexture.create(size.x * cellSize.x, size.y * cellSize.y) ) {
         exit(1);
     }
-    rendTexture.clear(sf::Color::Red);
+
+    rendTexture.clear(sf::Color::Blue);
     for(unsigned int i = 0; i < size.y; i++) {
         for(unsigned int j = 0; j < size.x; j++) {
-            grid[i][j].sprite.setPosition(j*32, i*32);
+            //grid[i][j].setTile("res/Tiles/stone.gif");
+            grid[i][j].sprite.setPosition(j * cellSize.x, i * cellSize.y);
             rendTexture.draw(grid[i][j].sprite);
         }
     }
@@ -25,6 +25,43 @@ GameMap::GameMap()
     mapSprite.setPosition(0, 0);
     //mapSprite.setColor(sf::Color::Red);
     mapSprite.setTexture(rendTexture.getTexture());
+
+}
+
+void GameMap::loadGrid()
+{
+    size.x = 20;
+    size.y = 15;
+    grid.setSize(size.x, size.y);
+
+    cellSize.x = 32;
+    cellSize.y = 32;
+
+    std::ifstream fMapGrid;
+    fMapGrid.open("res/mapGrid");
+    //fMapGrid.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    if(! fMapGrid.is_open() ) {
+        throw std::ios_base::failure("ERROR while opening file");
+    }
+    std::string buffer;
+    
+    for(unsigned int i = 0; i < size.y; i++) {
+        std::getline(fMapGrid, buffer);
+        for(unsigned int j = 0; j < size.x; j++) {
+            grid[i][j].setID(buffer[j]);
+            if( grid[i][j].getID() == 'w') {
+                std::cout << "w, ";
+                grid[i][j].setTile("res/Tiles/wall.jpg");
+                grid[i][j].setSolid(true);
+            } else if (grid[i][j].getID() == 'f') {
+                std::cout << "f, ";
+                grid[i][j].setTile("res/Tiles/floor.gif");
+                grid[i][j].setSolid(false);
+            }
+        }
+    }
+
+    fMapGrid.close();
 
 }
 

@@ -19,6 +19,8 @@ public:
 
     texture_t texture;
     sprite_t sprite;
+    size_t   width;
+    size_t   heigth;
 };
 
 #endif /* end of include guard: _OBJECTPROPERTIES_HPP_ */
