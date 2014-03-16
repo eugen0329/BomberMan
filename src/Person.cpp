@@ -1,6 +1,6 @@
 #include "Person.hpp"
 
-Person::Person(GameMap& map_a, std::vector<WorldsObject*>& worldsObjectVector_a) : WorldsObject(map_a, worldsObjectVector_a)
+Person::Person(GameMap& map, std::vector<WorldsObject*>& worldsObjectVector) : WorldsObject(map, worldsObjectVector)
 {
 }
 

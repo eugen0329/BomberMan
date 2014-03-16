@@ -7,7 +7,7 @@ class GameMap {
 private:
     Matrix<char> grid;
 public:
-    GameMap(size_t, size_t);
+    GameMap(size_t xSize = 0, size_t ySize = 0);
     GameMap(const GameMap&);
     ~GameMap();
     

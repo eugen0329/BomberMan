@@ -2,7 +2,7 @@
 #define _MATRIX_HPP_
 
 #include <vector>
-using namespace std;
+#include <iostream>
 
 template<class T> 
 class Matrix {
@@ -12,7 +12,7 @@ private:
     size_t ySize; 
 public:
     Matrix(const Matrix<T>&);
-    Matrix(size_t, size_t);
+    Matrix(size_t xSize = 0, size_t ySize = 0);
     ~Matrix();
 
     Matrix<T>& operator = (const Matrix<T>&);
@@ -39,9 +39,13 @@ Matrix<T>::Matrix(const Matrix<T>& second)
     this->xSize = second.xSize;
     this->ySize = second.ySize;
 
-    elements = new std::vector<T> [this->ySize];
-    for (int i = 0; i < this->ySize; i++) {
-        elements[i] = second[i];
+    if(this->xSize != 0 && this->ySize) {
+        elements = new std::vector<T> [this->ySize];
+        for (int i = 0; i < this->ySize; i++) {
+            elements[i] = second[i];
+        }
+    } else {
+        elements = 0;
     }
 }
 

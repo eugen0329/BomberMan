@@ -7,6 +7,7 @@
 #include "Player.hpp"
 #include "AIPlayer.hpp"
 #include "WorldsObject.hpp"
+#include "LWVector.hpp"
  
 
 
@@ -15,10 +16,6 @@ using namespace std;
 int main(int argc, char* argv[])
 {
     
-    GameMap map(10,10);
-    std::vector<WorldsObject*> woVector;
-    Player  firstPlayer(map, woVector);
-//
 //{{{
     //const unsigned int xWindSize = 800;
     //const unsigned int yWindSize = 600;

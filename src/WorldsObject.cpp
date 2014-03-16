@@ -4,7 +4,7 @@ WorldsObject::~WorldsObject()
 {
 }
 
-WorldsObject::WorldsObject(GameMap& map_a, std::vector<WorldsObject*>& worldsObjectVector_a) :
-map(map_a) , worldsObjectVector(worldsObjectVector_a)
+WorldsObject::WorldsObject(GameMap& map, std::vector<WorldsObject*>& worldsObjectVector) :
+map(map), worldsObjectVector(worldsObjectVector)
 {
 }

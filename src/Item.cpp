@@ -1,6 +1,6 @@
 #include "Item.hpp"
 
-Item::Item(GameMap& map_a, std::vector<WorldsObject*>& worldsObjectVector_a) : WorldsObject(map_a, worldsObjectVector_a)
+Item::Item(GameMap& map, std::vector<WorldsObject*>& worldsObjectVector) : WorldsObject(map, worldsObjectVector)
 {
 }
 

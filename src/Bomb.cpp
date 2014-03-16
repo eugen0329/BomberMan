@@ -1,6 +1,6 @@
 #include "Bomb.hpp"
 
-Bomb::Bomb(GameMap& map_a, std::vector<WorldsObject*>& worldsObjectVector_a) : Item(map_a, worldsObjectVector_a)
+Bomb::Bomb(GameMap& map, std::vector<WorldsObject*>& worldsObjectVector) : Item(map, worldsObjectVector)
 {
 }
 
