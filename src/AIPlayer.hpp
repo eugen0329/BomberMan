@@ -1,6 +1,7 @@
 #ifndef _AIPLAYER_HPP_
 #define _AIPLAYER_HPP_
 
+#include <vector>
 #include "Person.hpp"
 
 class AIPlayer : public Person {

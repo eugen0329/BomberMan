@@ -1,6 +1,7 @@
 #ifndef _BOMB_HPP_
 #define _BOMB_HPP_
 
+#include <vector>
 #include "Item.hpp"
 
 class Bomb : public Item {

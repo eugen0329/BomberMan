@@ -1,6 +1,7 @@
 #ifndef _PERSON_HPP_
 #define _PERSON_HPP_
 
+#include <vector>
 #include "WorldsObject.hpp"
 
 class Person : public WorldsObject {
@@ -9,8 +10,8 @@ public:
     Person(GameMap&, std::vector<WorldsObject*>&);
     virtual ~Person();
 
-    virtual void changeState();
-    virtual void draw();
+    virtual void changeState() = 0;
+    virtual void draw() = 0;
 
     virtual Vector2D<size_t> getPos(); 
 };

@@ -8,13 +8,6 @@ Person::~Person()
 {
 }
 
-void Person::changeState()
-{
-}
-void Person::draw()
-{
-}
-
 Vector2D<size_t> Person::getPos()
 {
     return pos; 

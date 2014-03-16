@@ -1,6 +1,7 @@
 #ifndef _PLAYER_HPP_
 #define _PLAYER_HPP_
 
+#include <vector>
 #include "Person.hpp"
 
 class Player : public Person {

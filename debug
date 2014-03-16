@@ -8,8 +8,9 @@ LSFMLFL="-lsfml-graphics -lsfml-window -lsfml-system"
 
 srcDir="$selfDir/src"
 objDir="$selfDir/obj"
-headersDir="$selfDir/src"
+incDir="$selfDir/inc"
 
+includes="-I $srcDir -I $incDir "
 
 getSrcDiffTime()
 {
@@ -26,24 +27,39 @@ getObjFileEqName()
     echo $objDir/$1 | sed "s/\.cpp/\.o/"
 }
 
+checkForErrors()
+{
+    if [ $? -ne 0 ] ; then 
+        errCounter=$(( $errCounter + 1))
+    fi
+}
+
+errCounter=0
 echo "Compilation:"
 for f in $(find $srcDir -name "*.cpp" -exec basename {} \;)
 do
     echo "    $(getObjFileEqName $f)"
     if [ ! -e "$(getObjFileEqName $f)" ] || [ $(getSrcDiffTime $f) -gt $(getObjDiffTime $f) ]  ; then
         echo "        Compiling..."
-        g++ ${CPPFLAGS} -c "${srcDir}/${f}" -o $(getObjFileEqName $f) -I "$headersDir"
+        g++ ${CPPFLAGS} -c "${srcDir}/${f}" -o $(getObjFileEqName $f) $includes
     else
         echo "        The oldest version"
     fi
+    checkForErrors
 
 done
 
 objNames=$(find $objDir -type f)
 echo "Linking:"
 g++ ${CPPFLAGS} ${objNames} -o ${BINARY} ${LSFMLFL}
+checkForErrors
 echo "    $BINARY"
 
-echo "Exit Success"
+if [ $errCounter -ne 0 ]; then
+    echo "Exit ERROR($errCounter errors)"
+    exit 1
+else
+    echo "Exit Success"
+fi
 
 exit 0

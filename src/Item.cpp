@@ -8,13 +8,6 @@ Item::~Item()
 {
 }
 
-void Item::changeState()
-{
-}
-void Item::draw()
-{
-}
-
 Vector2D<size_t> Item::getPos()
 {
     return pos; 
