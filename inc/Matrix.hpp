@@ -15,10 +15,25 @@ public:
     Matrix(size_t xSize = 0, size_t ySize = 0);
     ~Matrix();
 
+    const size_t getXSize() const;
+    const size_t getYSize() const;
+
     Matrix<T>& operator = (const Matrix<T>&);
     std::vector<T>& operator [] (size_t);
     const std::vector<T>& operator [] (size_t) const;
 };
+
+template<class T>
+const size_t Matrix<T>::getXSize() const 
+{
+    return xSize;
+}
+
+template<class T>
+const size_t Matrix<T>::getYSize() const 
+{
+    return ySize;
+}    
 
 template<class T>
 Matrix<T>::Matrix(size_t x, size_t y) 

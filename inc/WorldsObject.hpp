@@ -9,8 +9,6 @@
 #include "Vector2D.hpp"
 #include "GameMap.hpp"
 
-class WorldsObject;
-
 class WorldsObject {
 protected:
     const GameMap& map;
