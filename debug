@@ -1,0 +1,49 @@
+#!  /bin/bash
+
+selfDir=$(dirname $0)
+
+CPPFLAGS="-Wall -pedantic-errors -g"
+BINARY="$selfDir/bin"
+LSFMLFL="-lsfml-graphics -lsfml-window -lsfml-system"
+
+srcDir="$selfDir/src"
+objDir="$selfDir/obj"
+headersDir="$selfDir/src"
+
+
+getSrcDiffTime()
+{
+    echo "$(stat -c "%Z" $srcDir/$1)"
+}
+
+getObjDiffTime()
+{
+    echo "$objDir/$1" | sed "s/\.cpp/\.o/" | xargs -I {} stat -c "%Z" {}
+}
+
+getObjFileEqName()
+{
+    echo $objDir/$1 | sed "s/\.cpp/\.o/"
+}
+
+echo "Compilation:"
+for f in $(find $srcDir -name "*.cpp" -exec basename {} \;)
+do
+    echo "    $(getObjFileEqName $f)"
+    if [ ! -e "$(getObjFileEqName $f)" ] || [ $(getSrcDiffTime $f) -gt $(getObjDiffTime $f) ]  ; then
+        echo "        Compiling..."
+        g++ ${CPPFLAGS} -c "${srcDir}/${f}" -o $(getObjFileEqName $f) -I "$headersDir"
+    else
+        echo "        The oldest version"
+    fi
+
+done
+
+objNames=$(find $objDir -type f)
+echo "Linking:"
+g++ ${CPPFLAGS} ${objNames} -o ${BINARY} ${LSFMLFL}
+echo "    $BINARY"
+
+echo "Exit Success"
+
+exit 0

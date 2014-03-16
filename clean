@@ -1,0 +1,13 @@
+#!  /bin/bash
+
+selfDir=$(dirname $0)
+BINARY="$selfDir/bin"
+objDir="$selfDir/obj"
+
+find "${objDir}" -not -wholename "${objDir}" -exec rm -v {} \;
+if [ -f "$BINARY" ] ; then 
+    rm -v "$BINARY"
+fi
+
+
+exit 0
