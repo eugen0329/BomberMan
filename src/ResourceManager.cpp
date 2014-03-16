@@ -1,8 +1,11 @@
 #include "ResourceManager.hpp"
 
-ResourceManager::ResourceManager(std::string resPath)
+ResourceManager::ResourceManager(std::string resPath, std::string imageName)
 {
-    this->resPath = resPath;
+    texture_t texture;
+
+    texture.loadFromFile(resPath + imageName);
+    resources.sprite.setTexture(texture);
 }
 
 ResourceManager::~ResourceManager()
