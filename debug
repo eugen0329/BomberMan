@@ -2,8 +2,7 @@
 
 selfDir=$(dirname $0)
 
-CPPFLAGS="-Wall -pedantic-errors -g"
-BINARY="$selfDir/bin"
+CPPFLAGS="-Wall -pedantic-errors -g" BINARY="$selfDir/bin"
 LSFMLFL="-lsfml-graphics -lsfml-window -lsfml-system"
 
 srcDir="$selfDir/src"
@@ -12,19 +11,19 @@ incDir="$selfDir/inc"
 
 includes="-I $srcDir -I $incDir "
 
-getSrcDiffTime()
+getObjFileEqName()
 {
-    echo "$(stat -c "%Z" $srcDir/$1)"
+    echo $1 | sed "s/src/obj/; s/\.cpp/\.o/"
 }
 
 getObjDiffTime()
 {
-    echo "$objDir/$1" | sed "s/\.cpp/\.o/" | xargs -I {} stat -c "%Z" {}
+    echo $1 | sed "s/src/obj/; s/\.cpp/\.o/" | xargs -I {} stat -c "%Z" {}
 }
 
-getObjFileEqName()
+getSrcDiffTime()
 {
-    echo $objDir/$1 | sed "s/\.cpp/\.o/"
+    stat -c "%Z" $1
 }
 
 checkForErrors()
@@ -34,32 +33,55 @@ checkForErrors()
     fi
 }
 
+mkTheSameObjDirs()
+{
+    local srcDirs 
+    srcDirs=$(find $srcDir -type d | sed "s/src\//obj\//")
+    echo "$srcDirs"
+    mkdir -p $srcDirs
+    
+}
+
+checkErrCounter()
+{
+    if [ $errCounter -ne 0 ]; then
+        echo "Exit ERROR($errCounter errors)"
+        exit 1
+    fi
+}
+
+mkTheSameObjDirs
+
 errCounter=0
-echo "Compilation:"
-for f in $(find $srcDir -name "*.cpp" -exec basename {} \;)
+objCounter=0
+newObjCounter=0
+for f in $(find $srcDir -name "*.cpp" -exec echo {} \;)
 do
-    echo "    $(getObjFileEqName $f)"
+    echo "    $f"
     if [ ! -e "$(getObjFileEqName $f)" ] || [ $(getSrcDiffTime $f) -gt $(getObjDiffTime $f) ]  ; then
-        echo "        Compiling..."
-        g++ ${CPPFLAGS} -c "${srcDir}/${f}" -o $(getObjFileEqName $f) $includes
+        echo "        (+) Compiling..."
+        g++ ${CPPFLAGS} -c "$f" -o $(getObjFileEqName $f) $includes
+        newObjCounter=$(( $newObjCounter + 1 ))
     else
         echo "        The oldest version"
     fi
     checkForErrors
-
+    objCounter=$(( $objCounter + 1 ))
 done
 
+echo "-------------------------"
+echo "$newObjCounter builded objects"
+echo "$objCounter objects in sum"
+echo 
+
+checkErrCounter
 objNames=$(find $objDir -type f)
 echo "Linking:"
 g++ ${CPPFLAGS} ${objNames} -o ${BINARY} ${LSFMLFL}
-checkForErrors
-echo "    $BINARY"
+checkErrCounter
 
-if [ $errCounter -ne 0 ]; then
-    echo "Exit ERROR($errCounter errors)"
-    exit 1
-else
-    echo "Exit Success"
-fi
+echo "    $BINARY"
+echo "-------------------------"
+echo "Exit Success"
 
 exit 0

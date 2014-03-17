@@ -2,7 +2,8 @@
 #define _AIPLAYER_HPP_
 
 #include <vector>
-#include "Person.hpp"
+#include "WorldsObjects/WorldsObject.hpp"
+#include "WorldsObjects/Person.hpp"
 
 class AIPlayer : public Person {
 private:

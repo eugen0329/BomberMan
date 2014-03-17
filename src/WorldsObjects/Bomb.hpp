@@ -2,7 +2,8 @@
 #define _BOMB_HPP_
 
 #include <vector>
-#include "Item.hpp"
+#include "WorldsObjects/WorldsObject.hpp"
+#include "WorldsObjects/Item.hpp"
 
 class Bomb : public Item {
 private:

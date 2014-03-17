@@ -4,8 +4,6 @@
 #include <string>
 
 #include <SFML/Graphics.hpp>
-//#include <Sprite.hpp>
-//#include <Texture.hpp>
 
 class ResourceManager {
 private:

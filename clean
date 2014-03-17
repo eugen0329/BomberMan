@@ -4,7 +4,7 @@ selfDir=$(dirname $0)
 BINARY="$selfDir/bin"
 objDir="$selfDir/obj"
 
-find "${objDir}" -not -wholename "${objDir}" -exec rm -v {} \;
+find "${objDir}" -maxdepth 1 -not -wholename "${objDir}" -exec rm -rv {} \;
 if [ -f "$BINARY" ] ; then 
     rm -v "$BINARY"
 fi

@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "GameMap.hpp"
-#include "WorldsObject.hpp"
+#include "WorldsObjects/WorldsObject.hpp"
 
 class GameStage {
 private:

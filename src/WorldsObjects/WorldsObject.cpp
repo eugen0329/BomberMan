@@ -1,4 +1,4 @@
-#include "WorldsObject.hpp"
+#include "WorldsObjects/WorldsObject.hpp"
 
 WorldsObject::~WorldsObject()
 {

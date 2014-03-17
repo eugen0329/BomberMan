@@ -2,7 +2,7 @@
 #define _PERSON_HPP_
 
 #include <vector>
-#include "WorldsObject.hpp"
+#include "WorldsObjects/WorldsObject.hpp"
 
 class Person : public WorldsObject {
 private:

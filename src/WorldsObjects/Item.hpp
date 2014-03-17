@@ -2,7 +2,7 @@
 #define _ITEM_HPP_
 
 #include <vector>
-#include "WorldsObject.hpp"
+#include "WorldsObjects/WorldsObject.hpp"
 
 class Item : public WorldsObject {
 private:
