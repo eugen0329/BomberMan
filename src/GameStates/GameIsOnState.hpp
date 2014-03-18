@@ -1,17 +1,17 @@
 #ifndef _GAMEISONSTATE_HPP_
 #define _GAMEISONSTATE_HPP_
 
-#include "State.hpp"
+#include "GameStates/State.hpp"
 
 class GameIsOnState : public State {
-private:
-    /* data */
+protected:
+    virtual void draw();
+    virtual void update();
 public:
     GameIsOnState();
     virtual ~GameIsOnState();
     
-    virtual void draw();
-    virtual void update();
+    inline virtual void processState();
 };
 
 #endif /* end of include guard: _GAMEISONSTATE_HPP_ */

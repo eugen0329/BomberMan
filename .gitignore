@@ -3,3 +3,4 @@ bin
 obj/*
 Makefile
 commit
+*.swp

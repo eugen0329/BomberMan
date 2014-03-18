@@ -1,7 +1,7 @@
 #include "GameStates/StateStack.hpp"
 
 
-StateStack::StateStack()
+StateStack::StateStack(renderWindow_t & renderWindow) : renderWindowPtr(&renderWindow)
 {
 }
 
@@ -9,10 +9,15 @@ StateStack::~StateStack()
 {
 }
 
+StateStack::StateStack()
+{
+}
+
 int StateStack::push(State* newState)
 {
     if(newState != 0) {
         stateStack.push(newState);
+        stateStack.top()->setRenderWindow(renderWindowPtr);
     } else {
         return 1;
     }
@@ -32,7 +37,3 @@ int StateStack::pop()
     return 0;
 }
 
-bool StateStack::isEmpty() const 
-{
-    return stateStack.empty();
-}
