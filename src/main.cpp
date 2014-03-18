@@ -23,9 +23,6 @@ int main(int argc, char* argv[])
     matrix[0][0] = 'a';
     cout << matrix[0][0] << endl;
 
-    std::stack<int> a;
-
-    a.top();
 //{{{
     //const unsigned int xWindSize = 800;
     //const unsigned int yWindSize = 600;
