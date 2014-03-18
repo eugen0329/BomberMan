@@ -39,7 +39,6 @@ mkTheSameObjDirs()
     srcDirs=$(find $srcDir -type d | sed "s/src\//obj\//")
     echo "$srcDirs"
     mkdir -p $srcDirs
-    
 }
 
 checkErrCounter()
