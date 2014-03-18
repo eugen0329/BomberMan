@@ -3,39 +3,36 @@
 
 StateStack::StateStack()
 {
-    if(this->contents.top == 0) {
-        this->contents.top = this;
-    }
-    this->contents.prev = 0;
-    this->contents.state = 0;
-    
-
 }
 
 StateStack::~StateStack()
 {
 }
 
-int StateStack::push()
+int StateStack::push(State* newState)
 {
+    if(newState != 0) {
+        stateStack.push(newState);
+    } else {
+        return 1;
+    }
+
     return 0;
 }
 
 int StateStack::pop()
 {
+    if(stateStack.empty()) {
+        return 1;
+    } else {
+        delete stateStack.top();
+        stateStack.pop();
+    }
+    
     return 0;
 }
 
 bool StateStack::isEmpty() const 
 {
-    if(this->contents.top == 0) {
-        return true;
-    }
-
-    return false;
-}
-
-const StateStack StateStack::getTop() const
-{
-    return *(this->contents.top);
+    return stateStack.empty();
 }

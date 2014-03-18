@@ -2,24 +2,18 @@
 #define _STATESTACK_HPP_
 
 #include "GameStates/State.hpp"
+#include <stack>
 
 class StateStack {
 private:
-    typedef struct {
-        StateStack* top;
-        StateStack* prev;
-        
-        State* state;
-    } contents_t;    
 
-    contents_t contents;
+    std::stack<State*> stateStack;
 public:
     StateStack();
     ~StateStack();
 
-    int push();
+    int push(State*);
     int pop();
-    const StateStack getTop() const;
     
     bool isEmpty() const;
     
