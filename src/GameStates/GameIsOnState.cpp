@@ -11,11 +11,12 @@ GameIsOnState::~GameIsOnState()
 void GameIsOnState::draw()
 {
     renderWindowPtr->clear();
-    
+    stage.draw();
 }
 
 void GameIsOnState::update()
 {
+    stage.update();
 }
 
     

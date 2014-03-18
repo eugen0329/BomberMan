@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "WorldsObjects/Player.hpp"
 #include "GameMap.hpp"
 #include "WorldsObjects/WorldsObject.hpp"
 
@@ -12,9 +13,12 @@ private:
     GameMap stageMap;
 public:
     GameStage(std::vector<WorldsObject*>, GameMap);
+    GameStage();
     GameStage(const GameStage&);
     ~GameStage();
 
+    void update();
+    void draw();
     GameStage& operator = (const GameStage&);
 };
 

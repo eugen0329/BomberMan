@@ -8,7 +8,7 @@
 #include "WorldsObjects/AIPlayer.hpp"
 #include "WorldsObjects/WorldsObject.hpp"
 #include "LWVector.hpp"
-#include "ResourceManager.hpp" 
+#include "Managers/ResourceManager.hpp" 
 #include "Game.hpp" 
 #include "StateStack.hpp"
 
