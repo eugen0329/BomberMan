@@ -10,7 +10,7 @@
 #include "LWVector.hpp"
 #include "ResourceManager.hpp" 
 #include "Game.hpp" 
-#include "GameStates/StateStack.hpp"
+#include "StateStack.hpp"
 
 #include <stack>
 
@@ -19,10 +19,9 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    Matrix<char> matrix(1,1);
-    matrix[0][0] = 'a';
-    cout << matrix[0][0] << endl;
 
+    Game game;
+    game.run();
 //{{{
     //const unsigned int xWindSize = 800;
     //const unsigned int yWindSize = 600;

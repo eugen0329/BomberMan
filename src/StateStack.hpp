@@ -17,6 +17,10 @@ public:
     StateStack(renderWindow_t &);
     ~StateStack();
     StateStack();
+    void setRenderWindow(renderWindow_t *renderWindow)
+    {
+        this->renderWindowPtr = renderWindow;
+    }
 
     int push(State*);
     int pop();

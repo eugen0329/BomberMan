@@ -1,4 +1,4 @@
-#include "GameStates/StateStack.hpp"
+#include "StateStack.hpp"
 
 
 StateStack::StateStack(renderWindow_t & renderWindow) : renderWindowPtr(&renderWindow)
@@ -36,4 +36,3 @@ int StateStack::pop()
     
     return 0;
 }
-

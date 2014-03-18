@@ -7,7 +7,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "GameStates/GameIsOnState.hpp"
-#include "GameStates/StateStack.hpp"
+#include "StateStack.hpp"
 #include "GameStates/StatesID.hpp"
 
 class Game {
