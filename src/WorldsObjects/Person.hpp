@@ -7,13 +7,14 @@
 class Person : public WorldsObject {
 private:
 public:
-    Person(GameMap&, std::vector<WorldsObject*>&);
+    Person(GameMap &, std::vector<WorldsObject*> &, renderWindow_t &);
+    Person();
     virtual ~Person();
 
-    virtual void changeState() = 0;
-    virtual void draw() = 0;
+    virtual void changeState() const = 0;
+    virtual void draw() const = 0;
 
-    virtual Vector2D<size_t> getPos(); 
+    virtual Vector2D<size_t> getPos() const; 
 };
 
 #endif /* end of include guard: _PERSON_HPP_ */

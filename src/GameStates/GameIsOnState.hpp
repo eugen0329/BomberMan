@@ -4,19 +4,27 @@
 #include <vector>
 #include "GameStates/State.hpp"
 #include "GameStage.hpp"
+#include "Timer.hpp"
 
 class GameIsOnState : public State {
 private:
     //std::vector<GameStage> stages; 
-    GameStage stage;
+    // renderWindow_t* renderWindowPtr;
+    Timer timer;
+    GameStage* stage;
 protected:
     virtual void draw();
-    virtual void update();
+    virtual void update(float);
 public:
     GameIsOnState();
     virtual ~GameIsOnState();
+
+   	virtual void load()
+   	{
+   		stage = new GameStage(renderWindowPtr);
+   	}
     
-    inline virtual void processState();
+    virtual void processState();
 };
 
 #endif /* end of include guard: _GAMEISONSTATE_HPP_ */

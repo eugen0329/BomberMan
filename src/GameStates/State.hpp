@@ -8,7 +8,7 @@ protected:
     typedef sf::RenderWindow renderWindow_t;
     renderWindow_t* renderWindowPtr;
 
-    virtual void update() = 0;
+    virtual void update(float) = 0;
     virtual void draw() = 0;
     virtual void display();
 public:
@@ -17,6 +17,7 @@ public:
     virtual ~State();
 
     virtual void setRenderWindow(renderWindow_t*);
+    virtual void load() = 0;
     virtual void processState() = 0;
 
 };

@@ -9,17 +9,22 @@
 
 class GameStage {
 private:
-    std::vector<WorldsObject*> worldsObjectV; 
+    typedef sf::RenderWindow renderWindow_t;
+
     GameMap stageMap;
+    std::vector<WorldsObject*> worldsObjectV;
+    renderWindow_t* renderWindowPtr;
 public:
-    GameStage(std::vector<WorldsObject*>, GameMap);
+    GameStage(GameMap, std::vector<WorldsObject*>, renderWindow_t*);
     GameStage();
+    GameStage(renderWindow_t * );
     GameStage(const GameStage&);
     ~GameStage();
 
-    void update();
+	void setRenderWindow(renderWindow_t*);
+    void update(float dt);
     void draw();
-    GameStage& operator = (const GameStage&);
+    //GameStage& operator = (const GameStage&);
 };
 
 #endif /* end of include guard: _GAMESTAGE_HPP_ */

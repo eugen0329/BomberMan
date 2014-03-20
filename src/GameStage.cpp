@@ -3,11 +3,16 @@
 GameStage::GameStage()
 {
     stageMap.setSize(20,20);
-    worldsObjectV.push_back(new Player(stageMap, worldsObjectV));
+    worldsObjectV.push_back(new Player(stageMap, worldsObjectV, *renderWindowPtr));
 }
 
-GameStage::GameStage(std::vector<WorldsObject*> worldsObjectV, GameMap stageMap) : 
-    worldsObjectV(worldsObjectV), stageMap(stageMap)
+GameStage::GameStage(GameMap stageMap , std::vector<WorldsObject*> worldsObjectV, renderWindow_t * renderWindowPtr) : 
+stageMap(stageMap), worldsObjectV(worldsObjectV), renderWindowPtr(renderWindowPtr)      // Why sequence is important(!!11!1!)
+{
+}
+
+GameStage::GameStage(renderWindow_t * renderWindowPtr) : 
+renderWindowPtr(renderWindowPtr)
 {
 }
 
@@ -16,22 +21,23 @@ GameStage::~GameStage()
 }
 
 GameStage::GameStage(const GameStage& second) :
-    worldsObjectV(second.worldsObjectV), stageMap(second.stageMap)
+    stageMap(second.stageMap), worldsObjectV(second.worldsObjectV), renderWindowPtr(second.renderWindowPtr)
 {
 }
 
 
-GameStage& GameStage::operator = (const GameStage& second) 
-{
-    this->worldsObjectV = second.worldsObjectV;
-    this->stageMap = second.stageMap;
+//GameStage& GameStage::operator = (const GameStage& second) 
+//{
+//    this->worldsObjectV = second.worldsObjectV;
+//    this->stageMap = second.stageMap;
+//    this->ren
+//
+//    return *this;
+//}
 
-    return *this;
-}
-
-void GameStage::update()
+void GameStage::update(float dt)
 {
-    stageMap.update();
+    stageMap.update(dt);
     for (unsigned int i = 0; i < worldsObjectV.size(); i++) {
         worldsObjectV[i]->changeState();
     }
@@ -45,3 +51,7 @@ void GameStage::draw()
     }
 }
 
+void GameStage::setRenderWindow(renderWindow_t* renderWindowPtr)
+{
+    this->renderWindowPtr = renderWindowPtr;
+}

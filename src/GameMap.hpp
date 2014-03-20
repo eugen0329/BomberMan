@@ -3,6 +3,28 @@
 
 #include "Matrix.hpp"
 
+typedef char cellID_t;
+class GameMap;
+
+class Cell {
+private:
+    bool solid;
+    cellID_t cellID;
+public:
+    friend class GameMap;
+    Cell(cellID_t cellID, bool solid = false);
+    ~Cell();
+    inline cellID_t getCellID()
+    {
+        return this->cellID;
+    }
+    inline bool isSolid()
+    {
+        return solid;
+    }
+    
+};
+
 class GameMap {
 private:
     Matrix<char> grid;
@@ -13,7 +35,7 @@ public:
     ~GameMap();
 
     void draw();
-    void update();
+    void update(float dt);
 
     void setSize(size_t, size_t);
     const Matrix<char>& getGridRef();

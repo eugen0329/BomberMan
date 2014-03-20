@@ -5,7 +5,6 @@
 #include "GameMap.hpp"
 #include "WorldsObjects/Person.hpp"
 #include "WorldsObjects/Player.hpp"
-#include "WorldsObjects/AIPlayer.hpp"
 #include "WorldsObjects/WorldsObject.hpp"
 #include "LWVector.hpp"
 #include "Managers/ResourceManager.hpp" 
@@ -25,24 +24,33 @@ int main(int argc, char* argv[])
 //{{{
     //const unsigned int xWindSize = 800;
     //const unsigned int yWindSize = 600;
-    //const sf::Color black(0,0,0);
-    //
-    //// Create window of the application
-    //// sf::VideoMode (x, y, bitsPerPixel)
+    ////const sf::Color black(0,0,0);
+    ////
+    ////// Create window of the application
+    ////// sf::VideoMode (x, y, bitsPerPixel)
     //sf::RenderWindow window(sf::VideoMode(xWindSize, yWindSize, 32), "\\o");
     //window.setVerticalSyncEnabled(true);
 
-    //sf::RectangleShape rectangle;
-    //rectangle.setSize(sf::Vector2f(50, 50));
-    ////rectangle.setOutlineThickness(0);
-    ////rectangle.setOutlineColor(sf::Color::Red);
-    //rectangle.setFillColor(sf::Color::Blue);
-    //rectangle.setOrigin( xWindSize / 2, yWindSize / 2);
-    //    rectangle.setPosition(xWindSize / 2, yWindSize / 2);
+    //sf::Texture stone;
+    //if( stone.loadFromFile("res/stone.gif")) {
+    //} else {
+    //    return 1;
+    //}
+    //sf::CircleShape circle;
+    //circle.setRadius(150);
+    //circle.setOrigin(150, 150);
+    //circle.setTexture(&stone, true);
+    //
+    ////rectangle.setSize(sf::Vector2f(50, 50));
+    //////rectangle.setOutlineThickness(0);
+    //////rectangle.setOutlineColor(sf::Color::Red);
+    ////rectangle.setFillColor(sf::Color::Blue);
+    ////rectangle.setOrigin( xWindSize / 2, yWindSize / 2);
+    ////    rectangle.setPosition(xWindSize / 2, yWindSize / 2);
 
     //while(window.isOpen()) {
-    //    
-    //    // handle events
+    ////    
+    ////    // handle events
     //    sf::Event event;
     //    while(window.pollEvent(event)) {
     //        // Closing when ESC or close button is pushed
@@ -52,15 +60,16 @@ int main(int argc, char* argv[])
     //            break;
     //        }
     //    }
-    //    
-    //    // sf::RenderWindow::clear(fillColor)
+    ////    
+    //     // sf::RenderWindow::clear(fillColor)
     //    window.clear(sf::Color::Black);
+    //    //window.clear();
 
-    //    rectangle.setPosition(xWindSize , yWindSize );
+    //    circle.setPosition(0, 0 );
 
-    //    window.draw(rectangle);
+    //    window.draw(circle);
     //    window.display();
-    //    
+    ////    
     //}
 //}}} 
 

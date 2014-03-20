@@ -8,11 +8,11 @@
 class Player : public Person {
 private:
 public:
-    Player(GameMap&, std::vector<WorldsObject*>&);
+    Player(GameMap &, std::vector<WorldsObject*> &, renderWindow_t &);
     virtual ~Player();
 
-    void changeState();
-    void draw();
+    void changeState() const;
+    void draw() const;
 
 };
 

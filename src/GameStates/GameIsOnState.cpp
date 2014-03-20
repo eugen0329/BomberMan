@@ -11,21 +11,18 @@ GameIsOnState::~GameIsOnState()
 void GameIsOnState::draw()
 {
     renderWindowPtr->clear();
-    stage.draw();
+    stage->draw();
 }
 
-void GameIsOnState::update()
+void GameIsOnState::update(float dt)
 {
-    stage.update();
+    stage->update(dt);
 }
-
     
 void GameIsOnState::processState()
 {
-    while(renderWindowPtr->isOpen()) {
-        update();
-        draw(); 
-        display();
-    }
+    update(timer.getElapsedTime());
+    draw(); 
+    display();
 }
     

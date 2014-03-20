@@ -9,10 +9,12 @@
 #include "GameStates/GameIsOnState.hpp"
 #include "StateStack.hpp"
 #include "GameStates/StatesID.hpp"
+#include "Managers/GlobalEventManager.hpp"
 
 class Game {
 private:
     typedef sf::RenderWindow renderWindow_t;
+    typedef sf::Event event_t;
 
     typedef struct {
         unsigned int xSize;
@@ -26,6 +28,7 @@ private:
     renderWindow_t mainWindow;
 
     StateStack states;
+    GlobalEventManager eventManager;
 
      
 public:

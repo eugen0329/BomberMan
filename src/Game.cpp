@@ -13,8 +13,11 @@ Game::Game()
     mainWindow.create(mode, windProp.name);
     mainWindow.setFramerateLimit(windProp.fps);
     
+    eventManager.setRenderWindow(mainWindow);
+
     states.setRenderWindow(&mainWindow);
     states.push(new GameIsOnState);
+
 
 }
 
@@ -25,8 +28,14 @@ Game::~Game()
 
 void Game::run()
 {
-    while(states.isNotEmpty()) {
+    event_t event;
+    //while(states.isNotEmpty()) {
+    while(mainWindow.isOpen()) {
+
+        mainWindow.pollEvent(event);
+        
+        eventManager.processEvents(event);
         states.processTopState();
-        states.pop();
+        //states.pop();
     }
 }

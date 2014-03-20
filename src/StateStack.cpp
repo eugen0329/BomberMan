@@ -18,6 +18,7 @@ int StateStack::push(State* newState)
     if(newState != 0) {
         stateStack.push(newState);
         stateStack.top()->setRenderWindow(renderWindowPtr);
+        stateStack.top()->load();
     } else {
         return 1;
     }
