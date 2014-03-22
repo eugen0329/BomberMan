@@ -13,15 +13,11 @@ StateStack::StateStack()
 {
 }
 
-int StateStack::push(State* newState)
+int StateStack::push(IState* newState)
 {
-    if(newState != 0) {
-        stateStack.push(newState);
-        stateStack.top()->setRenderWindow(renderWindowPtr);
-        stateStack.top()->load();
-    } else {
-        return 1;
-    }
+    stateStack.push(newState);
+    stateStack.top()->setRenderWindow(renderWindowPtr);
+    stateStack.top()->load();
 
     return 0;
 }
@@ -36,4 +32,20 @@ int StateStack::pop()
     }
     
     return 0;
+}
+
+void StateStack::pushStateSignal(IState* newState)
+{
+    stateStack.push(newState);
+    stateStack.top()->setRenderWindow(renderWindowPtr);
+    stateStack.top()->load();
+}
+
+void StateStack::popStateSignal()
+{
+    if(stateStack.empty()) {
+    } else {
+        delete stateStack.top();
+        stateStack.pop();
+    }
 }

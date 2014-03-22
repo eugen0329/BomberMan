@@ -31,11 +31,10 @@ void Game::run()
     event_t event;
     //while(states.isNotEmpty()) {
     while(mainWindow.isOpen()) {
-
-        mainWindow.pollEvent(event);
         
         eventManager.processEvents(event);
         states.processTopState();
         //states.pop();
+        mainWindow.pollEvent(event);
     }
 }

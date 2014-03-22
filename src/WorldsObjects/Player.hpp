@@ -5,14 +5,21 @@
 #include "WorldsObjects/WorldsObject.hpp"
 #include "WorldsObjects/Person.hpp"
 
+#include "SFML/Graphics.hpp"
+
 class Player : public Person {
 private:
+    typedef sf::Sprite sprite_t;
+    typedef sf::Texture texture_t;
+
+    texture_t texture;
+    sprite_t sprite;
 public:
     Player(GameMap &, std::vector<WorldsObject*> &, renderWindow_t &);
     virtual ~Player();
 
-    void changeState() const;
-    void draw() const;
+    void changeState();
+    void draw();
 
 };
 

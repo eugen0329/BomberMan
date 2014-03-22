@@ -13,7 +13,7 @@ Person::~Person()
 {
 }
 
-Vector2D<size_t> Person::getPos() const
+Vector2D<size_t> Person::getPos() 
 { 
     return pos; 
 }

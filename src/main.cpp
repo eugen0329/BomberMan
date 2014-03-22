@@ -15,6 +15,8 @@
 
 
 using namespace std;
+typedef sf::Sprite sprite_t;
+typedef sf::Texture texture_t;
 
 int main(int argc, char* argv[])
 {
@@ -31,15 +33,10 @@ int main(int argc, char* argv[])
     //sf::RenderWindow window(sf::VideoMode(xWindSize, yWindSize, 32), "\\o");
     //window.setVerticalSyncEnabled(true);
 
-    //sf::Texture stone;
-    //if( stone.loadFromFile("res/stone.gif")) {
-    //} else {
-    //    return 1;
-    //}
-    //sf::CircleShape circle;
-    //circle.setRadius(150);
-    //circle.setOrigin(150, 150);
-    //circle.setTexture(&stone, true);
+    //texture_t texture;
+    //texture.loadFromFile("res/stone.gif");
+    //sprite_t sprite;
+    //sprite.setTexture(texture);
     //
     ////rectangle.setSize(sf::Vector2f(50, 50));
     //////rectangle.setOutlineThickness(0);
@@ -60,14 +57,15 @@ int main(int argc, char* argv[])
     //            break;
     //        }
     //    }
+    //    //cout << "ads";
     ////    
     //     // sf::RenderWindow::clear(fillColor)
     //    window.clear(sf::Color::Black);
     //    //window.clear();
 
-    //    circle.setPosition(0, 0 );
+    //    sprite.setPosition(0, 0 );
 
-    //    window.draw(circle);
+    //    window.draw(sprite);
     //    window.display();
     ////    
     //}

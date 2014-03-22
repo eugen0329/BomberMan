@@ -2,11 +2,12 @@
 #define _GAMEISONSTATE_HPP_
 
 #include <vector>
-#include "GameStates/State.hpp"
+#include <iostream>
+#include "GameStates/IState.hpp"
 #include "GameStage.hpp"
 #include "Timer.hpp"
 
-class GameIsOnState : public State {
+class GameIsOnState : public IState {
 private:
     //std::vector<GameStage> stages; 
     // renderWindow_t* renderWindowPtr;

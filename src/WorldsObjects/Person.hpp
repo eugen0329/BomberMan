@@ -11,10 +11,10 @@ public:
     Person();
     virtual ~Person();
 
-    virtual void changeState() const = 0;
-    virtual void draw() const = 0;
+    virtual void changeState() = 0;
+    virtual void draw() = 0;
 
-    virtual Vector2D<size_t> getPos() const; 
+    virtual Vector2D<size_t> getPos(); 
 };
 
 #endif /* end of include guard: _PERSON_HPP_ */

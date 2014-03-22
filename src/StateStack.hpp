@@ -2,17 +2,19 @@
 #define _STATESTACK_HPP_
 
 #include <stack>
+#include <iostream>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include "GameStates/State.hpp"
+#include "GameStates/IState.hpp"
+#include "IStateStack.hpp"
 #include "GameStates/StatesID.hpp"
 
-class StateStack {
+class StateStack : public IStateStack {
 private:
     typedef sf::RenderWindow renderWindow_t;
     renderWindow_t * renderWindowPtr;
-    std::stack<State*> stateStack;
+    std::stack<IState*> stateStack;
 public:
     StateStack(renderWindow_t &);
     ~StateStack();
@@ -22,15 +24,16 @@ public:
         this->renderWindowPtr = renderWindow;
     }
 
-    int push(State*);
+    int push(IState*);
     int pop();
 
-    inline State* getTop() 
+    inline IState* getTop() 
     {
         return stateStack.top();
     }
     inline void processTopState() 
     {
+        std::cout << "processTopState" << std::endl;
         stateStack.top()->processState();
     }
     inline bool isEmpty() const 
@@ -41,6 +44,8 @@ public:
     {
         return ! stateStack.empty();
     }
+    void pushStateSignal(IState*);
+    void popStateSignal();
 };
 
 #endif /* end of include guard: _STATESTACK_HPP_ */

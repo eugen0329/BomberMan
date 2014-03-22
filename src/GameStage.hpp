@@ -2,6 +2,8 @@
 #define _GAMESTAGE_HPP_
 
 #include <vector>
+#include <iostream>
+
 
 #include "WorldsObjects/Player.hpp"
 #include "GameMap.hpp"
@@ -12,7 +14,7 @@ private:
     typedef sf::RenderWindow renderWindow_t;
 
     GameMap stageMap;
-    std::vector<WorldsObject*> worldsObjectV;
+    std::vector<WorldsObject*> worldsObjects;
     renderWindow_t* renderWindowPtr;
 public:
     GameStage(GameMap, std::vector<WorldsObject*>, renderWindow_t*);

@@ -24,9 +24,9 @@ public:
     WorldsObject(GameMap&, std::vector<WorldsObject*> &, renderWindow_t & );
     virtual ~WorldsObject();
 
-    virtual void changeState() const = 0;
-    virtual void draw() const  = 0;
-    virtual Vector2D<size_t> getPos() const  = 0; 
+    virtual void changeState() = 0;
+    virtual void draw() = 0;
+    virtual Vector2D<size_t> getPos() = 0; 
 
 };
 

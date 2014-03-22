@@ -1,9 +1,9 @@
-#ifndef _STATE_HPP_
-#define _STATE_HPP_
+#ifndef _ISTATE_HPP_
+#define _ISTATE_HPP_
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-class State {
+class IState {
 protected:
     typedef sf::RenderWindow renderWindow_t;
     renderWindow_t* renderWindowPtr;
@@ -12,9 +12,9 @@ protected:
     virtual void draw() = 0;
     virtual void display();
 public:
-    State();
-    State(renderWindow_t *);
-    virtual ~State();
+    IState();
+    IState(renderWindow_t *);
+    virtual ~IState();
 
     virtual void setRenderWindow(renderWindow_t*);
     virtual void load() = 0;
@@ -22,4 +22,4 @@ public:
 
 };
 
-#endif /* end of include guard: _STATE_HPP_ */
+#endif /* end of include guard: _ISTATE_HPP_ */
