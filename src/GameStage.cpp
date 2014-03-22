@@ -41,12 +41,12 @@ GameStage::GameStage(const GameStage& second) :
 //    return *this;
 //}
 
-void GameStage::update(event_t & event, float dt)
+void GameStage::update(float dt)
 {
     //stageMap.update(dt);
     std::cout << "Before cycle in GameStage::update" << std::endl;
     for (unsigned int i = 0; i < worldsObjects.size(); i++) {
-        worldsObjects[i]->update(event, dt);
+        worldsObjects[i]->update(dt);
     }
     std::cout << "---" << std::endl;
 }

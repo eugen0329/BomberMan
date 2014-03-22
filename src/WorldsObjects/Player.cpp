@@ -15,7 +15,7 @@ Player::~Player()
 {
 }
 
-void Player::update(event_t & event, float dt)
+void Player::update(float dt)
 {
     eventManager.processEvents();
 }

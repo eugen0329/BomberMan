@@ -27,7 +27,7 @@ public:
     ~GameStage();
 
 	void setRenderWindow(renderWindow_t*);
-    void update(event_t &, float);
+    void update(float);
     void draw();
     //GameStage& operator = (const GameStage&);
 };

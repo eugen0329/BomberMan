@@ -22,7 +22,7 @@ public:
     Player(GameMap &, std::vector<WorldsObject*> &, renderWindow_t &);
     virtual ~Player();
 
-    void update(event_t &, float);
+    void update(float);
     void draw();
 
 };

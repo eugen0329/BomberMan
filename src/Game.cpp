@@ -33,6 +33,6 @@ void Game::run()
         mainWindow.pollEvent(event);
 
         eventManager.processEvents(event);
-        states.top()->processState(event, timer.getElapsedTime());
+        states.top()->processState(timer.getElapsedTime());
     }
 }

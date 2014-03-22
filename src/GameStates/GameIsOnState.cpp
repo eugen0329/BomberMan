@@ -9,9 +9,9 @@ GameIsOnState::~GameIsOnState()
 {
 }
 
-void GameIsOnState::update(event_t & event, float dt)
+void GameIsOnState::update(float dt)
 {
-    stage->update(event, dt);
+    stage->update(dt);
 }
 
 void GameIsOnState::draw()
@@ -20,10 +20,10 @@ void GameIsOnState::draw()
     stage->draw();
 }
     
-void GameIsOnState::processState(event_t & event, float dt)
+void GameIsOnState::processState(float dt)
 {
     std::cout << "GameIsOnState::processState   " << std::endl;
-    update(event, dt);
+    update(dt);
     draw(); 
     display();
 }

@@ -16,7 +16,7 @@ private:
     GameStage* stage;
 protected:
     virtual void draw();
-    virtual void update(event_t &, float);
+    virtual void update(float);
 public:
     GameIsOnState();
     virtual ~GameIsOnState();
@@ -26,7 +26,7 @@ public:
    		stage = new GameStage(renderWindowPtr);
    	}
     
-    virtual void processState(event_t &, float);
+    virtual void processState(float);
 };
 
 #endif /* end of include guard: _GAMEISONSTATE_HPP_ */
