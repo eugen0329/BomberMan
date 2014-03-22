@@ -11,7 +11,7 @@ public:
     Person();
     virtual ~Person();
 
-    virtual void changeState() = 0;
+    virtual void update(event_t &, float) = 0;
     virtual void draw() = 0;
 
     virtual Vector2D<size_t> getPos(); 

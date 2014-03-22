@@ -29,12 +29,10 @@ Game::~Game()
 void Game::run()
 {
     event_t event;
-    //while(states.isNotEmpty()) {
     while(mainWindow.isOpen()) {
-        
-        eventManager.processEvents(event);
-        states.processTopState();
-        //states.pop();
         mainWindow.pollEvent(event);
+
+        eventManager.processEvents(event);
+        states.top()->processState(event, timer.getElapsedTime());
     }
 }

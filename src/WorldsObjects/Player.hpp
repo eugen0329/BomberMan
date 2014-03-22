@@ -4,21 +4,25 @@
 #include <vector>
 #include "WorldsObjects/WorldsObject.hpp"
 #include "WorldsObjects/Person.hpp"
+#include "WorldsObjects/ObjectProperties.hpp"
+#include "Managers/PlayerEventManager.hpp"
 
 #include "SFML/Graphics.hpp"
 
 class Player : public Person {
 private:
-    typedef sf::Sprite sprite_t;
-    typedef sf::Texture texture_t;
+    friend class PlayerEventManager;
 
-    texture_t texture;
-    sprite_t sprite;
+
+    PlayerEventManager eventManager;
+    
+    
+    properties_t prop;
 public:
     Player(GameMap &, std::vector<WorldsObject*> &, renderWindow_t &);
     virtual ~Player();
 
-    void changeState();
+    void update(event_t &, float);
     void draw();
 
 };

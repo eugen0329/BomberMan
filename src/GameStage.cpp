@@ -41,23 +41,24 @@ GameStage::GameStage(const GameStage& second) :
 //    return *this;
 //}
 
-void GameStage::update(float dt)
+void GameStage::update(event_t & event, float dt)
 {
     //stageMap.update(dt);
-    std::cout << "Before cycle in update GameStage" << std::endl;
+    std::cout << "Before cycle in GameStage::update" << std::endl;
     for (unsigned int i = 0; i < worldsObjects.size(); i++) {
-        std::cout << "GameStage::update" << std::endl;
-        worldsObjects[i]->changeState();
+        worldsObjects[i]->update(event, dt);
     }
+    std::cout << "---" << std::endl;
 }
 
 void GameStage::draw()
 {
+    std::cout << "Drawing the stage" << std::endl;
     //stageMap.draw();
     for (unsigned int i = 0; i < worldsObjects.size(); i++) {
         worldsObjects[i]->draw();
-        std::cout << "VV";
     }
+    std::cout << "---" << std::endl;
 }
 
 void GameStage::setRenderWindow(renderWindow_t* renderWindowPtr)

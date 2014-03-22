@@ -5,9 +5,12 @@
 #include <iostream>
 
 
+
 #include "WorldsObjects/Player.hpp"
 #include "GameMap.hpp"
 #include "WorldsObjects/WorldsObject.hpp"
+
+typedef sf::Event event_t;
 
 class GameStage {
 private:
@@ -24,7 +27,7 @@ public:
     ~GameStage();
 
 	void setRenderWindow(renderWindow_t*);
-    void update(float dt);
+    void update(event_t &, float);
     void draw();
     //GameStage& operator = (const GameStage&);
 };

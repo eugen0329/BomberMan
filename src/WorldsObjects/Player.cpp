@@ -1,21 +1,27 @@
 #include "Player.hpp"
 
-Player::Player(GameMap & map, std::vector<WorldsObject*> & wObjV, renderWindow_t & rendWindow) :  Person(map, wObjV, rendWindow)
+Player::Player(GameMap & map, std::vector<WorldsObject*> & wObjV, renderWindow_t & rendWindow) :  
+Person(map, wObjV, rendWindow), eventManager(prop)
 {
-    texture.loadFromFile("res/stone.gif");
-    sprite.setTexture(texture);
+	prop.step = 2;
+	prop.x = 0;
+	prop.y = 0;
+    prop.texture.loadFromFile("res/stone.gif");
+    prop.sprite.setTexture(prop.texture);
+    
 }
 
 Player::~Player()
 {
 }
 
-void Player::changeState()
+void Player::update(event_t & event, float dt)
 {
+    eventManager.processEvents();
 }
 
 void Player::draw() 
 {
-    sprite.setPosition(50, 50 );
-    renderWindow.draw(sprite);
+    prop.sprite.setPosition(prop.x, prop.y);
+    renderWindow.draw(prop.sprite);
 }

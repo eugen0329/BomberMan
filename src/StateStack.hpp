@@ -27,14 +27,9 @@ public:
     int push(IState*);
     int pop();
 
-    inline IState* getTop() 
+    inline IState* top() 
     {
         return stateStack.top();
-    }
-    inline void processTopState() 
-    {
-        std::cout << "processTopState" << std::endl;
-        stateStack.top()->processState();
     }
     inline bool isEmpty() const 
     {

@@ -10,6 +10,7 @@
 #include "StateStack.hpp"
 #include "GameStates/StatesID.hpp"
 #include "Managers/GlobalEventManager.hpp"
+#include "Timer.hpp"
 
 class Game {
 private:
@@ -29,6 +30,7 @@ private:
 
     StateStack states;
     GlobalEventManager eventManager;
+    Timer timer;
 
      
 public:

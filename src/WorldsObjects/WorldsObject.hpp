@@ -11,6 +11,8 @@
 #include "Vector2D.hpp"
 #include "GameMap.hpp"
 
+typedef sf::Event event_t;
+
 class WorldsObject {
 protected:
     typedef sf::RenderWindow renderWindow_t;
@@ -24,7 +26,7 @@ public:
     WorldsObject(GameMap&, std::vector<WorldsObject*> &, renderWindow_t & );
     virtual ~WorldsObject();
 
-    virtual void changeState() = 0;
+    virtual void update(event_t &, float) = 0;
     virtual void draw() = 0;
     virtual Vector2D<size_t> getPos() = 0; 
 

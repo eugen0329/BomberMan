@@ -7,15 +7,16 @@
 #include "GameStage.hpp"
 #include "Timer.hpp"
 
+typedef sf::Event event_t;
+
 class GameIsOnState : public IState {
 private:
     //std::vector<GameStage> stages; 
     // renderWindow_t* renderWindowPtr;
-    Timer timer;
     GameStage* stage;
 protected:
     virtual void draw();
-    virtual void update(float);
+    virtual void update(event_t &, float);
 public:
     GameIsOnState();
     virtual ~GameIsOnState();
@@ -25,7 +26,7 @@ public:
    		stage = new GameStage(renderWindowPtr);
    	}
     
-    virtual void processState();
+    virtual void processState(event_t &, float);
 };
 
 #endif /* end of include guard: _GAMEISONSTATE_HPP_ */
