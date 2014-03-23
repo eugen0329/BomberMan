@@ -40,7 +40,8 @@ public:
         return ! stateStack.empty();
     }
     void pushStateSignal(IState*);
-    void popStateSignal();
+    void popStateSignal(unsigned int N = 1);
+    virtual void clearStack();
 };
 
 #endif /* end of include guard: _STATESTACK_HPP_ */

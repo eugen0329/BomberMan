@@ -23,7 +23,10 @@ Game::Game()
 
 Game::~Game()
 {
-    mainWindow.close();
+    states.clearStack();
+    if(mainWindow.isOpen()) {
+        mainWindow.close();
+    }
 }
 
 void Game::run()

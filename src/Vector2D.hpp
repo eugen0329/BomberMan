@@ -1,7 +1,9 @@
 #ifndef _VECTOR2D_HPP_
 #define _VECTOR2D_HPP_
 
-template<class T> class Vector2D {
+#include <cstdlib>
+
+template<class T = size_t> class Vector2D {
 public:
     T x;
     T y;

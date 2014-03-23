@@ -11,7 +11,8 @@ public:
     virtual ~IStateStack();
 
     virtual void pushStateSignal(IState*) = 0;
-    virtual void popStateSignal() = 0;
+    virtual void popStateSignal(unsigned int) = 0;
+    virtual void clearStack() = 0;
 };
 
 

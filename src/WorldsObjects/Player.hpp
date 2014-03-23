@@ -3,21 +3,27 @@
 
 #include <vector>
 #include "WorldsObjects/WorldsObject.hpp"
-#include "WorldsObjects/Person.hpp"
+#include "WorldsObjects/Actor.hpp"
 #include "WorldsObjects/ObjectProperties.hpp"
 #include "Managers/PlayerEventManager.hpp"
 
 #include "SFML/Graphics.hpp"
 
-class Player : public Person {
+class Player : public Actor {
 private:
-    friend class PlayerEventManager;
+    // ObjectProperties {
+    //Vector2D<size_t> pos;
+    //size_t step;
 
+    //texture_t texture;
+    //sprite_t sprite;
+    // }
+
+    properties_t prop;
+    actions_t act;
 
     PlayerEventManager eventManager;
     
-    
-    properties_t prop;
 public:
     Player(GameMap &, std::vector<WorldsObject*> &, renderWindow_t &);
     virtual ~Player();

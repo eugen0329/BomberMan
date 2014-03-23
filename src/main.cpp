@@ -3,7 +3,6 @@
 #include "Matrix.hpp"
 #include "Vector2D.hpp"
 #include "GameMap.hpp"
-#include "WorldsObjects/Person.hpp"
 #include "WorldsObjects/Player.hpp"
 #include "WorldsObjects/WorldsObject.hpp"
 #include "LWVector.hpp"
@@ -24,51 +23,7 @@ int main(int argc, char* argv[])
     Game game;
     game.run();
 //{{{
-    //const unsigned int xWindSize = 800;
-    //const unsigned int yWindSize = 600;
-    ////const sf::Color black(0,0,0);
-    ////
-    ////// Create window of the application
-    ////// sf::VideoMode (x, y, bitsPerPixel)
-    //sf::RenderWindow window(sf::VideoMode(xWindSize, yWindSize, 32), "\\o");
-    //window.setVerticalSyncEnabled(true);
-
-    //texture_t texture;
-    //texture.loadFromFile("res/stone.gif");
-    //sprite_t sprite;
-    //sprite.setTexture(texture);
-    //
-    ////rectangle.setSize(sf::Vector2f(50, 50));
-    //////rectangle.setOutlineThickness(0);
-    //////rectangle.setOutlineColor(sf::Color::Red);
-    ////rectangle.setFillColor(sf::Color::Blue);
-    ////rectangle.setOrigin( xWindSize / 2, yWindSize / 2);
-    ////    rectangle.setPosition(xWindSize / 2, yWindSize / 2);
-
-    //while(window.isOpen()) {
-    ////    
-    ////    // handle events
-    //    sf::Event event;
-    //    while(window.pollEvent(event)) {
-    //        // Closing when ESC or close button is pushed
-    //        if( (event.type == sf::Event::Closed) ||
-    //            (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
-    //            window.close();
-    //            break;
-    //        }
-    //    }
-    //    //cout << "ads";
-    ////    
-    //     // sf::RenderWindow::clear(fillColor)
-    //    window.clear(sf::Color::Black);
-    //    //window.clear();
-
-    //    sprite.setPosition(0, 0 );
-
-    //    window.draw(sprite);
-    //    window.display();
-    ////    
-    //}
+    
 //}}} 
 
     return 0;

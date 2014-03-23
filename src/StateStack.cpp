@@ -41,10 +41,18 @@ void StateStack::pushStateSignal(IState* newState)
     stateStack.top()->load();
 }
 
-void StateStack::popStateSignal()
+void StateStack::popStateSignal(unsigned int N)
 {
-    if(stateStack.empty()) {
-    } else {
+    unsigned int i = 0;
+    while(i < N && ! stateStack.empty()) {
+        delete stateStack.top();
+        stateStack.pop();
+        i++;
+    }
+}
+void StateStack::clearStack()
+{
+    for(unsigned int i = 0; i < stateStack.size(); i++) {
         delete stateStack.top();
         stateStack.pop();
     }

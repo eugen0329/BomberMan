@@ -2,16 +2,16 @@
 #define _PLAYEREVENTMANAGER_HPP_
 
 #include "Managers/EventManager.hpp"
-#include "WorldsObjects/ObjectProperties.hpp"
+#include "WorldsObjects/Actions.hpp"
 #include "SFML/System.hpp"
 
 #include <iostream>
 
 class PlayerEventManager {
 private:
-    properties_t* prop;
+    actions_t* act;
 public:
-    PlayerEventManager(properties_t &);
+    PlayerEventManager(actions_t &);
     virtual ~PlayerEventManager();
     //void setPlayer();
 

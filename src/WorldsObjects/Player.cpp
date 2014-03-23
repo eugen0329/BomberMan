@@ -1,11 +1,11 @@
 #include "Player.hpp"
 
 Player::Player(GameMap & map, std::vector<WorldsObject*> & wObjV, renderWindow_t & rendWindow) :  
-Person(map, wObjV, rendWindow), eventManager(prop)
+Actor(map, wObjV, rendWindow), act(prop), eventManager(act)
 {
 	prop.step = 2;
-	prop.x = 0;
-	prop.y = 0;
+	prop.pos.x = 0;
+	prop.pos.y = 0;
     prop.texture.loadFromFile("res/stone.gif");
     prop.sprite.setTexture(prop.texture);
     
@@ -22,6 +22,6 @@ void Player::update(float dt)
 
 void Player::draw() 
 {
-    prop.sprite.setPosition(prop.x, prop.y);
+    prop.sprite.setPosition(prop.pos.x, prop.pos.y);
     renderWindow.draw(prop.sprite);
 }

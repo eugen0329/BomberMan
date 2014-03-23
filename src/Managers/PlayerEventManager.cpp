@@ -1,6 +1,6 @@
 #include "Managers/PlayerEventManager.hpp"
 
-PlayerEventManager::PlayerEventManager(properties_t & prop) : prop(&prop)
+PlayerEventManager::PlayerEventManager(actions_t & act) : act(&act)
 {
 }
 
@@ -11,15 +11,15 @@ PlayerEventManager::~PlayerEventManager()
 void PlayerEventManager::processEvents()
 {
     if( sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ) {
-        prop->y += prop->step;
+        act->moveDown();
     } 
     if( sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-        prop->y -= prop->step;
+        act->moveUp();
     } 
     if( sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        prop->x += prop->step;
+        act->moveRight();
     } 
     if( sf::Keyboard::isKeyPressed(sf::Keyboard::Left )) {
-        prop->x -= prop->step;
+        act->moveLeft();
     }
 }
