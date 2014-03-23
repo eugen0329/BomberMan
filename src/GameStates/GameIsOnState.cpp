@@ -22,7 +22,6 @@ void GameIsOnState::draw()
     
 void GameIsOnState::processState(float dt)
 {
-    std::cout << "GameIsOnState::processState   " << std::endl;
     update(dt);
     draw(); 
     display();

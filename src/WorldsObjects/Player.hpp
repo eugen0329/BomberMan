@@ -6,6 +6,7 @@
 #include "WorldsObjects/Actor.hpp"
 #include "WorldsObjects/ObjectProperties.hpp"
 #include "Managers/PlayerEventManager.hpp"
+#include "Managers/AnimationManager.hpp"
 
 #include "SFML/Graphics.hpp"
 
@@ -20,8 +21,10 @@ private:
     // }
 
     properties_t prop;
-    actions_t act;
+  
 
+    AnimationManager animationManager;
+    actions_t act;
     PlayerEventManager eventManager;
     
 public:

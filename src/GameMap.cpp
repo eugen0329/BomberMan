@@ -17,9 +17,14 @@ GameMap::~GameMap()
 }
 
 
-const Matrix<char>& GameMap::getGridRef()
+Matrix<cell_t> & GameMap::getGridRef()
 {
     return grid;
+}
+
+Matrix<cell_t> * GameMap::getGridPtr()
+{
+    return &grid;
 }
 
 void GameMap::setSize(size_t x, size_t y)
@@ -35,11 +40,3 @@ void GameMap::update(float dt)
 {
 }
 
-Cell::Cell(cellID_t cellID, bool solid) 
-{ 
-    this->cellID = cellID;
-}
-
-Cell::~Cell()
-{
-}

@@ -11,7 +11,7 @@
 #include "StateStack.hpp"
 
 #include <stack>
-
+#include <string>
 
 using namespace std;
 typedef sf::Sprite sprite_t;
@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     Game game;
     game.run();
 //{{{
-    
+
 //}}} 
 
     return 0;

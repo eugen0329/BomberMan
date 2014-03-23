@@ -2,6 +2,7 @@
 #define _ACTIONS_HPP_
 
 #include "WorldsObjects/ObjectProperties.hpp"
+#include "Managers/AnimationManager.hpp"
 
 class Actions;
 typedef Actions actions_t;
@@ -9,8 +10,9 @@ typedef Actions actions_t;
 class Actions {
 private:
     properties_t * prop;
+    AnimationManager * anim;
 public:
-    Actions(properties_t & prop);
+    Actions(properties_t &, AnimationManager &);
     ~Actions();
 
     void moveUp();
