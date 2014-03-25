@@ -11,19 +11,23 @@ GameIsOnState::~GameIsOnState()
 
 void GameIsOnState::update(float dt)
 {
+
     stage->update(dt);
 }
 
 void GameIsOnState::draw()
 {
-    renderWindowPtr->clear();
+   
+    pRenderWindow->clear(sf::Color::White);
     stage->draw();
 }
     
 void GameIsOnState::processState(float dt)
 {
+    //
     update(dt);
     draw(); 
+
     display();
 }
     

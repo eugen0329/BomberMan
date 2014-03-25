@@ -7,38 +7,21 @@ AnimationManager::AnimationManager(properties_t & prop) : prop(&prop)
     animations.push_back(new Animation(this->prop->sprite, 0, 128, 45, 64, 3));
     animations.push_back(new Animation(this->prop->sprite, 0, 64,  45, 64, 3));
     actionID = Down;
-    updateFrame(Down);
+    //updateFrame(Down);
 }
 
 AnimationManager::~AnimationManager()
 {
+    for(unsigned int i = 0; i < animations.size(); i++) {
+        delete animations[i];
+    }
 }
 
-void AnimationManager::moveUp()
-{
-    updateFrame(Up);
-}
-
-void AnimationManager::moveDown()
-{
-    updateFrame(Down);
-}
-
-void AnimationManager::moveRight()
-{
-    updateFrame(Right);
-}
-
-void AnimationManager::moveLeft()
-{
-    updateFrame(Left);
-}
-
-void AnimationManager::updateFrame(ActionsIDs currActionID)
+void AnimationManager::updateFrame(float dt, ActionsIDs currActionID)
 {
     if(actionID != currActionID) {
-        animations[actionID]->resetFrameNumber();
+        animations[actionID]->resetFrameIndex();
         actionID = currActionID;
     }
-    animations[actionID]->update();
+    animations[currActionID]->update(dt);
 }

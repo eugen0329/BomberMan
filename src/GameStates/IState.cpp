@@ -1,6 +1,6 @@
 #include "GameStates/IState.hpp"
 
-IState::IState(renderWindow_t * renderWindow) : renderWindowPtr(renderWindow)
+IState::IState(renderWindow_t * pRenderWindow) : pRenderWindow(pRenderWindow)
 {
 }
 
@@ -14,10 +14,10 @@ IState::~IState()
 
 void IState::display()
 {
-    renderWindowPtr->display();      
+    pRenderWindow->display();      
 }
 
-void IState::setRenderWindow(renderWindow_t * renderWindowPtr)
+void IState::setRenderWindow(renderWindow_t * pRenderWindow)
 {
-    this->renderWindowPtr = renderWindowPtr;
+    this->pRenderWindow = pRenderWindow;
 }

@@ -4,12 +4,10 @@
 #include <vector>
 #include <iostream>
 
-//typedef std::vector< std::vector<char> > v;
 template<class T> 
 class Matrix {
 private:
-    //std::vector<T>* elements; 
-    std::vector< std::vector<char> > matrix;
+    T** matrix;
     size_t xSize;
     size_t ySize; 
 public:
@@ -21,8 +19,8 @@ public:
     const size_t getXSize() const;
     const size_t getYSize() const;
 
-    std::vector<T>& operator [] (size_t);
-    const std::vector<T>& operator [] (size_t) const;
+    T*& operator [] (size_t);
+    const T*& operator [] (size_t) const;
 };
 
 template<class T>
@@ -43,37 +41,47 @@ Matrix<T>::Matrix(size_t x, size_t y)
     xSize = x;
     ySize = y;
 
-    matrix.resize(this->ySize);
+    matrix = new T* [ySize];
     for (int i = 0; i < this->ySize; i++) {
-        matrix[i].resize(this->xSize);
+        matrix[i] = new T [xSize];
     }
 }
 
 template<class T>
 void Matrix<T>::setSize(size_t x, size_t y) 
 {
+    for (int i = 0; i < this->ySize; i++) {
+        delete [] matrix[i];
+    }
+    delete matrix;
+
     xSize = x;
     ySize = y;
 
-    matrix.resize(this->ySize);
+    matrix = new T* [ySize];
     for (int i = 0; i < this->ySize; i++) {
-        matrix[i].resize(this->xSize);
+        matrix[i] = new T [xSize];
     }
+
 }
 
 template<class T>
 Matrix<T>::~Matrix()
 {
+    for (int i = 0; i < this->ySize; i++) {
+        delete [] matrix[i];
+    }
+    delete matrix;
 }
 
 template<class T>
-const std::vector<T>& Matrix<T>::operator [] (size_t index) const
+const T*& Matrix<T>::operator [] (size_t index) const
 {
     return matrix[index];
 }
 
 template<class T>
-std::vector<T>& Matrix<T>::operator [] (size_t index)
+T*& Matrix<T>::operator [] (size_t index)
 {
     return matrix[index];
 }

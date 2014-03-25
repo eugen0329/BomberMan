@@ -19,16 +19,13 @@ protected:
 
     GameMap& map;
     std::vector<WorldsObject*>& worldsObjectVector;
-    renderWindow_t& renderWindow;
-
-    Vector2D<size_t> pos;
+    renderWindow_t * pRenderWindow;
 public:
-    WorldsObject(GameMap&, std::vector<WorldsObject*> &, renderWindow_t & );
+    WorldsObject(GameMap&, std::vector<WorldsObject*> &, renderWindow_t &);
     virtual ~WorldsObject();
 
     virtual void update(float) = 0;
-    virtual void draw() = 0;
-    virtual Vector2D<size_t> getPos() = 0; 
+    virtual void draw() = 0; 
 
 };
 

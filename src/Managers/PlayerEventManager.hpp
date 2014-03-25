@@ -15,7 +15,7 @@ public:
     virtual ~PlayerEventManager();
     //void setPlayer();
 
-    virtual void processEvents();
+    virtual void processEvents(float);
 };
 
 

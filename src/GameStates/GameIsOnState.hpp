@@ -23,7 +23,7 @@ public:
 
    	virtual void load()
    	{
-   		stage = new GameStage(renderWindowPtr);
+   		stage = new GameStage(pRenderWindow);
    	}
     
     virtual void processState(float);

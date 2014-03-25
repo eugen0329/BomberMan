@@ -8,7 +8,7 @@ typedef sf::Event event_t;
 class IState {
 protected:
     typedef sf::RenderWindow renderWindow_t;
-    renderWindow_t* renderWindowPtr;
+    renderWindow_t* pRenderWindow;
 
     virtual void update(float) = 0;
     virtual void draw() = 0;
