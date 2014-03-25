@@ -15,10 +15,10 @@ public:
     Actions(properties_t &, AnimationManager &);
     ~Actions();
 
-    void moveUp();
-    void moveDown();
-    void moveRight();
-    void moveLeft();
+    void moveUp(float);
+    void moveDown(float);
+    void moveRight(float);
+    void moveLeft(float);
 };
 
 

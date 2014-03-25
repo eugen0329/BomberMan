@@ -23,17 +23,32 @@ private:
         Left
     };
 
-    void updateFrame(ActionsIDs);
+    void updateFrame(float, ActionsIDs);
 public:
     AnimationManager(properties_t &);
     virtual ~AnimationManager();
 
 
 
-    void moveUp();
-    void moveDown();
-    void moveRight();
-    void moveLeft();
+    void inline moveUp(float dt)
+    {
+        updateFrame(dt, Up);
+    }
+    
+    void inline moveDown(float dt)
+    {
+        updateFrame(dt, Down);
+    }
+    
+    void inline moveRight(float dt)
+    {
+        updateFrame(dt, Right);
+    }
+    
+    void inline moveLeft(float dt)
+    {
+        updateFrame(dt, Left);
+    }
 };
 
 

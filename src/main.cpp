@@ -1,14 +1,9 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Matrix.hpp"
-#include "Vector2D.hpp"
-#include "GameMap.hpp"
-#include "WorldsObjects/Player.hpp"
-#include "WorldsObjects/WorldsObject.hpp"
-#include "LWVector.hpp"
-#include "Managers/ResourceManager.hpp" 
 #include "Game.hpp" 
-#include "StateStack.hpp"
+#include "WorldsObjects/ObjectProperties.hpp" 
+#include "Managers/AnimationManager.hpp" 
+#include "GameMap.hpp" 
 
 #include <stack>
 #include <string>
@@ -20,10 +15,26 @@ typedef sf::Texture texture_t;
 int main(int argc, char* argv[])
 {
 
-    Game game;
-    game.run();
+    Game game; game.run();
 //{{{
+    //sf::RenderWindow window( sf::VideoMode(600, 400), "Test!");
+    //
+    //while(window.isOpen()) {
+    //    sf::Event event;
+    //    while(window.pollEvent(event)) {
+    //        if( (event.type == sf::Event::Closed) ||
+    //            (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
+    //            window.close();
+    //            break;
+    //        }
+    //    }
 
+    //
+    //    window.clear(sf::Color::White);
+    //    
+
+    //    window.display();
+    //}
 //}}} 
 
     return 0;

@@ -13,8 +13,6 @@ public:
 
     virtual void update(float) = 0;
     virtual void draw() = 0;
-
-    virtual Vector2D<size_t> getPos(); 
 };
 
 #endif /* end of include guard: _ACTOR_HPP_ */

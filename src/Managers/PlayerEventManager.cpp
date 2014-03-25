@@ -8,18 +8,19 @@ PlayerEventManager::~PlayerEventManager()
 {
 }
 
-void PlayerEventManager::processEvents()
+void PlayerEventManager::processEvents(float dt)
 {
-    if( sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ) {
-        act->moveDown();
-    } 
-    if( sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-        act->moveUp();
-    } 
+
     if( sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        act->moveRight();
+        act->moveRight(dt);
     } 
     if( sf::Keyboard::isKeyPressed(sf::Keyboard::Left )) {
-        act->moveLeft();
+        act->moveLeft(dt);
     }
+    if( sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ) {
+        act->moveDown(dt);
+    } 
+    if( sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        act->moveUp(dt);
+    }     
 }

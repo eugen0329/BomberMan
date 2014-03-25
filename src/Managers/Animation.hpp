@@ -1,7 +1,9 @@
 #ifndef _ANIMATION_HPP_
 #define _ANIMATION_HPP_
 
+#include <iostream>
 #include <vector>
+#include <cmath>
 
 #include <SFML/Graphics.hpp>
 
@@ -10,19 +12,36 @@ typedef sf::Sprite sprite_t;
 class Animation {
 private:
 	std::vector<sf::IntRect> frames;
-	int nFrames;
-	float speed;
-	float frame;
+	float nFrames;
+	unsigned int frameIndex;
+	float msecToFrame;
+    float passedMSec;
+    int counter;
 
 	sprite_t * sprite;
 public:
-    Animation(sprite_t & sprite, int x, int y, int width, int heigth, int nFrames, float speed = 0.1);
+    Animation(sprite_t & sprite, int x, int y, int width, int heigth, int nFrames, float msecToFrame = 100);
     ~Animation();
 
-    void update();
-    inline void resetFrameNumber()
+    inline void update(float dt)
     {
-    	frame = 0;
+        passedMSec += dt;
+        if(passedMSec >= msecToFrame ) {
+            if(frameIndex + 1 < frames.size()) {
+                frameIndex++;
+            } else {
+                frameIndex = 0;
+            }
+            passedMSec = 0;
+        }
+        //int i = floor(frame);
+        std::cout << frameIndex << ", ";
+        sprite->setTextureRect( frames[frameIndex] );
+    }
+
+    inline void resetFrameIndex()
+    {
+    	frameIndex = 0;
     }
 };
 

@@ -13,7 +13,3 @@ Actor::~Actor()
 {
 }
 
-Vector2D<size_t> Actor::getPos() 
-{ 
-    return pos; 
-}

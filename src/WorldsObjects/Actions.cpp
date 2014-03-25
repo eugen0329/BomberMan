@@ -9,31 +9,31 @@ Actions::~Actions()
 }
 
 
-void Actions::moveUp()
+void Actions::moveUp(float dt)
 {
     prop->pos.y -= prop->step;
-    prop->sprite.setPosition(prop->pos.x, prop->pos.y);
-    anim->moveUp();
+    //prop->sprite.setPosition(prop->pos.x, prop->pos.y);
+    anim->moveUp(dt);
 }
 
-void Actions::moveDown()
+void Actions::moveDown(float dt)
 {
     prop->pos.y += prop->step;
-    prop->sprite.setPosition(prop->pos.x, prop->pos.y);
-    anim->moveDown();
+    //prop->sprite.setPosition(prop->pos.x, prop->pos.y);
+    anim->moveDown(dt);
 }
 
-void Actions::moveRight()
+void Actions::moveRight(float dt)
 {
     prop->pos.x += prop->step;
-    prop->sprite.setPosition(prop->pos.x, prop->pos.y);
-    anim->moveRight();
+    //prop->sprite.setPosition(prop->pos.x, prop->pos.y);
+    anim->moveRight(dt);
 }
 
-void Actions::moveLeft()
+void Actions::moveLeft(float dt)
 {
     prop->pos.x -= prop->step;
-    prop->sprite.setPosition(prop->pos.x, prop->pos.y);
-    anim->moveLeft();
+    //prop->sprite.setPosition(prop->pos.x, prop->pos.y);
+    anim->moveLeft(dt);
 }
 

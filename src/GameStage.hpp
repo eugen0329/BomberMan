@@ -18,7 +18,7 @@ private:
 
     GameMap stageMap;
     std::vector<WorldsObject*> worldsObjects;
-    renderWindow_t* renderWindowPtr;
+    renderWindow_t * pRenderWindow;
 public:
     GameStage(GameMap, std::vector<WorldsObject*>, renderWindow_t*);
     GameStage();

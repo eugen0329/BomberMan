@@ -1,23 +1,19 @@
 #include "Managers/Animation.hpp"
 
-Animation::Animation(sprite_t & sprite, int x, int y, int width, int heigth, int nFrames, float speed) : sprite(&sprite)
+Animation::Animation(sprite_t & sprite, int x, int y, int width, int heigth, int nFrames, float msecToFrame) 
 {
 
-    this->frame = 0;
+    this->sprite = &sprite;
+    this->frameIndex = 0;
     this->nFrames = nFrames;
-    this->speed = speed;
+    this->msecToFrame =  msecToFrame;
+	this->passedMSec = 0;
 
 	for (int i = 0; i < this->nFrames; i++) {
         frames.push_back(sf::IntRect(x + i*width, y, width, heigth));
     }
 }
-
-void Animation::update()
+Animation::~Animation()
 {
-    if(frame > nFrames) {
-        frame -= nFrames;
-    }
-    frame += speed;
-    int i = frame;
-    sprite->setTextureRect( frames[i] );
+	frames.clear();
 }
