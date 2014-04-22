@@ -1,13 +1,12 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Game.hpp" 
-#include "WorldsObjects/ObjectProperties.hpp" 
-#include "Managers/AnimationManager.hpp" 
-#include "GameMap.hpp" 
+#include "Application/Application.hpp" 
 
 #include <exception>
 #include <stack>
 #include <string>
+
+//#include "Common/Angle.hpp"
 
 using namespace std;
 typedef sf::Sprite sprite_t;
@@ -17,33 +16,14 @@ int main(int argc, char* argv[])
 {
     
     try {
-        Game game; 
+        Application game; 
         game.run();
     }
     catch (const std::ios_base::failure  & e) { 
         std::cout << "Exception:" << std::endl << "    " << e.what();
     }
-//{{{
-    //sf::RenderWindow window( sf::VideoMode(600, 400), "Test!");
-    //
-    //while(window.isOpen()) {
-    //    sf::Event event;
-    //    while(window.pollEvent(event)) {
-    //        if( (event.type == sf::Event::Closed) ||
-    //            (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
-    //            window.close();
-    //            break;
-    //        }
-    //    }
 
-    //
-    //    window.clear(sf::Color::White);
-    //    
-
-    //    window.display();
-    //}
-//}}} 
-
+    
     return 0;
 }
 
