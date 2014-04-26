@@ -27,6 +27,13 @@ void Wall::draw()
     window->draw(attrib.sprite);
 }
 
+void Wall::handleCollisions()
+{
+}
+void Wall::checkCollisions()
+{
+}
+
 int Wall::Initializer::load() const
 {
     if(attrib == NULL) {

@@ -15,6 +15,7 @@
 
 #include "Common/Algorithms.hpp"
 
+#include "Game/CollisionManager.hpp"
 
 #include "Game/Attributes/PlayerEventManager.hpp"
 #include "Game/Attributes/IAttributes.hpp"
@@ -33,6 +34,8 @@ private:
     AnimationManager animationManager;
     Actions act;
     PlayerEventManager eventManager;
+
+    CollisionManager collisions;
 
     Delegate* createSignal;
 private:
@@ -70,6 +73,9 @@ public:
         return alg::isCrossing(this->attrib, (*it)->getAttributes())  &&
                (*it)->getAttributes().isSolid();
     } 
+
+    virtual void handleCollisions();
+    virtual void checkCollisions();
 };
 
 class Player::Initializer : public IInitializer {

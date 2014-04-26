@@ -1,8 +1,17 @@
 #!  /bin/bash
 
+green="\\033[1;32m"
+#red="tput setaf 1"
+
+red="\\033[1;31m"
+reset=$(tput sgr0)
+toend="$(tput hpa $(tput cols))$(tput cub 7)"
+
 selfDir=$(dirname $0)
 
-CPPFLAGS="-Wall -pedantic-errors -g" BINARY="$selfDir/bin"
+CPPFLAGS="-Wall -pedantic-errors -g -std=c++11" 
+#CPPFLAGS="-Wall -pedantic-errors -g " 
+BINARY="$selfDir/bin"
 LSFMLFL="-lsfml-graphics -lsfml-window -lsfml-system"
 
 srcDir="$selfDir/src"
@@ -18,18 +27,27 @@ getObjFileEqName()
 
 getObjDiffTime()
 {
-    echo $1 | sed "s/src/obj/; s/\.cpp/\.o/" | xargs -I {} stat -c "%Z" {}
+    echo $1 | sed "s/src/obj/; s/\.cpp/\.o/" | xargs -I {} stat -c "%Z" "{}"
 }
 
 getSrcDiffTime()
 {
-    stat -c "%Z" $1
+    stat -c "%Z" "$1"
 }
 
 checkForErrors()
 {
-    if [ $? -ne 0 ] ; then 
+    if [ $1 -ne 0 ] ; then 
+        printFAIL
         errCounter=$(( $errCounter + 1))
+        if [ !  -z "$errorLog" ] ; then
+            echo "$errorLog"
+        fi
+    else
+        printOK
+        echo "$errorLog"
+        newObjCounter=$(( $newObjCounter + 1 ))
+        objCounter=$(( $objCounter + 1 ))
     fi
 }
 
@@ -44,9 +62,21 @@ mkTheSameObjDirs()
 checkErrCounter()
 {
     if [ $errCounter -ne 0 ]; then
-        echo "Exit ERROR($errCounter errors)"
+        echo "$errCounter errors"
+        echo 
+        echo "Exit ERROR"
         exit 1
     fi
+}
+
+printFAIL()
+{
+    echo -e "${toend}[$red FAIL ${reset}]"
+}
+
+printOK()
+{
+    echo -e "${toend}[${green} OK ${reset}]"
 }
 
 mkTheSameObjDirs
@@ -54,30 +84,31 @@ mkTheSameObjDirs
 errCounter=0
 objCounter=0
 newObjCounter=0
+errorLog=
 for f in $(find $srcDir -name "*.cpp" -exec echo {} \;)
 do
     echo "    $f"
     if [ ! -e "$(getObjFileEqName $f)" ] || [ $(getSrcDiffTime $f) -gt $(getObjDiffTime $f) ]  ; then
-        echo "        (+) Compiling..."
-        g++ ${CPPFLAGS} -c "$f" -o $(getObjFileEqName $f) $includes
-        newObjCounter=$(( $newObjCounter + 1 ))
+        tput sc
+        echo -n "        (+) Compiling..." 
+        errorLog=`g++ ${CPPFLAGS} -c "$f" -o $(getObjFileEqName $f) $includes 2>&1`
+        checkForErrors $? 
     else
         echo "        The oldest version"
+        objCounter=$(( $objCounter + 1 ))
     fi
-    checkForErrors
-    objCounter=$(( $objCounter + 1 ))
+    errorLog=
 done
 
 echo "-------------------------"
 echo "$newObjCounter builded objects"
 echo "$objCounter objects in sum"
-echo 
-
 checkErrCounter
+
 objNames=$(find $objDir -type f)
+echo 
 echo "Linking:"
 g++ ${CPPFLAGS} ${objNames} -o ${BINARY} ${LSFMLFL}
-checkErrCounter
 
 echo "    $BINARY"
 echo "-------------------------"

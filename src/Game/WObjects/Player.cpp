@@ -94,6 +94,14 @@ inline void Player::checkVerticalCollisions(const float& dt)
     }
 }
 
+void Player::handleCollisions()
+{
+}
+void Player::checkCollisions()
+{
+    collisions.nextCollision();
+}
+
 // Initializer /---------------------------
 
 Player::Initializer::Initializer(xmlElement_t& element, PlayerAttributes& attrib)

@@ -84,6 +84,13 @@ void GameLevel::update(const float& dt)
     for (unsigned int i = 0; i < wObjects.size(); i++) {
         wObjects[i]->update(dt);
     }
+    for (unsigned int i = 0; i < wObjects.size(); i++) {
+        wObjects[i]->checkCollisions();
+    }
+    for (unsigned int i = 0; i < wObjects.size(); i++) {
+        wObjects[i]->handleCollisions();
+    }
+    
 }
 
 void GameLevel::draw()

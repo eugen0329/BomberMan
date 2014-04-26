@@ -12,6 +12,9 @@ public:
     Item(GameMap&, wObjects_t&, window_t&);
     virtual ~Item() {}
 
+    virtual void handleCollisions() = 0;
+    virtual void checkCollisions() = 0;
+
     virtual void handleEvents(const event_t&) = 0;
     virtual void update(const float&) = 0;
     virtual void draw() = 0;

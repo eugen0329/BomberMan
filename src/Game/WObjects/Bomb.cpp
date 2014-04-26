@@ -65,6 +65,13 @@ void Bomb::update(const float& dt)
     }
 }
 
+void Bomb::handleCollisions()
+{
+}
+void Bomb::checkCollisions()
+{
+}
+
 void Bomb::draw()
 {
     window->draw(attrib.sprite);

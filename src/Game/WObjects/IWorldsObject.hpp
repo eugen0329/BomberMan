@@ -63,6 +63,9 @@ public:
     //void setSignalsQueue(signals_t&);
     virtual void setSignal(Delegate *, std::string) = 0;
 
+    virtual void handleCollisions() = 0;
+    virtual void checkCollisions() = 0;
+
     virtual void handleEvents(const event_t&) = 0;
     virtual void update(const float&) = 0;
     virtual void draw() = 0; 

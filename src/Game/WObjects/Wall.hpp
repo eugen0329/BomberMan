@@ -22,6 +22,8 @@ public:
     {
         return attrib;
     }
+    virtual void handleCollisions();
+    virtual void checkCollisions();
 
 };
 
