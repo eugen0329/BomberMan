@@ -55,35 +55,22 @@ public:
     virtual void update(const float&);
     virtual void draw();
 
-    bool isCrossing(IWorldsObject&);
     void updateCoordinates(const float&);
+    
+    bool checkCollisions();
+    bool isExclude(IWorldsObject*);
 
-    void updateCollisionExcludes();
-    bool checkCollisions1();
     virtual void addCollision(Collision) {}
+    void handleCollisions();
+    void updateCollisionExcludes();
     void addCollisionExclude(IWorldsObject*) ;
     
-    void setSignal(Delegate*, std::string);
-
     IAttributes& getAttributes() 
     {
         return attrib;
     }
-    inline bool isSameObject(const wObjects_t::iterator& it) 
-    {
-        return (*it) == dynamic_cast<IWorldsObject*>(this);
-    }
-    inline bool isCollided(const wObjects_t::iterator& it)
-    {
-        return alg::isCrossing(this->attrib, (*it)->getAttributes())  &&
-               (*it)->getAttributes().isSolid();
-    } 
-
     virtual void setWorldsObjectsVector(wObjects_t&);
-    void checkCollisions();
-    void handleCollisions();
-    void delCollisionExclude(IWorldsObject* );
-    bool isExclude(IWorldsObject*);
+    void setSignal(Delegate*, std::string);
 };
 
 class Player::Initializer : public IInitializer {

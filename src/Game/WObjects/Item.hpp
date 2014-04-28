@@ -13,7 +13,6 @@ public:
     virtual ~Item() {}
 
     virtual void handleCollisions() = 0;
-    virtual void checkCollisions() = 0;
 
     virtual void setWorldsObjectsVector(wObjects_t&) = 0;
 

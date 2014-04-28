@@ -15,5 +15,4 @@ public:
     
 };
 
-
 #endif /* end of include guard: _COLLISION_HPP_ */

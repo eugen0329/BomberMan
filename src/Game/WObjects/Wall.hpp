@@ -25,7 +25,7 @@ public:
 
     virtual void addCollision(Collision) {}
     virtual void handleCollisions();
-    virtual void checkCollisions();
+    
     virtual void setWorldsObjectsVector(wObjects_t&);
 
 };

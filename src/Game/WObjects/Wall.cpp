@@ -35,9 +35,6 @@ void Wall::draw()
 void Wall::handleCollisions()
 {
 }
-void Wall::checkCollisions()
-{
-}
 
 int Wall::Initializer::load() const
 {

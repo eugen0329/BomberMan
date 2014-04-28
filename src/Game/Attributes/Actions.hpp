@@ -6,8 +6,6 @@
 #include <map>
 #include <string>
 
-#include "Game/WObjectSignal.hpp"
-
 #include "XMLParser/tinyxml.h"
 
 #include "Common/Delegate.hpp"

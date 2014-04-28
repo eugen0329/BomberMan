@@ -38,7 +38,7 @@ void Player::initializeComponents(xmlElement_t& element)
     act.setPlayerAttributes(attrib);
     act.setAnimationManager(animationManager);
     act.setSignal(alg::createSignal(this, & Player::addCollisionExclude), "addCollisionExclude");
-    act.setSignal(alg::createSignal(this, & Player::delCollisionExclude), "delCollisionExclude");
+    act.setSignal(alg::createSignal(&collisionExcludes, & collisionExcludes_t::remove), "delCollisionExclude");
     //act.setSignalsQueue(signals);
 
     Delegate action;
@@ -84,10 +84,10 @@ void Player::addCollisionExclude(IWorldsObject* newExclude)
 void Player::updateCoordinates(const float& dt)
 {
     attrib.pos.x += attrib.v.x * dt;
-    if(checkCollisions1()) attrib.pos.x -= attrib.v.x * dt;
+    if(checkCollisions()) attrib.pos.x -= attrib.v.x * dt;
 
     attrib.pos.y += attrib.v.y * dt;
-    if(checkCollisions1()) attrib.pos.y -= attrib.v.y * dt;
+    if(checkCollisions()) attrib.pos.y -= attrib.v.y * dt;
 
     attrib.sprite.setPosition(attrib.pos.x, attrib.pos.y);
 }
@@ -105,14 +105,7 @@ bool Player::isExclude(IWorldsObject* verifiable)
     return false;
 }
 
-void Player::checkCollisions()
-{
-    IWorldsObject* it;
-    for(it = collisions->firstCollision(); it != 0; it = collisions->nextCollision()) {
-    }
-}
-
-bool Player::checkCollisions1()
+bool Player::checkCollisions()
 {
     updateCollisionExcludes();
 
@@ -122,6 +115,7 @@ bool Player::checkCollisions1()
     for(it = collisions->firstCollision(); it != 0; it = collisions->nextCollision()) {
         if(isExclude(it)) continue;
         it->addCollision(this->getAttributes());
+
         hasCollisions = true;
     }
     return hasCollisions;
@@ -131,16 +125,11 @@ void Player::updateCollisionExcludes()
 {
     collisionExcludes_t::iterator last = collisionExcludes.end();
     for(collisionExcludes_t::iterator it = collisionExcludes.begin(); it != last; it++) {
-        if(*it && ! alg::isCrossing(this->getAttributes(), (*it)->getAttributes())) {
-            collisionExcludes.remove(*it);
+        if(! alg::isCrossing(this->getAttributes(), (*it)->getAttributes())) {
+            collisionExcludes.erase(it);
             it--;
         }
     }
-}
-
-void Player::delCollisionExclude(IWorldsObject* removable )
-{
-    collisionExcludes.remove(removable);
 }
 
 // Initializer /---------------------------

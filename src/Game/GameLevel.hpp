@@ -23,8 +23,6 @@ typedef sf::RenderWindow window_t;
 
 typedef std::vector<IWorldsObject*> wObjects_t;
 
-typedef std::queue<WObjectSignal*> signals_t;
-
 class GameLevel {
 private:
     typedef std::vector<wObjects_t> layers_t;
