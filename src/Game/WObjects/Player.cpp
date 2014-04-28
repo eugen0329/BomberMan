@@ -8,11 +8,12 @@ Player::Player(xmlElement_t& xmlElement)
 {
     Player::Initializer initializer(xmlElement, attrib);
 
+    //setObjectID("Player");
     if(initializer.load()) {
         exit(1);
     } 
 
-    initializeAggregates(xmlElement);
+    initializeComponents(xmlElement);
 }
 
 void Player::setSignal(Delegate* delegate, std::string signalName)
@@ -24,17 +25,20 @@ void Player::setSignal(Delegate* delegate, std::string signalName)
     }
 }
 
-void Player::initializeAggregates(xmlElement_t& element)
+void Player::initializeComponents(xmlElement_t& element)
 {
+    collisions = new CollisionManager;
     xmlElement_t* animationList = element.FirstChildElement("animations");
     if(animationList == NULL) {
         exit(1);
     }
-    animationManager.setObjectAttributes(attrib);
+    animationManager.setSprite(attrib.sprite);
     animationManager.loadAnimations(*animationList);
 
     act.setPlayerAttributes(attrib);
     act.setAnimationManager(animationManager);
+    act.setSignal(alg::createSignal(this, & Player::addCollisionExclude), "addCollisionExclude");
+    act.setSignal(alg::createSignal(this, & Player::delCollisionExclude), "delCollisionExclude");
     //act.setSignalsQueue(signals);
 
     Delegate action;
@@ -45,61 +49,98 @@ void Player::initializeAggregates(xmlElement_t& element)
  
 }
 
+void Player::setWorldsObjectsVector(wObjects_t& wObjects)
+{
+    this->wObjects = &wObjects;
+    collisions->setWObjects((*this->wObjects));
+    collisions->setOwner(*this);
+}
+
 Player::~Player()
 {
 }
 
-inline void Player::handleEvents(const event_t& event)
+void Player::handleEvents(const event_t& event)
 {
     eventManager.handleEvents(event);
 }
 
-inline void Player::update(const float& dt)
+void Player::update(const float& dt)
 {
     animationManager.updateCurrentAnimation(dt);
     updateCoordinates(dt);
 }
 
-inline void Player::draw() 
+void Player::draw() 
 {
     window->draw(attrib.sprite);
 }
 
-inline void Player::updateCoordinates(const float& dt)
+void Player::addCollisionExclude(IWorldsObject* newExclude) 
+{
+    collisionExcludes.push_back(newExclude);
+}
+
+void Player::updateCoordinates(const float& dt)
 {
     attrib.pos.x += attrib.v.x * dt;
-    checkHorizontalCollisions(dt);
+    if(checkCollisions1()) attrib.pos.x -= attrib.v.x * dt;
 
     attrib.pos.y += attrib.v.y * dt;
-    checkVerticalCollisions(dt) ;
+    if(checkCollisions1()) attrib.pos.y -= attrib.v.y * dt;
 
     attrib.sprite.setPosition(attrib.pos.x, attrib.pos.y);
-}
-
-inline void Player::checkHorizontalCollisions(const float& dt)
-{
-    for(wObjects_t::iterator it = wObjects->begin(); it != wObjects->end(); ++it) {
-        if( ! isSameObject(it) && isCollided(it) ) {
-            attrib.pos.x -= attrib.v.x * dt;
-        }
-    }
-}
-
-inline void Player::checkVerticalCollisions(const float& dt)
-{
-    for(wObjects_t::iterator it = wObjects->begin(); it != wObjects->end(); ++it) {
-        if( ! isSameObject(it) && isCollided(it) ) {
-            attrib.pos.y -= attrib.v.y * dt;
-        }
-    }
 }
 
 void Player::handleCollisions()
 {
 }
+
+bool Player::isExclude(IWorldsObject* verifiable)
+{
+    if( std::find(collisionExcludes.begin(), collisionExcludes.end(), verifiable) 
+        != collisionExcludes.end() ) {
+        return true;
+    }
+    return false;
+}
+
 void Player::checkCollisions()
 {
-    collisions.nextCollision();
+    IWorldsObject* it;
+    for(it = collisions->firstCollision(); it != 0; it = collisions->nextCollision()) {
+    }
+}
+
+bool Player::checkCollisions1()
+{
+    updateCollisionExcludes();
+
+    bool hasCollisions = false;
+
+    IWorldsObject* it;
+    for(it = collisions->firstCollision(); it != 0; it = collisions->nextCollision()) {
+        if(isExclude(it)) continue;
+        it->addCollision(this->getAttributes());
+        hasCollisions = true;
+    }
+    return hasCollisions;
+}
+
+void Player::updateCollisionExcludes()
+{
+    collisionExcludes_t::iterator last = collisionExcludes.end();
+    for(collisionExcludes_t::iterator it = collisionExcludes.begin(); it != last; it++) {
+        if(*it && ! alg::isCrossing(this->getAttributes(), (*it)->getAttributes())) {
+            collisionExcludes.remove(*it);
+            it--;
+        }
+    }
+}
+
+void Player::delCollisionExclude(IWorldsObject* removable )
+{
+    collisionExcludes.remove(removable);
 }
 
 // Initializer /---------------------------

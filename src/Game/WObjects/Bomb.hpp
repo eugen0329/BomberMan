@@ -18,22 +18,29 @@ private:
     class Initializer;
 
     BombAttributes attrib;
+    Delegate delCollisionExclude;
 public:
     Bomb();
-    Bomb(xmlElement_t&);
+    //Bomb(xmlElement_t& xmlElement, int groupID = 0);
+
     Bomb(const IAttributes&);
     Bomb(xmlElement_t&, const IAttributes&);
-    virtual ~Bomb() {}
+    virtual ~Bomb();
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);
     virtual void draw();
-    virtual IAttributes getAttributes() 
+    virtual IAttributes& getAttributes() 
     {
         return attrib;
     }
+
+    virtual void addCollision(Collision);
     virtual void handleCollisions();
     virtual void checkCollisions();
 
+    virtual void setSignal(Delegate*, std::string);
+
+    virtual void setWorldsObjectsVector(wObjects_t&);
 
 };
 

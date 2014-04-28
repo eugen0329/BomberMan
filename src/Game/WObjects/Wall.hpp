@@ -18,12 +18,15 @@ public:
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);
     virtual void draw();
-    virtual IAttributes getAttributes() 
+    virtual IAttributes& getAttributes() 
     {
         return attrib;
     }
+
+    virtual void addCollision(Collision) {}
     virtual void handleCollisions();
     virtual void checkCollisions();
+    virtual void setWorldsObjectsVector(wObjects_t&);
 
 };
 

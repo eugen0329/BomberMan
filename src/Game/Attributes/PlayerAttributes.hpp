@@ -10,6 +10,9 @@ public:
     Vector2D<float> v;
     float vMax;
     Vector2D<float> origin;
+
+    texture_t texture;
+    sprite_t  sprite;
 public:
     PlayerAttributes() {}
     ~PlayerAttributes() {}

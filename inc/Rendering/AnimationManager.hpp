@@ -10,18 +10,19 @@
 #include "Common/Interfaces/IInitializer.hpp"
 #include "Common/Vector2D.hpp"
 
-#include "Game/Attributes/IAttributes.hpp"
 #include "Rendering/Animation.hpp"
 
 class AnimationManager {
 private:
     typedef std::map<std::string, Animation*> animationsMap_t;
+    typedef sf::Sprite sprite_t;
     class Initializer;
 
     std::string currAnimation;
 
     animationsMap_t animations;
-    IAttributes * attrib;
+    //IAttributes * attrib;
+    sprite_t * sprite;
 
 //private:
 public:
@@ -32,7 +33,8 @@ public:
     void setCurrentAnimation(std::string);
     void updateCurrentAnimation(const float&);
 
-    void setObjectAttributes(IAttributes &);
+    //void setObjectAttributes(IAttributes &);
+    void setSprite(sprite_t&);
     void loadAnimations(xmlElement_t&);
 };
 
@@ -40,13 +42,13 @@ public:
 class AnimationManager::Initializer : public IInitializer {
 private:
     mutable animationsMap_t* animations; 
-    mutable IAttributes* attrib; 
+    mutable sprite_t* sprite; 
 
     void readFrameSizeAndLocations(const xmlElement_t&, Vector2D<int>&, int&, int&) const;
     void readFramesInformation(const xmlElement_t&, float&, int&, int&) const;
 public:
     Initializer();
-    Initializer(xmlElement_t&, animationsMap_t&, IAttributes&);
+    Initializer(xmlElement_t&, animationsMap_t&, sprite_t&);
     virtual ~Initializer();
     
     int load() const;

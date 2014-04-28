@@ -8,7 +8,7 @@ class WallAttributes : public IAttributes{
 public:
     texture_t texture;
     sprite_t  sprite;
-
+    
     Vector2D<float> origin;
 };
 

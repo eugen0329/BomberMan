@@ -38,7 +38,7 @@ void Application::run()
 
         float currentTime = clock.restart().asSeconds();
         float fps = 1.f / currentTime;
-        if(fps < 40) std::cout << "fps: " << fps << std::endl;
+        if(fps < 55) std::cout << "fps: " << fps << std::endl;
 
         handleEvents();
         states.top()->update(timer.getElapsedTime());

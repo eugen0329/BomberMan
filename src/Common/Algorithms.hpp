@@ -19,11 +19,11 @@ namespace alg {
 
     inline bool isCrossing(const BaseShape& first, const BaseShape& second)
     {
-        Vector2D<float> currentDist;
+        static Vector2D<float> currentDist;
         currentDist.x = ::abs(first.pos.y - second.pos.y);
         currentDist.y = ::abs(first.pos.x - second.pos.x);
 
-        Vector2D<float> minPossibleDist;
+        static Vector2D<float> minPossibleDist;
         minPossibleDist.x = (first.width + second.width) / 2;
         minPossibleDist.y = (first.heigth + second.heigth) / 2;
         

@@ -34,6 +34,8 @@ private:
     directions_t dir;
 
     Delegate createWObject;
+    Delegate addCollisionExclude;
+    Delegate delCollisionExclude;
 public:
     Actions(PlayerAttributes &, AnimationManager &);
     Actions();

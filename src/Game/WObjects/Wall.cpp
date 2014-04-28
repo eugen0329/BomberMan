@@ -14,6 +14,11 @@ Wall::Wall(xmlElement_t& xmlElement)
     //setObjectID("Wall");
 }
 
+void Wall::setWorldsObjectsVector(wObjects_t& wObjects)
+{
+    this->wObjects = &wObjects;
+}
+
 void Wall::handleEvents(const event_t&)
 {
 }
@@ -45,6 +50,7 @@ int Wall::Initializer::load() const
     } else {
         attrib->solid = false;
     }
+    attrib->groupID = atoi(element->Attribute("groupID"));
 
     attrib->width = atoi(element->Attribute("width"));
     attrib->heigth = atoi(element->Attribute("heigth"));

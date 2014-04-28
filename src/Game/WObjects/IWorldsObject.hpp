@@ -12,6 +12,7 @@
 #include <SFML/System.hpp>
 
 #include "Game/WObjectSignal.hpp"
+#include "Game/Collision.hpp"
 
 #include "Common/Vector2D.hpp"
 #include "Common/Delegate.hpp"
@@ -58,18 +59,20 @@ public:
     
 
     void setMap(GameMap&);
-    void setWorldsObjectsVector(wObjects_t&);
     void setRenderWindow(window_t&);
     //void setSignalsQueue(signals_t&);
     virtual void setSignal(Delegate *, std::string) = 0;
+    virtual void setWorldsObjectsVector(wObjects_t&) = 0;
 
     virtual void handleCollisions() = 0;
     virtual void checkCollisions() = 0;
 
+    virtual void addCollision(Collision) = 0;
+
     virtual void handleEvents(const event_t&) = 0;
     virtual void update(const float&) = 0;
     virtual void draw() = 0; 
-    virtual IAttributes getAttributes() = 0;
+    virtual IAttributes& getAttributes() = 0;
 
     //inline virtual void setObjectID(std::string newID)
     //{

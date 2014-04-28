@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <queue>
+#include <list>
 #include <cmath>
 #include <memory>
 
@@ -28,6 +29,7 @@
 class Player : public Actor {
 private:
     typedef TiXmlElement xmlElement_t;
+    typedef std::list<IWorldsObject*> collisionExcludes_t;
     class Initializer;
 
     PlayerAttributes attrib;
@@ -35,14 +37,13 @@ private:
     Actions act;
     PlayerEventManager eventManager;
 
-    CollisionManager collisions;
+    CollisionManager* collisions;
+    collisionExcludes_t collisionExcludes;
 
     Delegate* createSignal;
 private:
-    void initializeAggregates(xmlElement_t&);
+    void initializeComponents(xmlElement_t&);
 
-    void checkVerticalCollisions(const float& dt);  
-    void checkHorizontalCollisions(const float& dt);      
     void cancelHorizontalOffsetIfNeed(wObjects_t::iterator&, const float&);
     void cancelVerticalOffsetIfNeed(wObjects_t::iterator&, const float&);
 public:
@@ -57,10 +58,14 @@ public:
     bool isCrossing(IWorldsObject&);
     void updateCoordinates(const float&);
 
+    void updateCollisionExcludes();
+    bool checkCollisions1();
+    virtual void addCollision(Collision) {}
+    void addCollisionExclude(IWorldsObject*) ;
     
     void setSignal(Delegate*, std::string);
 
-    IAttributes getAttributes() 
+    IAttributes& getAttributes() 
     {
         return attrib;
     }
@@ -74,8 +79,11 @@ public:
                (*it)->getAttributes().isSolid();
     } 
 
-    virtual void handleCollisions();
-    virtual void checkCollisions();
+    virtual void setWorldsObjectsVector(wObjects_t&);
+    void checkCollisions();
+    void handleCollisions();
+    void delCollisionExclude(IWorldsObject* );
+    bool isExclude(IWorldsObject*);
 };
 
 class Player::Initializer : public IInitializer {

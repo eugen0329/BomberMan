@@ -1,21 +1,26 @@
 #include "Rendering/AnimationManager.hpp"
 
-AnimationManager::AnimationManager() : attrib(NULL)
+AnimationManager::AnimationManager() : sprite(NULL)
 {
 }
 
 void AnimationManager::loadAnimations(xmlElement_t& element)
 {
     currAnimation = element.Attribute("initialAnimation");
-    AnimationManager::Initializer initializer(element, animations, *attrib);
+    AnimationManager::Initializer initializer(element, animations, *sprite);
     if(initializer.load() ) {
         exit(1);
     }
 }
 
-void AnimationManager::setObjectAttributes(IAttributes & attrib)
+//void AnimationManager::setObjectAttributes(IAttributes & attrib)
+//{
+//    this->attrib = &attrib;
+//}
+
+void AnimationManager::setSprite(sprite_t & sprite)
 {
-    this->attrib = &attrib;
+    this->sprite = &sprite;
 }
 
 
@@ -58,7 +63,7 @@ int AnimationManager::Initializer::load() const
         readFrameSizeAndLocations(*animationIt, pos, width, heigth);
         readFramesInformation(*animationIt, timeToFrame, nFrames, offset);
 
-        (*animations)[animName] = new Animation(attrib->sprite, pos.x, pos.y, width, heigth, offset, nFrames, timeToFrame);
+        (*animations)[animName] = new Animation(*sprite, pos.x, pos.y, width, heigth, offset, nFrames, timeToFrame);
  
         animationIt = animationIt->NextSiblingElement("animation");
     }
@@ -81,10 +86,10 @@ void AnimationManager::Initializer::readFramesInformation(const xmlElement_t& an
     nFrames     = atoi( animationIt.Attribute("nFrames") );
 }
 
-AnimationManager::Initializer::Initializer(xmlElement_t& element, animationsMap_t& animations, IAttributes& attrib)
+AnimationManager::Initializer::Initializer(xmlElement_t& element, animationsMap_t& animations, sprite_t& sprite)
 {
     this->element = &element;   
-    this->attrib  = &attrib;
+    this->sprite  = &sprite;
     this->animations = &animations;
 }
 
@@ -95,7 +100,7 @@ AnimationManager::Initializer::Initializer()// :
 //attrib(NULL)
 {
     this->element = NULL;   
-    this->attrib  = NULL;
+    this->sprite  = NULL;
     this->animations = NULL;
 }
 

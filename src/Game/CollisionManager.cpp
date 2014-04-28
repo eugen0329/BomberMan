@@ -1,6 +1,18 @@
 #include "Game/CollisionManager.hpp"
 
-
-void CollisionManager::nextCollision() 
+CollisionManager::CollisionManager() :
+wObjects(NULL)
 {
 }
+
+CollisionManager::~CollisionManager()
+{
+}
+
+
+void CollisionManager::setWObjects(wObjects_t& wObjects)
+{
+    this->wObjects = & wObjects;
+}
+
+

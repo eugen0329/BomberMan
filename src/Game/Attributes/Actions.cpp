@@ -35,11 +35,10 @@ void Actions::move(float angle)
 
 void Actions::throwBomb(const std::string bombType)
 {
-    TiXmlDocument* xmlFile = alg::openXmlFile("res/Bomb.xml"); 
-    TiXmlElement* bombAttributes = alg::getXmlElement(xmlFile, {"Bombs", bombType} );
-    this->createWObject(dynamic_cast<IWorldsObject*>(new Bomb(*bombAttributes, *attrib)));
-    delete xmlFile;
-    this->createWObject(dynamic_cast<IWorldsObject*>(new Bomb(*attrib)));
+    IWorldsObject* newBomb =  new Bomb(*attrib);
+    newBomb->setSignal(&delCollisionExclude, "delCollisionExclude");
+    this->createWObject(dynamic_cast<IWorldsObject*>(newBomb));
+    addCollisionExclude(newBomb);
 }
  
 void Actions::stop(float angle)
@@ -89,5 +88,9 @@ void Actions::setSignal(Delegate* delegate, std::string signalName)
 {
     if(signalName == "create") {
         this->createWObject = *delegate;
+    } else if (signalName == "addCollisionExclude") {
+        this->addCollisionExclude = *delegate;
+    } else if (signalName == "delCollisionExclude") {
+        this->delCollisionExclude = *delegate;
     }
 }

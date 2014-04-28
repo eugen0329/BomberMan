@@ -36,7 +36,7 @@ void GameLevel::readObjectsFromXml(TiXmlElement* wObjectIt)
         } else if(className == "Wall") {
             createItem(new Wall(*wObjectIt));
         } else if(className == "Bomb") {
-            createItem(new Bomb(*wObjectIt));
+            //createItem(new Bomb(*wObjectIt));
         } else {
             std::cout << "ERROR: wrong class name " << className << std::endl;
             continue;
@@ -146,11 +146,11 @@ void GameLevel::deleteObjectFromVector(IWorldsObject* removable)
 
 void GameLevel::createItemSignal( IWorldsObject* newWObject)
 {
-    if( hasCollisions(newWObject)) {
-        delete newWObject;
-    } else {
+    //if( hasCollisions(newWObject)) {
+    //    delete newWObject;
+    //} else {
         createItem(newWObject);
-    }
+    //}
 }
 
 bool GameLevel::hasCollisions(IWorldsObject* verifiable)

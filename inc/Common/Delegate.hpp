@@ -177,6 +177,7 @@ private:
 // }}} ------------------------------
 private:
     IContainer* container;
+    bool isBinded_;
 public:
     Delegate() : 
     container( NULL ) 
@@ -186,6 +187,7 @@ public:
         if(sec.container) {
             sec.container->writeCopyPtr(this->container);
         }
+        this->isBinded_ = sec.isBinded_;
     }
     virtual ~Delegate() 
     { 
@@ -199,6 +201,7 @@ public:
             delete container;
         }
         container = new Container<T, U>(newClass, newMethod);
+        this->isBinded_ = true;
     }
     void operator() () {
         ArgList<> args;
@@ -229,7 +232,12 @@ public:
         } else {
             this->container = NULL;
         }
+        this->isBinded_ = second.isBinded_;
         return *this;
+    }
+    bool isBinded()
+    {
+        return isBinded_;
     }
 };
 

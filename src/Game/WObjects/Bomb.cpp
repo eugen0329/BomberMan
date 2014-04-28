@@ -4,13 +4,20 @@ Bomb::Bomb()
 {
 }
 
-Bomb::Bomb(xmlElement_t& xmlElement)
-{    
-	Bomb::Initializer initializer(xmlElement, attrib);
+//Bomb::Bomb(xmlElement_t& xmlElement, int groupID)
+//{    
+//	Bomb::Initializer initializer(xmlElement, attrib);
+//
+//    if(initializer.load()) {
+//        exit(1);
+//    }    
+//    attrib.groupID = groupID;
+//    //setObjectID("Bomb");
+//}
 
-    if(initializer.load()) {
-        exit(1);
-    }    
+void Bomb::setWorldsObjectsVector(wObjects_t& wObjects)
+{
+    this->wObjects = &wObjects;
 }
 
 Bomb::Bomb(xmlElement_t& xmlElement, const IAttributes& parAttr)
@@ -31,7 +38,9 @@ Bomb::Bomb(const IAttributes& parAttr)
 
     attrib.solid = false;
 
-    attrib.lifeTime = 5;
+    attrib.groupID = parAttr.groupID;
+
+    attrib.lifeTime = 3;
     attrib.actLifeTime = 0.0;
 
     attrib.width = 32;
@@ -49,6 +58,17 @@ Bomb::Bomb(const IAttributes& parAttr)
     attrib.pos.x = parAttr.pos.x;
     attrib.pos.y = parAttr.pos.y;
     attrib.sprite.setPosition(attrib.pos.x, attrib.pos.y );
+}
+
+void Bomb::addCollision(Collision)
+{
+}
+
+Bomb::~Bomb()
+{
+    if(delCollisionExclude.isBinded() ) {
+        delCollisionExclude(static_cast<IWorldsObject*>(this));
+    }
 }
 
 void Bomb::handleEvents(const event_t&)
@@ -75,6 +95,15 @@ void Bomb::checkCollisions()
 void Bomb::draw()
 {
     window->draw(attrib.sprite);
+}
+
+void Bomb::setSignal(Delegate* delegate, std::string signalName)
+{
+    if(signalName == "destroying") {
+        this->destroyingSignal = *delegate;
+    } else if(signalName == "delCollisionExclude") {
+        this->delCollisionExclude = *delegate;
+    }
 }
 
 int Bomb::Initializer::load() const

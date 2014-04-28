@@ -9,6 +9,7 @@ public:
     Vector2D<float> origin;
     float lifeTime;
     float actLifeTime;
+
     texture_t texture;
     sprite_t  sprite;
 public:

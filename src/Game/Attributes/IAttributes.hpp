@@ -10,18 +10,24 @@ typedef sf::Sprite sprite_t;
 typedef sf::Texture texture_t;
 
 class IAttributes : public BaseShape {
-public:
-    texture_t texture;
-    sprite_t  sprite;
-    
+public: 
     bool solid;
+    int groupID;
 public:
-    IAttributes(bool solid = true) : solid(solid) {}
-    ~IAttributes() {}
+    IAttributes(bool solid = true, int groupID = 0) : 
+    solid(solid),
+    groupID(groupID)
+    {}
+    ~IAttributes() 
+    {}
 
     inline bool isSolid()
     {
         return solid;
+    }
+    inline int getGroupID()
+    {
+        return groupID;
     }
 };
 
