@@ -33,7 +33,6 @@ private:
 
     Delegate createWObject;
     Delegate addCollisionExclude;
-    Delegate delCollisionExclude;
 public:
     Actions(PlayerAttributes &, AnimationManager &);
     Actions();

@@ -38,10 +38,6 @@ void Player::initializeComponents(xmlElement_t& element)
     act.setPlayerAttributes(attrib);
     act.setAnimationManager(animationManager);
     act.setSignal(alg::createSignal(this, & Player::addCollisionExclude), "addCollisionExclude");
-    act.setSignal(alg::createSignal(&collisionExcludes, & collisionExcludes_t::remove), "delCollisionExclude");
-    //act.setSignalsQueue(signals);
-
-    Delegate action;
 
     eventManager.setAction(alg::createSignal(&act, & Actions::stop), "stop"); 
     eventManager.setAction(alg::createSignal(&act, & Actions::move), "move"); 
@@ -53,7 +49,7 @@ void Player::setWorldsObjectsVector(wObjects_t& wObjects)
 {
     this->wObjects = &wObjects;
     collisions->setWObjects((*this->wObjects));
-    collisions->setOwner(*this);
+    collisions->setOwner(std::shared_ptr<IWorldsObject>(this));
 }
 
 Player::~Player()
@@ -76,7 +72,7 @@ void Player::draw()
     window->draw(attrib.sprite);
 }
 
-void Player::addCollisionExclude(IWorldsObject* newExclude) 
+void Player::addCollisionExclude(pWObject_t newExclude) 
 {
     collisionExcludes.push_back(newExclude);
 }
@@ -96,7 +92,7 @@ void Player::handleCollisions()
 {
 }
 
-bool Player::isExclude(IWorldsObject* verifiable)
+bool Player::isExclude(pWObject_t verifiable)
 {
     if( std::find(collisionExcludes.begin(), collisionExcludes.end(), verifiable) 
         != collisionExcludes.end() ) {
@@ -111,7 +107,7 @@ bool Player::checkCollisions()
 
     bool hasCollisions = false;
 
-    IWorldsObject* it;
+    pWObject_t it;
     for(it = collisions->firstCollision(); it != 0; it = collisions->nextCollision()) {
         if(isExclude(it)) continue;
         it->addCollision(this->getAttributes());
@@ -125,10 +121,12 @@ void Player::updateCollisionExcludes()
 {
     collisionExcludes_t::iterator last = collisionExcludes.end();
     for(collisionExcludes_t::iterator it = collisionExcludes.begin(); it != last; it++) {
-        if(! alg::isCrossing(this->getAttributes(), (*it)->getAttributes())) {
+        // if the object no longer exists or if bomber do not crossing the object 
+        if(  (*it).use_count() < 2 || ! alg::isCrossing(this->getAttributes(), (*it)->getAttributes())) {
             collisionExcludes.erase(it);
             it--;
         }
+
     }
 }
 

@@ -29,7 +29,8 @@
 class Player : public Actor {
 private:
     typedef TiXmlElement xmlElement_t;
-    typedef std::list<IWorldsObject*> collisionExcludes_t;
+    typedef std::shared_ptr<IWorldsObject> pWObject_t;
+    typedef std::list<pWObject_t> collisionExcludes_t;
     class Initializer;
 
     PlayerAttributes attrib;
@@ -58,12 +59,13 @@ public:
     void updateCoordinates(const float&);
     
     bool checkCollisions();
-    bool isExclude(IWorldsObject*);
+    bool isExclude(pWObject_t);
 
     virtual void addCollision(Collision) {}
     void handleCollisions();
     void updateCollisionExcludes();
-    void addCollisionExclude(IWorldsObject*) ;
+    
+    void addCollisionExclude(pWObject_t) ;
     
     IAttributes& getAttributes() 
     {

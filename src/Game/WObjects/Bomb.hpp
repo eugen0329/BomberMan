@@ -11,8 +11,6 @@
 #include "Game/Attributes/BombAttributes.hpp" 
 #include "Game/WObjects/Item.hpp"
 
-//#include "Game/GameLevel.hpp"
-
 class Bomb : public Item {
 private:
     class Initializer;
@@ -21,7 +19,6 @@ private:
     Delegate delCollisionExclude;
 public:
     Bomb();
-    //Bomb(xmlElement_t& xmlElement, int groupID = 0);
 
     Bomb(const IAttributes&);
     Bomb(xmlElement_t&, const IAttributes&);

@@ -7,21 +7,25 @@
 #include <queue>
 #include <algorithm>
 #include <exception>
+#include <memory>
 
 #include "Common/Algorithms.hpp"
 #include "XMLParser/tinyxml.h"
 
+#include "Game/WObjects/IWorldsObject.hpp"
 #include "Game/WObjects/Player.hpp"
-#include "Game/WObjects/Bomb.hpp"
+//#include "Game/WObjects/Bomb.hpp"
 #include "Game/WObjects/Wall.hpp"
 #include "Game/Map/GameMap.hpp"
-#include "Game/WObjects/IWorldsObject.hpp"
+
 
 
 typedef sf::Event event_t;
 typedef sf::RenderWindow window_t;
 
-typedef std::vector<IWorldsObject*> wObjects_t;
+typedef std::shared_ptr<IWorldsObject> pWObject_t;
+
+typedef std::vector<pWObject_t> wObjects_t;
 
 class GameLevel {
 private:
@@ -43,16 +47,15 @@ public:
     void update(const float&);
     void draw();
 
-    void createActor(IWorldsObject*);
-    void createItem(IWorldsObject*);
-    void setBaseAttributes(IWorldsObject *&);
+    void createActor(pWObject_t);
+    void createItem(pWObject_t);
+    void setBaseAttributes(pWObject_t&);
 
-    void deleteObjectSignal( IWorldsObject* );
-    void deleteObjectFromLayer( IWorldsObject *) ;
-    void deleteObjectFromVector( IWorldsObject *);
+    void deleteObjectSignal( pWObject_t );
+    void deleteObjectFromLayer( pWObject_t) ;
+    void deleteObjectFromVector( pWObject_t);
 
-    void createItemSignal(IWorldsObject*);
-    bool hasCollisions(IWorldsObject*);
+    void createItemSignal(pWObject_t);
 };
 
 #endif /* end of include guard: _GAMELEVEL_HPP_ */

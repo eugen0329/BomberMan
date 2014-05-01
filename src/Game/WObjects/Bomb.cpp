@@ -46,7 +46,6 @@ Bomb::Bomb(const IAttributes& parAttr)
     attrib.width = 32;
     attrib.heigth = 32;
 
-
     attrib.origin.x =  16;
     attrib.origin.y  = 16;
 
@@ -66,9 +65,6 @@ void Bomb::addCollision(Collision)
 
 Bomb::~Bomb()
 {
-    if(delCollisionExclude.isBinded() ) {
-        delCollisionExclude(static_cast<IWorldsObject*>(this));
-    }
 }
 
 void Bomb::handleEvents(const event_t&)
@@ -79,6 +75,7 @@ void Bomb::update(const float& dt)
 { 
     attrib.actLifeTime += dt;
  
+    //std::cout <<  attrib.actLifeTime;
     if(attrib.actLifeTime >= attrib.lifeTime) 
     {
         destroyingSignal(dynamic_cast<IWorldsObject*>(this));
@@ -101,8 +98,6 @@ void Bomb::setSignal(Delegate* delegate, std::string signalName)
 {
     if(signalName == "destroying") {
         this->destroyingSignal = *delegate;
-    } else if(signalName == "delCollisionExclude") {
-        this->delCollisionExclude = *delegate;
     }
 }
 

@@ -35,9 +35,9 @@ void Actions::move(float angle)
 
 void Actions::throwBomb(const std::string bombType)
 {
-    IWorldsObject* newBomb =  new Bomb(*attrib);
-    newBomb->setSignal(&delCollisionExclude, "delCollisionExclude");
-    this->createWObject(dynamic_cast<IWorldsObject*>(newBomb));
+    pWObject_t newBomb( new Bomb(*attrib));
+
+    this->createWObject(newBomb);
     addCollisionExclude(newBomb);
 }
  
@@ -90,7 +90,5 @@ void Actions::setSignal(Delegate* delegate, std::string signalName)
         this->createWObject = *delegate;
     } else if (signalName == "addCollisionExclude") {
         this->addCollisionExclude = *delegate;
-    } else if (signalName == "delCollisionExclude") {
-        this->delCollisionExclude = *delegate;
     }
 }

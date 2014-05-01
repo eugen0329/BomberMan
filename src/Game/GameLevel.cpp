@@ -22,9 +22,6 @@ window(&window)
 
 GameLevel::~GameLevel()
 {
-    for (unsigned int i = 0; i < wObjects.size(); i++) {
-        delete wObjects[i];
-    }
 }
 
 void GameLevel::readObjectsFromXml(TiXmlElement* wObjectIt)
@@ -32,21 +29,19 @@ void GameLevel::readObjectsFromXml(TiXmlElement* wObjectIt)
     while(wObjectIt) {
         std::string className = wObjectIt->Attribute("class");
         if(className == "Player") {
-            createActor(new Player(*wObjectIt));
+            createActor(std::make_shared<Player>(*wObjectIt));
         } else if(className == "Wall") {
-            createItem(new Wall(*wObjectIt));
-        } else if(className == "Bomb") {
-            //createItem(new Bomb(*wObjectIt));
+            createItem(std::make_shared<Wall>(*wObjectIt));
         } else {
             std::cout << "ERROR: wrong class name " << className << std::endl;
-            continue;
+
         }
 
         wObjectIt = wObjectIt->NextSiblingElement("object");
     }
 }
 
-void GameLevel::createActor(IWorldsObject* newActor)
+void GameLevel::createActor(pWObject_t newActor)
 {
     setBaseAttributes(newActor);
     newActor->setSignal(alg::createSignal(this, & GameLevel::createItemSignal), "create");
@@ -55,14 +50,14 @@ void GameLevel::createActor(IWorldsObject* newActor)
      
 }
 
-void GameLevel::createItem(IWorldsObject* newItem)
+void GameLevel::createItem(pWObject_t newItem)
 {
     setBaseAttributes(newItem);
     wObjects.push_back(newItem);
     drawableLayers[0].push_back(newItem);
 }
 
-void GameLevel::setBaseAttributes(IWorldsObject*& wObject)
+void GameLevel::setBaseAttributes(pWObject_t& wObject)
 {
     wObject->setRenderWindow(*window);
     wObject->setMap(stageMap);
@@ -107,13 +102,13 @@ void GameLevel::draw()
     }
 }
 
-void GameLevel::deleteObjectSignal( IWorldsObject* removable)
+void GameLevel::deleteObjectSignal( pWObject_t removable)
 {
     deleteObjectFromLayer(removable);
     deleteObjectFromVector(removable);
 }
 
-void GameLevel::deleteObjectFromLayer(IWorldsObject* removable)
+void GameLevel::deleteObjectFromLayer(pWObject_t removable)
 {
     layers_t::iterator lastLayer = drawableLayers.end();
     for(layers_t::iterator layer = drawableLayers.begin(); layer != lastLayer; layer++) {
@@ -123,44 +118,22 @@ void GameLevel::deleteObjectFromLayer(IWorldsObject* removable)
             break;
         }
     }
-    //for(unsigned int i = 0; i < drawableLayers.size(); i++) {
-    //    wObjects_t::iterator lObject = std::find( drawableLayers[i].begin(), drawableLayers[i].end(), removable);
-    //    if(lObject != drawableLayers[i].end()) {
-    //        drawableLayers[i].erase(lObject);        
-    //        break;
-    //    }
-    //}
 }
 
-void GameLevel::deleteObjectFromVector(IWorldsObject* removable)
+void GameLevel::deleteObjectFromVector(pWObject_t removable)
 {
     wObjects_t::iterator wObject = std::find( wObjects.begin(), wObjects.end(), removable);
     if(wObject != wObjects.end()) {
-        delete *wObject;
+        //delete *wObject;
         wObjects.erase(wObject);        
     }
 }
 
-void GameLevel::createItemSignal( IWorldsObject* newWObject)
+void GameLevel::createItemSignal( pWObject_t newWObject)
 {
-    //if( hasCollisions(newWObject)) {
-    //    delete newWObject;
-    //} else {
-        createItem(newWObject);
-    //}
-}
 
-bool GameLevel::hasCollisions(IWorldsObject* verifiable)
-{
-    wObjects_t::iterator last = wObjects.end();
-    for(wObjects_t::iterator it = wObjects.begin(); it != last; ++it) {
-        if(  (*it) != verifiable && 
-              alg::isCrossing(verifiable->getAttributes(), (*it)->getAttributes())  &&
-              (*it)->getAttributes().isSolid() ) {
-            return true ;
-        }
-    }
-    return false;
+    createItem(newWObject);
+
 }
 
 void GameLevel::setRenderWindow(window_t* window)

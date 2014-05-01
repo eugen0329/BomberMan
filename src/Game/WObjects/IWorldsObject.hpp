@@ -1,12 +1,11 @@
 #ifndef _IWORLDSOBJECT_HPP_
 #define _IWORLDSOBJECT_HPP_
 
-#define LIB_DIR inc
-
 #include <vector>
 #include "queue"
 #include <string>
 #include <cstdio>
+#include <memory>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System.hpp>
@@ -21,7 +20,8 @@
 class IWorldsObject;
 
 typedef sf::Event event_t;
-typedef std::vector<IWorldsObject*> wObjects_t;
+typedef std::shared_ptr<IWorldsObject> pWObject_t;
+typedef std::vector<pWObject_t> wObjects_t;
 typedef sf::RenderWindow window_t;
 
 class IWorldsObject {

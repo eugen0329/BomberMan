@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <memory>
 
 #include "Common/Algorithms.hpp"
 #include "Common/BaseShape.hpp"
@@ -12,24 +13,26 @@
 
 class CollisionManager {
 private:
-    typedef std::vector<IWorldsObject*> wObjects_t;
+    typedef std::shared_ptr<IWorldsObject> pWObject_t;
+    typedef std::vector<pWObject_t> wObjects_t;
 
-    IWorldsObject* owner;
+
+    pWObject_t owner;
 
     wObjects_t* wObjects;
     wObjects_t::iterator it;
 private:
-    inline bool isSameObject(IWorldsObject *& verifiable) 
+    inline bool isSameObject(pWObject_t& verifiable) 
     {
         return verifiable == owner;
     }
-    inline bool isCollided(IWorldsObject *& verifiable)
+    inline bool isCollided(pWObject_t& verifiable)
     {
         return alg::isCrossing(static_cast<BaseShape>(owner->getAttributes()), 
                                static_cast<BaseShape>(verifiable->getAttributes()) )  &&
                ! isSameObject(verifiable);
     } 
-    inline IWorldsObject* findCollision()
+    inline pWObject_t findCollision()
     {
         wObjects_t::iterator last = wObjects->end();
         while(it != last) {
@@ -45,22 +48,26 @@ public:
     CollisionManager();
     ~CollisionManager();
 
-    inline IWorldsObject* firstCollision()
+    inline pWObject_t firstCollision()
     {
         this->it = wObjects->begin();
         return findCollision();
     }
-    inline IWorldsObject* nextCollision()
+    inline pWObject_t nextCollision()
     {
         it++;
         return findCollision();
     }
 
     void setWObjects(wObjects_t&);
-    inline void setOwner(IWorldsObject& owner)
+    inline void setOwner(pWObject_t owner)
     {
-        this->owner = & owner;
+        this->owner = owner;
     }
+    //inline void setOwner(IWorldsObject *& owner)
+    //{
+    //    this->owner = std::make_shared<IWorldsObject>(owner);
+    //}
 };
 
 #endif /* end of include guard: _COLLISIONMANAGER_HPP_ */
