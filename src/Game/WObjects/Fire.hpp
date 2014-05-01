@@ -1,33 +1,31 @@
-#ifndef _BOMB_HPP_
-#define _BOMB_HPP_
+#ifndef _FIRE_HPP_
+#define _FIRE_HPP_
 
 #include "XMLParser/tinyxml.h"
 
 #include "Common/Interfaces/IInitializer.hpp"
 
 #include "Common/Vector2D.hpp"
-#include "Common/Angle.hpp"
 #include "Common/Algorithms.hpp"
 
 #include "Game/Attributes/IAttributes.hpp"
-#include "Game/Attributes/BombAttributes.hpp" 
+#include "Game/Attributes/FireAttributes.hpp" 
 #include "Game/WObjects/Item.hpp"
 
-#include "Game/WObjects/Fire.hpp"
-
-class Bomb : public Item {
+class Fire : public Item {
 private:
     class Initializer;
 
-    BombAttributes attrib;
+    FireAttributes attrib;
     Delegate destroyingSignal;
     Delegate createSignal;
 public:
-    Bomb();
+    Fire();
 
-    Bomb(const IAttributes&);
-    Bomb(xmlElement_t&, const IAttributes&);
-    virtual ~Bomb();
+    Fire(const IAttributes&);
+    Fire(const IAttributes&, Vector2D<float>);
+    Fire(xmlElement_t&);
+    virtual ~Fire();
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);
     virtual void draw();
@@ -40,25 +38,24 @@ public:
     virtual void handleCollisions();
     virtual void checkCollisions();
 
-
     virtual void setSignal(Delegate*, std::string);
 
     virtual void setWorldsObjectsVector(wObjects_t&);
-
-
-    virtual void makeFire();
 };
 
-class Bomb::Initializer : public IInitializer {
+
+
+class Fire::Initializer : public IInitializer {
 private:
-    mutable BombAttributes* attrib; 
+    mutable FireAttributes* attrib; 
 public:
     Initializer();
-    Initializer(xmlElement_t&, BombAttributes&);
+    Initializer(xmlElement_t&, FireAttributes&);
     virtual ~Initializer();
     
     int load() const;
     
 };
 
-#endif /* end of include guard: _BOMB_HPP_ */
+
+#endif /* end of include guard: _FIRE_HPP_ */

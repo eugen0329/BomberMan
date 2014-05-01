@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include <cmath>
 
+#include <Common/Angle.hpp>
+
 template<typename T = size_t> class Vector2D {
 public:
     T x;
@@ -11,14 +13,17 @@ public:
 
     Vector2D();
     Vector2D(T, T);
+
+    Vector2D(T, const Angle& );
+
     Vector2D(const Vector2D<T>&);
     ~Vector2D();
 
     Vector2D<T>& operator = (const Vector2D<T>&);
+    Vector2D<T>& operator += (const Vector2D<T>&);
     
     Vector2D<T> operator - (const Vector2D<T>&);
     Vector2D<T> operator - (const Vector2D<T>&) const;
-
     Vector2D<T> operator + (const Vector2D<T>&);
     Vector2D<T> operator + (const Vector2D<T>&) const;
 
@@ -130,6 +135,15 @@ Vector2D<T> Vector2D<T>::operator + (const Vector2D<T>& right) const
 }
 
 template<class T> 
+Vector2D<T>& Vector2D<T>::operator += (const Vector2D<T>& right)
+{
+    this->x += right.x; 
+    this->y += right.y;
+
+    return *this;
+}
+
+template<class T> 
 Vector2D<T>& Vector2D<T>::operator=(const Vector2D<T>& right)
 {
     this->x = right.x;
@@ -150,6 +164,13 @@ Vector2D<T>::Vector2D(T x, T y)
 {
     this->x = x;
     this->y = y; 
+}
+
+template<class T> 
+Vector2D<T>::Vector2D(T modulo, const Angle& angle) 
+{
+    this->x = modulo * cos(angle.inRad());
+    this->y = modulo * sin(angle.inRad());
 }
 
 template<class T> 

@@ -32,6 +32,8 @@ void GameLevel::readObjectsFromXml(TiXmlElement* wObjectIt)
             createActor(std::make_shared<Player>(*wObjectIt));
         } else if(className == "Wall") {
             createItem(std::make_shared<Wall>(*wObjectIt));
+        } else if(className == "Fire") {
+            createItem(std::make_shared<Fire>(*wObjectIt));
         } else {
             std::cout << "ERROR: wrong class name " << className << std::endl;
 
@@ -53,6 +55,7 @@ void GameLevel::createActor(pWObject_t newActor)
 void GameLevel::createItem(pWObject_t newItem)
 {
     setBaseAttributes(newItem);
+    newItem->setSignal(alg::createSignal(this, & GameLevel::createItemSignal), "create");
     wObjects.push_back(newItem);
     drawableLayers[0].push_back(newItem);
 }
@@ -76,11 +79,22 @@ void GameLevel::update(const float& dt)
 {
     stageMap.update(dt);
 
-    for (unsigned int i = 0; i < wObjects.size(); i++) {
-        wObjects[i]->update(dt);
+    for(wObjects_t::iterator wObject = wObjects.begin(); wObject != wObjects.end(); wObject++) {
+       (*wObject)->update(dt);
     }
-    for (unsigned int i = 0; i < wObjects.size(); i++) {
-        wObjects[i]->handleCollisions();
+    for(wObjects_t::iterator wObject = wObjects.begin(); wObject != wObjects.end(); wObject++) {
+       (*wObject)->handleCollisions();
+    }
+
+    while(! signals.empty()) {
+        if(signals.front().name == "delete") {
+            deleteObjectFromLayer(signals.front().operand);
+            deleteObjectFromVector(signals.front().operand);
+            //exit(1);
+        } else if(signals.front().name == "create") {
+            createItem(signals.front().operand);
+        }
+        signals.pop();
     }
     
 }
@@ -102,10 +116,9 @@ void GameLevel::draw()
     }
 }
 
-void GameLevel::deleteObjectSignal( pWObject_t removable)
+void GameLevel::deleteObjectSignal(pWObject_t removable)
 {
-    deleteObjectFromLayer(removable);
-    deleteObjectFromVector(removable);
+    signals.push(Signal(removable, "delete"));
 }
 
 void GameLevel::deleteObjectFromLayer(pWObject_t removable)
@@ -131,9 +144,7 @@ void GameLevel::deleteObjectFromVector(pWObject_t removable)
 
 void GameLevel::createItemSignal( pWObject_t newWObject)
 {
-
-    createItem(newWObject);
-
+    signals.push(Signal(newWObject, "create"));
 }
 
 void GameLevel::setRenderWindow(window_t* window)

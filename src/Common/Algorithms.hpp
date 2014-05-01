@@ -17,6 +17,13 @@
 
 namespace alg {
 
+    struct NilClass {};
+
+    template<class T>
+    void nodelete(T*)
+    {
+    }
+
     inline bool isCrossing(const BaseShape& first, const BaseShape& second)
     {
         static Vector2D<float> currentDist;
