@@ -45,9 +45,9 @@ void Player::initializeComponents(xmlElement_t& element)
  
 }
 
-void Player::setWorldsObjectsVector(wObjects_t& wObjects)
+void Player::setWorldsObjectsVector(wObjects_t& wObjects_)
 {
-    this->wObjects = &wObjects;
+    this->wObjects = &wObjects_;
     collisions->setWObjects((*this->wObjects));
     collisions->setOwner(std::shared_ptr<IWorldsObject>(this));
 }
@@ -107,12 +107,20 @@ bool Player::checkCollisions()
 
     bool hasCollisions = false;
 
-    pWObject_t it;
-    for(it = collisions->firstCollision(); it != 0; it = collisions->nextCollision()) {
-        if(isExclude(it)) continue;
-        it->addCollision(this->getAttributes());
-
-        hasCollisions = true;
+    //pWObject_t it;
+    //for(it = collisions->firstCollision(); it != 0; it = collisions->nextCollision()) {
+    //    if(isExclude(it)) continue;
+    //    it->addCollision(this->getAttributes());
+//
+    //    hasCollisions = true;
+    //}
+    CollisionManager::iterator last = collisions->end();
+    for (CollisionManager::iterator it = collisions->begin(); it != last; ++it)
+    {
+        if(! isExclude(*it) && (*it)->getAttributes().isSolid()) {
+            (*it)->addCollision(this->getAttributes());
+            hasCollisions = true;
+        }
     }
     return hasCollisions;
 }
@@ -160,6 +168,9 @@ int Player::Initializer::load() const
     } else {
         attrib->solid = false;
     }
+
+    attrib->harmful = false;
+    
 
     attrib->v.x = 0.0;
     attrib->v.y = 0.0;

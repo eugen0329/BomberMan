@@ -5,10 +5,10 @@
 
 class Collision {
 public:
-    IAttributes secWObjectAttributes;
+    IAttributes secondAttributes;
     
-    Collision(IAttributes& secWObjectAttributes) : 
-    secWObjectAttributes(secWObjectAttributes) 
+    Collision(IAttributes& secondAttributes) : 
+    secondAttributes(secondAttributes) 
     {}
     ~Collision() 
     {}

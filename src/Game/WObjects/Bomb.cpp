@@ -49,6 +49,8 @@ Bomb::Bomb(const IAttributes& parAttr)
     attrib.origin.x =  16;
     attrib.origin.y  = 16;
 
+    attrib.harmful = false;
+
     std::string textureName = "res/Tiles/bomb.jpg";
 
     attrib.texture.loadFromFile(textureName);
@@ -79,7 +81,7 @@ void Bomb::update(const float& dt)
     if(attrib.actLifeTime >= attrib.lifeTime) 
     {
         makeFire();
-        destroyingSignal(std::shared_ptr<IWorldsObject>(this, alg::nodelete<IWorldsObject>));
+        destroyingSignal(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
     }
 }
 
@@ -116,6 +118,9 @@ int Bomb::Initializer::load() const
     } else {
         attrib->solid = false;
     }
+
+
+    attrib->harmful = false;
 
     attrib->lifeTime = atof(element->Attribute("lifeTime"));
     attrib->actLifeTime = 0.0;
@@ -161,11 +166,23 @@ void Bomb::makeFire()
     float offset = 32;
     int waveCount = 2;
 
+    //CollisionManager cManager;
+    //cManager.setWObjects(*wObjects);
+    //cManager.setOwner(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
+
+    pWObject_t temp;
+
     pWObject_t newFire = std::make_shared<Fire>(this->attrib);
     createSignal(newFire);
+
     for(Angle angle = 0; angle != Angle(2.f); angle += Angle(0.5)) {
         for(int wave = 1; wave < waveCount + 1; wave++) {
             newFire = std::make_shared<Fire>(this->attrib, Vector2D<float>(offset * wave, angle));
+            
+            //for(temp = collisions->firstCollision(); temp != 0; it = collisions->nextCollision()) {
+            //    
+            //    it->addCollision(this->getAttributes());
+            //}
             createSignal(newFire);
         }
     }

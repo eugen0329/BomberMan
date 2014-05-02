@@ -11,6 +11,7 @@ void Fire::setWorldsObjectsVector(wObjects_t& wObjects)
 
 Fire::Fire(const IAttributes& parAttr, Vector2D<float> offset)
 {    
+    attrib.harmful = true; 
     attrib.solid = false;
 
     attrib.groupID = parAttr.groupID;
@@ -50,7 +51,7 @@ Fire::Fire(xmlElement_t& xmlElement)
 
 Fire::Fire(const IAttributes& parAttr)
 {    
-
+    attrib.harmful = true; 
     attrib.solid = false;
 
     attrib.groupID = parAttr.groupID;
@@ -94,7 +95,7 @@ void Fire::update(const float& dt)
     //std::cout <<  attrib.actLifeTime;
     if(attrib.actLifeTime >= attrib.lifeTime) 
     {
-        destroyingSignal(std::shared_ptr<IWorldsObject>(this, alg::nodelete<IWorldsObject>));
+        destroyingSignal(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
     }
 }
 
@@ -131,6 +132,8 @@ int Fire::Initializer::load() const
     } else {
         attrib->solid = false;
     }
+
+    attrib->harmful = true;
 
     attrib->lifeTime = atof(element->Attribute("lifeTime"));
     attrib->actLifeTime = 0.0;

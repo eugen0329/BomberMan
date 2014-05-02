@@ -32,8 +32,6 @@ void GameLevel::readObjectsFromXml(TiXmlElement* wObjectIt)
             createActor(std::make_shared<Player>(*wObjectIt));
         } else if(className == "Wall") {
             createItem(std::make_shared<Wall>(*wObjectIt));
-        } else if(className == "Fire") {
-            createItem(std::make_shared<Fire>(*wObjectIt));
         } else {
             std::cout << "ERROR: wrong class name " << className << std::endl;
 

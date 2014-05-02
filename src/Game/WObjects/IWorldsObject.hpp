@@ -17,6 +17,8 @@
 #include "Game/Map/GameMap.hpp"
 #include "Game/Attributes/IAttributes.hpp"
 
+#include "Common/Algorithms.hpp"
+
 class IWorldsObject;
 
 typedef sf::Event event_t;

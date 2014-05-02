@@ -6,6 +6,8 @@
 #include "Game/WObjects/Item.hpp"
 #include "Game/Attributes/WallAttributes.hpp"
 
+#include "Common/Algorithms.hpp"
+
 class Wall : public Item {
 private:
     class Initializer;
@@ -23,7 +25,7 @@ public:
         return attrib;
     }
 
-    virtual void addCollision(Collision) {}
+    virtual void addCollision(Collision); 
     virtual void handleCollisions();
     
     virtual void setWorldsObjectsVector(wObjects_t&);

@@ -17,12 +17,12 @@
 
 namespace alg {
 
-    struct NilClass {};
+    //struct NilClass {};
 
-    template<class T>
-    void nodelete(T*)
-    {
-    }
+    //template<class T>
+    //void nodelete(T*)
+    //{
+    //}
 
     inline bool isCrossing(const BaseShape& first, const BaseShape& second)
     {

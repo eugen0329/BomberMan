@@ -12,6 +12,7 @@ typedef sf::Texture texture_t;
 class IAttributes : public BaseShape {
 public: 
     bool solid;
+    bool harmful;
     int groupID;
 public:
     IAttributes(bool solid = true, int groupID = 0) : 
@@ -24,6 +25,10 @@ public:
     inline bool isSolid()
     {
         return solid;
+    }
+    inline bool isHarmful()
+    {
+        return harmful;
     }
     inline int getGroupID()
     {

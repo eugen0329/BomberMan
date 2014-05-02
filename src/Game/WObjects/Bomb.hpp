@@ -15,6 +15,8 @@
 
 #include "Game/WObjects/Fire.hpp"
 
+#include "Game/CollisionManager.hpp"
+
 class Bomb : public Item {
 private:
     class Initializer;

@@ -10,8 +10,7 @@ Wall::Wall(xmlElement_t& xmlElement)
 
     if(initializer.load()) {
         exit(1);
-    } 
-    //setObjectID("Wall");
+    }
 }
 
 void Wall::setWorldsObjectsVector(wObjects_t& wObjects)
@@ -36,6 +35,13 @@ void Wall::handleCollisions()
 {
 }
 
+void Wall::addCollision(Collision collision) 
+{
+    if(collision.secondAttributes.isHarmful()) {
+        destroyingSignal(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
+    }
+}
+
 int Wall::Initializer::load() const
 {
     if(attrib == NULL) {
@@ -47,6 +53,7 @@ int Wall::Initializer::load() const
     } else {
         attrib->solid = false;
     }
+    attrib->harmful = false;
     attrib->groupID = atoi(element->Attribute("groupID"));
 
     attrib->width = atoi(element->Attribute("width"));
@@ -83,3 +90,4 @@ Wall::Initializer::Initializer()
 Wall::Initializer::~Initializer()
 {
 }
+
