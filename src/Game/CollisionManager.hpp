@@ -45,7 +45,6 @@ public:
         this->owner = owner;
     }
 
-
     class iterator {
     private:
         friend class CollisionManager;
@@ -103,11 +102,17 @@ public:
         {
             return *it;
         }
+        inline pWObject_t& operator -> () 
+        {
+            return *it;
+        }
         inline bool operator != (const iterator& second) 
         {
             return it != second.it;
         }
     };
 };
+
+
 
 #endif /* end of include guard: _COLLISIONMANAGER_HPP_ */

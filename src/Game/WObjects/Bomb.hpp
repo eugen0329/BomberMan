@@ -21,6 +21,8 @@ class Bomb : public Item {
 private:
     class Initializer;
 
+    CollisionManager cManager;
+
     BombAttributes attrib;
     Delegate destroyingSignal;
     Delegate createSignal;
@@ -48,7 +50,8 @@ public:
     virtual void setWorldsObjectsVector(wObjects_t&);
 
 
-    virtual void makeFire();
+    void makeFire();
+    void makeFireWave(Angle&);
 };
 
 class Bomb::Initializer : public IInitializer {

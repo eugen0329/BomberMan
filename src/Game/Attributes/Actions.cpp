@@ -92,3 +92,8 @@ void Actions::setSignal(Delegate* delegate, std::string signalName)
         this->addCollisionExclude = *delegate;
     }
 }
+
+void Actions::setWObjects(wObjects_t& wObjects)
+{
+    this->wObjects = & wObjects;
+}

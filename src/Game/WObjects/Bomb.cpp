@@ -17,6 +17,9 @@ Bomb::Bomb()
 
 void Bomb::setWorldsObjectsVector(wObjects_t& wObjects)
 {
+    
+    cManager.setWObjects(wObjects);
+    cManager.setOwner(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
     this->wObjects = &wObjects;
 }
 
@@ -36,7 +39,8 @@ Bomb::Bomb(xmlElement_t& xmlElement, const IAttributes& parAttr)
 Bomb::Bomb(const IAttributes& parAttr)
 {    
 
-    attrib.solid = false;
+    attrib.solid = true;
+    attrib.harmful = false;
 
     attrib.groupID = parAttr.groupID;
 
@@ -49,7 +53,6 @@ Bomb::Bomb(const IAttributes& parAttr)
     attrib.origin.x =  16;
     attrib.origin.y  = 16;
 
-    attrib.harmful = false;
 
     std::string textureName = "res/Tiles/bomb.jpg";
 
@@ -163,27 +166,30 @@ Bomb::Initializer::~Initializer()
 
 void Bomb::makeFire()
 {
-    float offset = 32;
-    int waveCount = 2;
 
-    //CollisionManager cManager;
-    //cManager.setWObjects(*wObjects);
-    //cManager.setOwner(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
 
-    pWObject_t temp;
 
     pWObject_t newFire = std::make_shared<Fire>(this->attrib);
     createSignal(newFire);
 
     for(Angle angle = 0; angle != Angle(2.f); angle += Angle(0.5)) {
-        for(int wave = 1; wave < waveCount + 1; wave++) {
-            newFire = std::make_shared<Fire>(this->attrib, Vector2D<float>(offset * wave, angle));
-            
-            //for(temp = collisions->firstCollision(); temp != 0; it = collisions->nextCollision()) {
-            //    
-            //    it->addCollision(this->getAttributes());
-            //}
-            createSignal(newFire);
+        makeFireWave(angle);
+    }
+}
+
+void Bomb::makeFireWave(Angle& angle)
+{
+    float offset = 32;
+    int waveCount = 3;
+
+    for(int wave = 1; wave < waveCount + 1; wave++) {
+        pWObject_t newFire = std::make_shared<Fire>(this->attrib, Vector2D<float>(offset * wave, angle));
+        createSignal(newFire);
+        cManager.setOwner(std::shared_ptr<IWorldsObject>(newFire.get(), [](IWorldsObject*){}));
+        for(CollisionManager::iterator it = cManager.begin(); it != cManager.end(); ++it) {
+            if(it->getAttributes().groupID == attrib.groupID) continue;
+            it->addCollision(newFire->getAttributes());
+            if(it->getAttributes().isSolid()) return ;
         }
     }
 }

@@ -48,6 +48,7 @@ void Player::initializeComponents(xmlElement_t& element)
 void Player::setWorldsObjectsVector(wObjects_t& wObjects_)
 {
     this->wObjects = &wObjects_;
+    act.setWObjects(wObjects_);
     collisions->setWObjects((*this->wObjects));
     collisions->setOwner(std::shared_ptr<IWorldsObject>(this));
 }
@@ -168,6 +169,8 @@ int Player::Initializer::load() const
     } else {
         attrib->solid = false;
     }
+
+    attrib->groupID = atoi(element->Attribute("groupID"));
 
     attrib->harmful = false;
     

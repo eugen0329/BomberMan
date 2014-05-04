@@ -27,6 +27,8 @@ class Actions {
 private:
     PlayerAttributes * attrib;
     AnimationManager * anim;
+
+    wObjects_t * wObjects;
     
     typedef std::list<Angle> directions_t;
     directions_t dir;
@@ -60,6 +62,7 @@ public:
     }
     
     void setPlayerAttributes(PlayerAttributes &);
+    void setWObjects(wObjects_t&);
     void setAnimationManager(AnimationManager &);
     void setSignal(Delegate*, std::string);
 };
