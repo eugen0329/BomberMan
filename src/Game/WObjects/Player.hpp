@@ -15,12 +15,12 @@
 #include "Common/Interfaces/IInitializer.hpp"
 
 #include "Common/Algorithms.hpp"
-
 #include "Game/CollisionManager.hpp"
 
 #include "Game/Attributes/PlayerEventManager.hpp"
 #include "Game/Attributes/IAttributes.hpp"
 #include "Game/Attributes/PlayerAttributes.hpp"
+#include "Game/Keyset.hpp"
 
 #include "Rendering/AnimationManager.hpp"
 
@@ -36,7 +36,7 @@ private:
     PlayerAttributes attrib;
     AnimationManager animationManager;
     Actions act;
-    PlayerEventManager eventManager;
+    PlayerEventManager * eventManager;
 
     CollisionManager* collisions;
     collisionExcludes_t collisionExcludes;
@@ -58,10 +58,10 @@ public:
 
     void updateCoordinates(const float&);
     
-    bool checkCollisions();
+    bool hasSolidCollisions();
     bool isExclude(pWObject_t);
 
-    virtual void addCollision(Collision) {}
+    virtual void addCollision(Collision);
     void handleCollisions();
     void updateCollisionExcludes();
     

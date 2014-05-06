@@ -187,7 +187,8 @@ void Bomb::makeFireWave(Angle& angle)
         createSignal(newFire);
         cManager.setOwner(std::shared_ptr<IWorldsObject>(newFire.get(), [](IWorldsObject*){}));
         for(CollisionManager::iterator it = cManager.begin(); it != cManager.end(); ++it) {
-            if(it->getAttributes().groupID == attrib.groupID) continue;
+            // 0 - is static objects that cant react on external collisions by themself
+            if(it->getAttributes().groupID != 0) continue;
             it->addCollision(newFire->getAttributes());
             if(it->getAttributes().isSolid()) return ;
         }

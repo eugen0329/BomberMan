@@ -1,21 +1,13 @@
 #include "Game/Attributes/PlayerEventManager.hpp"
 
-//PlayerEventManager::PlayerEventManager(Actions & act) : act(&act)
-//{
-//}
-
+PlayerEventManager::PlayerEventManager(Keyset::SetID setID)
+{
+    keys = new Keyset(setID);
+    //keys = new Keyset(Keyset::NUM8564Right);
+}
 PlayerEventManager::~PlayerEventManager()
 {
 }
-
-PlayerEventManager::PlayerEventManager() //: act(NULL)
-{
-}
-
-//void PlayerEventManager::setPlayerActions(Actions & act)
-//{
-//    this->act = &act;
-//}
 
 void PlayerEventManager::handleEvents(const event_t& event)
 {
@@ -23,72 +15,18 @@ void PlayerEventManager::handleEvents(const event_t& event)
     handleKeyReleasedEvents(event);
 }
 
-//void PlayerEventManager::handleKeyPressedEvents(const event_t& event)
-//{
-//    if (event.type == sf::Event::KeyPressed) {
-//        switch(event.key.code) {
-//            case sf::Keyboard::Up :
-//                act->move(1.5f);
-//                break;
-//            case sf::Keyboard::Down :
-//                act->move(0.5f);
-//                break;
-//            case sf::Keyboard::Right :
-//                act->move(0.0f);
-//                break;
-//            case sf::Keyboard::Left :
-//                act->move(1.0f);
-//                break;
-//            case sf::Keyboard::Space :
-//                break;
-//            default: 
-//                ;
-//        }
-//    }
-//}
-//
-//void PlayerEventManager::handleKeyReleasedEvents(const event_t& event)
-//{
-//    if (event.type == sf::Event::KeyReleased) {
-//        switch(event.key.code) {
-//            case sf::Keyboard::Up :
-//                act->stop(1.5f); 
-//                break;
-//            case sf::Keyboard::Down :
-//                act->stop(0.5f);
-//                break;
-//            case sf::Keyboard::Right :
-//                act->stop(0.0f);
-//                break;
-//            case sf::Keyboard::Left :
-//                this->stop(1.0f);
-//                break;
-//            case sf::Keyboard::Space :
-//                act->throwBomb("simple");
-//                break;
-//            default: 
-//                ;
-//        }
-//    }
-//}
-
 void PlayerEventManager::handleKeyPressedEvents(const event_t& event)
 {
     if (event.type == sf::Event::KeyPressed) {
-        if(event.key.code == sf::Keyboard::Up) {
+        if(event.key.code == keys->up) {
             this->move(1.5f); 
-            //std::cout << "Up" << std::endl;
-        } else if(event.key.code == sf::Keyboard::Down) {
+        } else if(event.key.code == keys->down) {
             this->move(0.5f);
-            //std::cout << "Down" << std::endl;
-        } else if(event.key.code == sf::Keyboard::Right) {
+        } else if(event.key.code == keys->right) {
             this->move(0.0f);
-            //std::cout << "Right" << std::endl;
-        } else if(event.key.code == sf::Keyboard::Left) {
+        } else if(event.key.code == keys->left) {
             this->move(1.0f);
-            //std::cout << "Left" << std::endl;
-        } else if(event.key.code == sf::Keyboard::Space) {
-
+        } else if(event.key.code == keys->space) {
             this->throwBomb(std::string("SimpleBomb"));
         }
         
@@ -98,17 +36,16 @@ void PlayerEventManager::handleKeyPressedEvents(const event_t& event)
 void PlayerEventManager::handleKeyReleasedEvents(const event_t& event)
 {
     if (event.type == sf::Event::KeyReleased) {
-        if(event.key.code == sf::Keyboard::Up) {
+        if(event.key.code == keys->up) {
             this->stop(1.5f); 
-        } else if(event.key.code == sf::Keyboard::Down) {
+        } else if(event.key.code == keys->down) {
             this->stop(0.5f);
-        } else if(event.key.code == sf::Keyboard::Right) {
+        } else if(event.key.code == keys->right) {
             this->stop(0.0f);
-        } else if(event.key.code == sf::Keyboard::Left) {
+        } else if(event.key.code == keys->left) {
             this->stop(1.0f);
-        } else if(event.key.code == sf::Keyboard::Space) {
+        } else if(event.key.code == keys->space) {
         }
-        
     }
 }
 

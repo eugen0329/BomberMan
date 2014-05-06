@@ -9,28 +9,27 @@
 
 #include "Game/Attributes/Actions.hpp"
 
+#include "Game/Keyset.hpp"
+
 #include <iostream>
 
 typedef sf::Event event_t;
 
-//class Actions;
-//typedef Actions actions_t;
-
 class PlayerEventManager {
 private:
-    //Actions* act;
+    Keyset * keys;
+
     Delegate move;
     Delegate stop;
     Delegate throwBomb;
 public:
-    PlayerEventManager();
+    PlayerEventManager(Keyset::SetID);
     virtual ~PlayerEventManager();
 
     virtual void handleEvents(const event_t&);
     void handleKeyPressedEvents(const event_t&);
     void handleKeyReleasedEvents(const event_t&);
 
-    //void setPlayerActions(Actions &);
     void setAction(Delegate*, std::string);
 };
 

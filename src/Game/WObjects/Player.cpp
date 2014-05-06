@@ -8,7 +8,6 @@ Player::Player(xmlElement_t& xmlElement)
 {
     Player::Initializer initializer(xmlElement, attrib);
 
-    //setObjectID("Player");
     if(initializer.load()) {
         exit(1);
     } 
@@ -39,9 +38,10 @@ void Player::initializeComponents(xmlElement_t& element)
     act.setAnimationManager(animationManager);
     act.setSignal(alg::createSignal(this, & Player::addCollisionExclude), "addCollisionExclude");
 
-    eventManager.setAction(alg::createSignal(&act, & Actions::stop), "stop"); 
-    eventManager.setAction(alg::createSignal(&act, & Actions::move), "move"); 
-    eventManager.setAction(alg::createSignal(&act, & Actions::throwBomb), "throwBomb"); 
+    eventManager = new PlayerEventManager(static_cast<Keyset::SetID>(attrib.groupID));
+    eventManager->setAction(alg::createSignal(&act, & Actions::stop), "stop"); 
+    eventManager->setAction(alg::createSignal(&act, & Actions::move), "move"); 
+    eventManager->setAction(alg::createSignal(&act, & Actions::throwBomb), "throwBomb"); 
  
 }
 
@@ -59,7 +59,7 @@ Player::~Player()
 
 void Player::handleEvents(const event_t& event)
 {
-    eventManager.handleEvents(event);
+    eventManager->handleEvents(event);
 }
 
 void Player::update(const float& dt)
@@ -81,16 +81,24 @@ void Player::addCollisionExclude(pWObject_t newExclude)
 void Player::updateCoordinates(const float& dt)
 {
     attrib.pos.x += attrib.v.x * dt;
-    if(checkCollisions()) attrib.pos.x -= attrib.v.x * dt;
+    if(hasSolidCollisions()) attrib.pos.x -= attrib.v.x * dt;
 
     attrib.pos.y += attrib.v.y * dt;
-    if(checkCollisions()) attrib.pos.y -= attrib.v.y * dt;
+    if(hasSolidCollisions()) attrib.pos.y -= attrib.v.y * dt;
 
     attrib.sprite.setPosition(attrib.pos.x, attrib.pos.y);
 }
 
 void Player::handleCollisions()
 {
+    CollisionManager::iterator last = collisions->end();
+    for (CollisionManager::iterator it = collisions->begin(); it != last; ++it)
+    {
+        if((*it)->getAttributes().isHarmful()) {
+            //destroyingSignal(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
+            attrib.sprite.setColor(sf::Color::Red);
+        }
+    }
 }
 
 bool Player::isExclude(pWObject_t verifiable)
@@ -102,28 +110,21 @@ bool Player::isExclude(pWObject_t verifiable)
     return false;
 }
 
-bool Player::checkCollisions()
+void Player::addCollision(Collision)
+{
+}
+
+bool Player::hasSolidCollisions()
 {
     updateCollisionExcludes();
-
-    bool hasCollisions = false;
-
-    //pWObject_t it;
-    //for(it = collisions->firstCollision(); it != 0; it = collisions->nextCollision()) {
-    //    if(isExclude(it)) continue;
-    //    it->addCollision(this->getAttributes());
-//
-    //    hasCollisions = true;
-    //}
     CollisionManager::iterator last = collisions->end();
     for (CollisionManager::iterator it = collisions->begin(); it != last; ++it)
     {
         if(! isExclude(*it) && (*it)->getAttributes().isSolid()) {
-            (*it)->addCollision(this->getAttributes());
-            hasCollisions = true;
+            return true;
         }
     }
-    return hasCollisions;
+    return false;
 }
 
 void Player::updateCollisionExcludes()

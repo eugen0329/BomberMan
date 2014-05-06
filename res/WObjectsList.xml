@@ -99,7 +99,7 @@
     <object class="Fire" posX="80" posY="208" width="32" heigth="32" texture="res/Tiles/fire.png" origX="16" origY="16" lifeTime="2" isSolid="true" />
 
     <!-- Players -->
-    <object class="Player" posX="50" posY="50" width="22" heigth="12" vx="200" vy="200" texture="res/Animations/tileSheet.png" origX="22" origY="34" isSolid="false"  groupID="1" > -->
+    <object class="Player" posX="50" posY="50" width="22" heigth="12" vx="200" vy="200" texture="res/Animations/tileSheet1.png" origX="22" origY="34" isSolid="false"  groupID="1" > -->
         <animations  nAnimations="8" initialAnimation="standDown">                                                                             
             <animation name="moveUp" nFrames="3" posX="0" posY="202" width="40" heigth="64" offset="45" timeToFrame="0.25" />         
             <animation name="moveDown" nFrames="3" posX="0" posY="10" width="40" heigth="64" offset="45" timeToFrame="0.25" />         
