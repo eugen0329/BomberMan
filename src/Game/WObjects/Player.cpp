@@ -196,6 +196,5 @@ int Player::Initializer::load() const
     attrib->pos.y = atoi(element->Attribute("posY"));
     attrib->sprite.setPosition(attrib->pos.x, attrib->pos.y );
     attrib->sprite.setOrigin(attrib->origin.x, attrib->origin.y);
-    //attrib->sprite.setTextureRect(sf::IntRect(0,128, attrib->width, attrib->heigth ) );
     return 0;
 }

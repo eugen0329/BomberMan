@@ -54,7 +54,7 @@ Bomb::Bomb(const IAttributes& parAttr)
     attrib.origin.y  = 16;
 
 
-    std::string textureName = "res/Tiles/bomb.jpg";
+    std::string textureName = "res/Tiles/bomb1.png";
 
     attrib.texture.loadFromFile(textureName);
     attrib.sprite.setTexture(attrib.texture);
