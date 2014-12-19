@@ -6,23 +6,34 @@ AnimationManager::AnimationManager() : sprite(NULL)
 
 void AnimationManager::loadAnimations(xmlElement_t& element)
 {
-    currAnimation = element.Attribute("initialAnimation");
-    AnimationManager::Initializer initializer(element, animations, *sprite);
-    if(initializer.load() ) {
-        exit(1);
-    }
-}
+    Vector2D<int> pos;
+    int width, heigth, nFrames, offset;
+    float timeToFrame;
+    std::string animName;
 
-//void AnimationManager::setObjectAttributes(IAttributes & attrib)
-//{
-//    this->attrib = &attrib;
-//}
+    xmlElement_t* it = element.FirstChildElement("animation");
+    for( ;it ; it = it->NextSiblingElement("animation")) {
+
+        pos.x       = atoi(it->Attribute("posX")  );
+        pos.y       = atoi(it->Attribute("posY")  );
+        width       = atoi(it->Attribute("width") );
+        heigth      = atoi(it->Attribute("heigth"));    
+        offset      = atoi(it->Attribute("offset"));
+        timeToFrame = atof(it->Attribute("timeToFrame"));
+        nFrames     = atoi(it->Attribute("nFrames"));
+
+        animName = it->Attribute("name");
+        animations[animName] = 
+            new Animation(*sprite, pos.x, pos.y, width, heigth, offset, nFrames, timeToFrame);
+    }
+
+    currAnimation = element.Attribute("initialAnimation");
+}
 
 void AnimationManager::setSprite(sprite_t & sprite)
 {
     this->sprite = &sprite;
 }
-
 
 AnimationManager::AnimationManager(xmlElement_t& element)
 {
@@ -49,61 +60,3 @@ void AnimationManager::updateCurrentAnimation(const float& dt)
     animations[currAnimation]->update(dt);
 }
 
-int AnimationManager::Initializer::load() const 
-{
-    Vector2D<int> pos;
-    int width, heigth, nFrames, offset;
-    float timeToFrame;
-    std::string animName;
-
-    xmlElement_t* animationIt = element->FirstChildElement("animation");
-    while(animationIt) {
-        animName = animationIt->Attribute("name");
-
-        readFrameSizeAndLocations(*animationIt, pos, width, heigth);
-        readFramesInformation(*animationIt, timeToFrame, nFrames, offset);
-
-        (*animations)[animName] = new Animation(*sprite, pos.x, pos.y, width, heigth, offset, nFrames, timeToFrame);
- 
-        animationIt = animationIt->NextSiblingElement("animation");
-    }
-
-    return 0;
-}
-
-void AnimationManager::Initializer::readFrameSizeAndLocations(const xmlElement_t& animationIt, Vector2D<int>& pos, int& width, int& heigth) const
-{
-    pos.x  = atoi(animationIt.Attribute("posX")  );
-    pos.y  = atoi(animationIt.Attribute("posY")  );
-    width  = atoi(animationIt.Attribute("width") );
-    heigth = atoi(animationIt.Attribute("heigth"));      
-}
-
-void AnimationManager::Initializer::readFramesInformation(const xmlElement_t& animationIt, float& timeToFrame, int& nFrames, int& offset) const
-{
-    offset = atoi(animationIt.Attribute("offset"));
-    timeToFrame = atof( animationIt.Attribute("timeToFrame") );
-    nFrames     = atoi( animationIt.Attribute("nFrames") );
-}
-
-AnimationManager::Initializer::Initializer(xmlElement_t& element, animationsMap_t& animations, sprite_t& sprite)
-{
-    this->element = &element;   
-    this->sprite  = &sprite;
-    this->animations = &animations;
-}
-
-AnimationManager::Initializer::Initializer()// :
-//IInitializer(),
-//element(NULL),
-//animations(NULL),
-//attrib(NULL)
-{
-    this->element = NULL;   
-    this->sprite  = NULL;
-    this->animations = NULL;
-}
-
-AnimationManager::Initializer::~Initializer()
-{
-}

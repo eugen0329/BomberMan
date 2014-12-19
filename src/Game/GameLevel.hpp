@@ -41,9 +41,9 @@ private:
     typedef std::vector<wObjects_t> layers_t;
     typedef std::queue<Signal> signals_t;
 
-    GameMap stageMap;
+    GameMap levelMap;
     wObjects_t wObjects;
-    layers_t drawableLayers;
+    layers_t layers;
     
     signals_t signals;
 

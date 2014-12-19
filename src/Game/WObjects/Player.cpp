@@ -6,13 +6,28 @@ Player::Player()
 
 Player::Player(xmlElement_t& xmlElement)
 {
-    Player::Initializer initializer(xmlElement, attrib);
+    Player::Initializer initializer(xmlElement, attr);
 
     if(initializer.load()) {
         exit(1);
     } 
 
-    initializeComponents(xmlElement);
+    collisions = new CollisionManager;
+    xmlElement_t* animationList = xmlElement.FirstChildElement("animations");
+    if(animationList == NULL) {
+        exit(1);
+    }
+    animationManager.setSprite(attr.sprite);
+    animationManager.loadAnimations(*animationList);
+
+    act.setPlayerAttributes(attr);
+    act.setAnimationManager(animationManager);
+    act.setSignal(alg::createSignal(this, & Player::addCollisionExclude), "addCollisionExclude");
+
+    eventManager = new PlayerEventManager(static_cast<Keyset::SetID>(attr.groupID));
+    eventManager->setAction(alg::createSignal(&act, & Actions::stop), "stop"); 
+    eventManager->setAction(alg::createSignal(&act, & Actions::move), "move"); 
+    eventManager->setAction(alg::createSignal(&act, & Actions::throwBomb), "throwBomb"); 
 }
 
 void Player::setSignal(Delegate* delegate, std::string signalName)
@@ -22,27 +37,6 @@ void Player::setSignal(Delegate* delegate, std::string signalName)
     } else if(signalName == "create") {
          act.setSignal(delegate, signalName);
     }
-}
-
-void Player::initializeComponents(xmlElement_t& element)
-{
-    collisions = new CollisionManager;
-    xmlElement_t* animationList = element.FirstChildElement("animations");
-    if(animationList == NULL) {
-        exit(1);
-    }
-    animationManager.setSprite(attrib.sprite);
-    animationManager.loadAnimations(*animationList);
-
-    act.setPlayerAttributes(attrib);
-    act.setAnimationManager(animationManager);
-    act.setSignal(alg::createSignal(this, & Player::addCollisionExclude), "addCollisionExclude");
-
-    eventManager = new PlayerEventManager(static_cast<Keyset::SetID>(attrib.groupID));
-    eventManager->setAction(alg::createSignal(&act, & Actions::stop), "stop"); 
-    eventManager->setAction(alg::createSignal(&act, & Actions::move), "move"); 
-    eventManager->setAction(alg::createSignal(&act, & Actions::throwBomb), "throwBomb"); 
- 
 }
 
 void Player::setWorldsObjectsVector(wObjects_t& wObjects_)
@@ -70,7 +64,7 @@ void Player::update(const float& dt)
 
 void Player::draw() 
 {
-    window->draw(attrib.sprite);
+    window->draw(attr.sprite);
 }
 
 void Player::addCollisionExclude(pWObject_t newExclude) 
@@ -80,13 +74,12 @@ void Player::addCollisionExclude(pWObject_t newExclude)
 
 void Player::updateCoordinates(const float& dt)
 {
-    attrib.pos.x += attrib.v.x * dt;
-    if(hasSolidCollisions()) attrib.pos.x -= attrib.v.x * dt;
+    attr.pos.x += attr.v.x * dt;
+    if(hasSolidCollisions()) attr.pos.x -= attr.v.x * dt;
+    attr.pos.y += attr.v.y * dt;
+    if(hasSolidCollisions()) attr.pos.y -= attr.v.y * dt;
 
-    attrib.pos.y += attrib.v.y * dt;
-    if(hasSolidCollisions()) attrib.pos.y -= attrib.v.y * dt;
-
-    attrib.sprite.setPosition(attrib.pos.x, attrib.pos.y);
+    attr.sprite.setPosition(attr.pos.x, attr.pos.y);
 }
 
 void Player::handleCollisions()
@@ -96,7 +89,7 @@ void Player::handleCollisions()
     {
         if((*it)->getAttributes().isHarmful()) {
             //destroyingSignal(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
-            attrib.sprite.setColor(sf::Color::Red);
+            attr.sprite.setColor(sf::Color::Red);
         }
     }
 }
@@ -142,16 +135,16 @@ void Player::updateCollisionExcludes()
 
 // Initializer /---------------------------
 
-Player::Initializer::Initializer(xmlElement_t& element, PlayerAttributes& attrib)
+Player::Initializer::Initializer(xmlElement_t& element, PlayerAttributes& attr)
 {
     this->element = &element;   
-    this->attrib  = &attrib;
+    this->attr  = &attr;
 }
 
 Player::Initializer::Initializer()
 {
     this->element = NULL;
-    this->attrib =  NULL;
+    this->attr =  NULL;
 }
 
 Player::Initializer::~Initializer()
@@ -161,40 +154,40 @@ Player::Initializer::~Initializer()
 int Player::Initializer::load() const
 {
 
-    if(attrib == NULL) {
+    if(attr == NULL) {
         return 1;
     }
 
     if(std::string(element->Attribute("isSolid")) == "true") {
-        attrib->solid = true;
+        attr->solid = true;
     } else {
-        attrib->solid = false;
+        attr->solid = false;
     }
 
-    attrib->groupID = atoi(element->Attribute("groupID"));
+    attr->groupID = atoi(element->Attribute("groupID"));
 
-    attrib->harmful = false;
+    attr->harmful = false;
     
 
-    attrib->v.x = 0.0;
-    attrib->v.y = 0.0;
-    attrib->angle.setPiRadAngle(-0.5);
-    attrib->vMax = 200;
+    attr->v.x = 0.0;
+    attr->v.y = 0.0;
+    attr->angle.setPiRadAngle(-0.5);
+    attr->vMax = 200;
     
-    attrib->width = atoi(element->Attribute("width"));;
-    attrib->heigth = atoi(element->Attribute("heigth"));
+    attr->width = atoi(element->Attribute("width"));;
+    attr->heigth = atoi(element->Attribute("heigth"));
 
-    attrib->origin.x =  atoi(element->Attribute("origX"));
-    attrib->origin.y  = atoi(element->Attribute("origY"));
+    attr->origin.x =  atoi(element->Attribute("origX"));
+    attr->origin.y  = atoi(element->Attribute("origY"));
 
     std::string textureName = element->Attribute("texture");
 
-    attrib->texture.loadFromFile(textureName);
-    attrib->sprite.setTexture(attrib->texture);
+    attr->texture.loadFromFile(textureName);
+    attr->sprite.setTexture(attr->texture);
     
-    attrib->pos.x = atoi(element->Attribute("posX"));
-    attrib->pos.y = atoi(element->Attribute("posY"));
-    attrib->sprite.setPosition(attrib->pos.x, attrib->pos.y );
-    attrib->sprite.setOrigin(attrib->origin.x, attrib->origin.y);
+    attr->pos.x = atoi(element->Attribute("posX"));
+    attr->pos.y = atoi(element->Attribute("posY"));
+    attr->sprite.setPosition(attr->pos.x, attr->pos.y );
+    attr->sprite.setOrigin(attr->origin.x, attr->origin.y);
     return 0;
 }

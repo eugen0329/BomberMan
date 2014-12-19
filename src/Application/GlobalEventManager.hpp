@@ -6,14 +6,14 @@
 
 class GlobalEventManager : public IEventManager {
 private:
-    typedef sf::RenderWindow renderWindow_t;
-    renderWindow_t * pRendeWindow;
+    typedef sf::RenderWindow window_t;
+    window_t * window;
 public:
     GlobalEventManager();
-    GlobalEventManager(renderWindow_t &);
+    GlobalEventManager(window_t &);
     virtual ~GlobalEventManager();
 
-    void setRenderWindow(renderWindow_t &);
+    void setRenderWindow(window_t &);
     virtual void handleEvents(const event_t & );
 };
 

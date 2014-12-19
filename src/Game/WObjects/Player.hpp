@@ -33,20 +33,17 @@ private:
     typedef std::list<pWObject_t> collisionExcludes_t;
     class Initializer;
 
-    PlayerAttributes attrib;
-    AnimationManager animationManager;
-    Actions act;
+
     PlayerEventManager * eventManager;
+    AnimationManager animationManager;
+    
+    Actions act;
+    PlayerAttributes attr;
 
     CollisionManager* collisions;
     collisionExcludes_t collisionExcludes;
 
     Delegate* createSignal;
-private:
-    void initializeComponents(xmlElement_t&);
-
-    void cancelHorizontalOffsetIfNeed(wObjects_t::iterator&, const float&);
-    void cancelVerticalOffsetIfNeed(wObjects_t::iterator&, const float&);
 public:
     Player();
     Player(xmlElement_t&);
@@ -67,9 +64,11 @@ public:
     
     void addCollisionExclude(pWObject_t) ;
     
+
+
     IAttributes& getAttributes() 
     {
-        return attrib;
+        return attr;
     }
     virtual void setWorldsObjectsVector(wObjects_t&);
     void setSignal(Delegate*, std::string);
@@ -77,7 +76,7 @@ public:
 
 class Player::Initializer : public IInitializer {
 private:
-    mutable PlayerAttributes* attrib; 
+    mutable PlayerAttributes* attr; 
 public:
     Initializer();
     Initializer(xmlElement_t&, PlayerAttributes&);

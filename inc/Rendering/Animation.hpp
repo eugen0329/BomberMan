@@ -26,21 +26,27 @@ public:
     inline void update(float dt)
     {
         passedMSec += dt;
-        if(passedMSec >= timeToFrame ) {
-            if(frameIndex + 1 < frames.size()) {
-                frameIndex++;
-            } else {
-                frameIndex = 0;
-            }
+        if(passedMSec > timeToFrame ) {
+            incFrameIndex();
             passedMSec = 0;
         }
-        sprite->setTextureRect( frames[frameIndex] );
+        sprite->setTextureRect(frames[frameIndex]);
     }
 
     inline void resetFrameIndex()
     {
     	frameIndex = 0;
     }
+
+    inline void incFrameIndex()
+    {
+        if(frameIndex >= nFrames - 1) {
+            frameIndex = 0;
+        } else {
+            frameIndex ++;
+        }  
+    }
+
 };
 
 #endif /* end of include guard: _ANIMATION_HPP_ */

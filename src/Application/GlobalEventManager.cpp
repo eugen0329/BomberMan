@@ -4,7 +4,7 @@ GlobalEventManager::GlobalEventManager()
 {
 }
 
-GlobalEventManager::GlobalEventManager(renderWindow_t & renderWindow) : pRendeWindow(&renderWindow) 
+GlobalEventManager::GlobalEventManager(window_t & window) : window(&window) 
 {
 }
 
@@ -12,14 +12,14 @@ GlobalEventManager::~GlobalEventManager()
 {
 }
 
-void GlobalEventManager::setRenderWindow(renderWindow_t & renderWindow) 
+void GlobalEventManager::setRenderWindow(window_t & window)
 {
-    this->pRendeWindow = &renderWindow;
+    this->window = &window;
 }
 
 void GlobalEventManager::handleEvents(const event_t & event)
 {
     if(event.type == sf::Event::Closed) {
-        pRendeWindow->close();
+        window->close();
     }
 }

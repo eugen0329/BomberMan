@@ -17,7 +17,6 @@ void GameState::handleEvents(const event_t& event)
 
 void GameState::update(const float& dt)
 {
-
     level->update(dt);
 }
 

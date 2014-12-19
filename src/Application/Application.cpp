@@ -8,7 +8,7 @@ Application::Application()
     windProp.name  = "\\o";
     windProp.fps   = 60;
     
-    //sf::VideoMode mode(windProp.xSize, windProp.ySize, windProp.bpp);
+    
     sf::VideoMode mode(windProp.xSize, windProp.ySize);
 
     window.create(mode, windProp.name);
@@ -33,12 +33,9 @@ Application::~Application()
 
 void Application::run()
 {
-    sf::Clock clock;
     while(window.isOpen()) {
-
-        float currentTime = clock.restart().asSeconds();
-        float fps = 1.f / currentTime;
-        if(fps < 55) std::cout << "fps: " << fps << std::endl;
+        float fps = timer.getFPS();
+        if(fps < 55) std::cerr << "fps: " << fps << std::endl;
 
         handleEvents();
         states.top()->update(timer.getElapsedTime());

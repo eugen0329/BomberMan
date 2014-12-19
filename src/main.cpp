@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+
 #include "Application/Application.hpp" 
 
 #include <exception>
@@ -9,8 +10,6 @@
 //#include "Common/Angle.hpp"
 
 using namespace std;
-typedef sf::Sprite sprite_t;
-typedef sf::Texture texture_t;
 
 int main(int argc, char* argv[])
 {
@@ -23,7 +22,7 @@ int main(int argc, char* argv[])
         std::cout << "Exception:" << std::endl << "    " << e.what();
     }
 
-    
+  
     return 0;
 }
 

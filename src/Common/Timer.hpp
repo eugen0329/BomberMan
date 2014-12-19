@@ -21,6 +21,10 @@ public:
     {
         timer.restart();
     }
+    inline float getFPS()
+    {
+        return 1.f / timer.getElapsedTime().asSeconds();
+    }
 };
 
 

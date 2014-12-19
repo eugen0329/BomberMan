@@ -5,12 +5,10 @@ map(&map),
 wObjects(&wObjV), 
 window(&window)
 {
-    //solid = false;
 }
 
 IWorldsObject::IWorldsObject()
 {
-    //solid = false;
 }
 
 IWorldsObject::~IWorldsObject()
