@@ -4,12 +4,12 @@ Fire::Fire()
 {
 }
 
-void Fire::setWorldsObjectsVector(wObjects_t& wObjects)
+void Fire::setWorldObjects(wObjects_t& wObjects)
 {
     this->wObjects = &wObjects;
 }
 
-Fire::Fire(const IAttributes& parAttr, Vector2D<float> offset)
+Fire::Fire(const IAttributes& parAttr, Vec2<float> offset)
 {    
     attrib.harmful = true; 
     attrib.solid = false;
@@ -39,7 +39,7 @@ Fire::Fire(const IAttributes& parAttr, Vector2D<float> offset)
     attrib.sprite.setPosition(attrib.pos.x, attrib.pos.y );
 }
 
-Fire::Fire(xmlElement_t& xmlElement)
+Fire::Fire(xmlElem_t& xmlElement)
 {    
 	Fire::Initializer initializer(xmlElement, attrib);
 
@@ -158,7 +158,7 @@ int Fire::Initializer::load() const
     return 0;
 }
 
-Fire::Initializer::Initializer(xmlElement_t& element, FireAttributes& attrib)
+Fire::Initializer::Initializer(xmlElem_t& element, FireAttributes& attrib)
 {
     this->element = &element;   
     this->attrib  = &attrib;

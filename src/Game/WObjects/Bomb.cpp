@@ -4,7 +4,7 @@ Bomb::Bomb()
 {
 }
 
-//Bomb::Bomb(xmlElement_t& xmlElement, int groupID)
+//Bomb::Bomb(xmlElem_t& xmlElement, int groupID)
 //{    
 //	Bomb::Initializer initializer(xmlElement, attrib);
 //
@@ -15,7 +15,7 @@ Bomb::Bomb()
 //    //setObjectID("Bomb");
 //}
 
-void Bomb::setWorldsObjectsVector(wObjects_t& wObjects)
+void Bomb::setWorldObjects(wObjects_t& wObjects)
 {
     
     cManager.setWObjects(wObjects);
@@ -23,7 +23,7 @@ void Bomb::setWorldsObjectsVector(wObjects_t& wObjects)
     this->wObjects = &wObjects;
 }
 
-Bomb::Bomb(xmlElement_t& xmlElement, const IAttributes& parAttr)
+Bomb::Bomb(xmlElem_t& xmlElement, const IAttributes& parAttr)
 {    
 	Bomb::Initializer initializer(xmlElement, attrib);
 
@@ -107,6 +107,7 @@ void Bomb::setSignal(Delegate* delegate, std::string signalName)
     } else if(signalName == "create") {
         this->createSignal = *delegate;        
     }
+
 }
 
 int Bomb::Initializer::load() const
@@ -148,7 +149,7 @@ int Bomb::Initializer::load() const
     return 0;
 }
 
-Bomb::Initializer::Initializer(xmlElement_t& element, BombAttributes& attrib)
+Bomb::Initializer::Initializer(xmlElem_t& element, BombAttributes& attrib)
 {
     this->element = &element;   
     this->attrib  = &attrib;
@@ -183,14 +184,14 @@ void Bomb::makeFireWave(Angle& angle)
     int waveCount = 3;
 
     for(int wave = 1; wave < waveCount + 1; wave++) {
-        pWObject_t newFire = std::make_shared<Fire>(this->attrib, Vector2D<float>(offset * wave, angle));
+        pWObject_t newFire = std::make_shared<Fire>(this->attrib, Vec2<float>(offset * wave, angle));
         createSignal(newFire);
         cManager.setOwner(std::shared_ptr<IWorldsObject>(newFire.get(), [](IWorldsObject*){}));
         for(CollisionManager::iterator it = cManager.begin(); it != cManager.end(); ++it) {
             // 0 - is static objects that cant react on external collisions by themself
-            if(it->getAttributes().groupID != 0) continue;
-            it->addCollision(newFire->getAttributes());
-            if(it->getAttributes().isSolid()) return ;
+            if(it->getAttr().groupID != 0) continue;
+            it->addCollision(newFire->getAttr());
+            if(it->getAttr().isSolid()) return ;
         }
     }
 }

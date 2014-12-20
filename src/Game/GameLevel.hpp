@@ -10,6 +10,7 @@
 #include <memory>
 
 #include "Common/Algorithms.hpp"
+
 #include "XMLParser/tinyxml.h"
 
 #include "Game/WObjects/IWorldsObject.hpp"
@@ -37,14 +38,12 @@ typedef std::vector<pWObject_t> wObjects_t;
 class GameLevel {
 private:
     class Signal;
-
     typedef std::vector<wObjects_t> layers_t;
     typedef std::queue<Signal> signals_t;
 
     GameMap levelMap;
     wObjects_t wObjects;
     layers_t layers;
-    
     signals_t signals;
 
     window_t * window;

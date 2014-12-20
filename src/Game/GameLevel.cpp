@@ -22,6 +22,8 @@ window(&window)
 
 GameLevel::~GameLevel()
 {
+    while(! signals.empty()) signals.pop();
+    layers.clear();
 }
 
 void GameLevel::readObjectsFromXml(TiXmlElement* xml)
@@ -35,15 +37,17 @@ void GameLevel::readObjectsFromXml(TiXmlElement* xml)
             createItem(std::make_shared<Wall>(*it));
         } else {
             std::cerr << "ERROR: wrong class name " << className << std::endl;
-
         }
     }
 }
 
 void GameLevel::createActor(pWObject_t newActor)
 {
+    Delegate delegate;
+    delegate.bind(this, & GameLevel::createItemSignal);
+
     setBaseAttributes(newActor);
-    newActor->setSignal(alg::createSignal(this, & GameLevel::createItemSignal), "create");
+    newActor->setSignal(&delegate, "create");
     wObjects.push_back(newActor);
     layers[1].push_back(newActor);
      
@@ -51,18 +55,25 @@ void GameLevel::createActor(pWObject_t newActor)
 
 void GameLevel::createItem(pWObject_t newItem)
 {
+    Delegate delegate;
+    delegate.bind(this, & GameLevel::createItemSignal);
+
+
     setBaseAttributes(newItem);
-    newItem->setSignal(alg::createSignal(this, & GameLevel::createItemSignal), "create");
+    newItem->setSignal(&delegate, "create");
     wObjects.push_back(newItem);
     layers[0].push_back(newItem);
 }
 
 void GameLevel::setBaseAttributes(pWObject_t& wObject)
 {
+    Delegate delegate;
+    delegate.bind(this, & GameLevel::deleteObjectSignal);
+
     wObject->setRenderWindow(*window);
     wObject->setMap(levelMap);
-    wObject->setWorldsObjectsVector(wObjects);
-    wObject->setSignal(alg::createSignal(this, &GameLevel::deleteObjectSignal), "destroying");
+    wObject->setWorldObjects(wObjects);
+    wObject->setSignal(&delegate, "destroying");
 }
 
 void GameLevel::handleEvents(const event_t& event)

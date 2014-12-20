@@ -1,12 +1,12 @@
 #ifndef _BOMBATTRIBUTES_HPP_
 #define _BOMBATTRIBUTES_HPP_
 
-#include "Common/Vector2D.hpp"
+#include "Common/Vec2.hpp"
 #include "Game/Attributes/IAttributes.hpp"
 
 class BombAttributes : public IAttributes {
 public:
-    Vector2D<float> origin;
+    Vec2<float> origin;
     float lifeTime;
     float actLifeTime;
 

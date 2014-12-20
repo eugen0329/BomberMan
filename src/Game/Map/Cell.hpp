@@ -15,14 +15,12 @@ typedef sf::Sprite sprite_t;
 class Cell {
 private:
     cellID_t cellID;
-    //bool solid;
     
     texture_t texture;
     sprite_t sprite;
 
 public:
     friend class GameMap;
-    //Cell(cellID_t cellID, bool solid = false);
     Cell(cellID_t cellID);
     Cell();
     ~Cell();
@@ -30,12 +28,8 @@ public:
     {
         return this->cellID;
     }
-    //inline bool isSolid()
-    //{
-    //    return solid;
-    //}
+
     void setTile(std::string);
-    //void setSolid(bool solid = true);
     void setID(cellID_t);
     
 };

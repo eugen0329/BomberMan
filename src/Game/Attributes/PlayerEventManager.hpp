@@ -23,7 +23,7 @@ private:
     Delegate stop;
     Delegate throwBomb;
 public:
-    PlayerEventManager(Keyset::SetID);
+    PlayerEventManager(Keyset);
     virtual ~PlayerEventManager();
 
     virtual void handleEvents(const event_t&);

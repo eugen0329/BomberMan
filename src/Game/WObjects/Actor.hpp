@@ -29,8 +29,8 @@ public:
     virtual void update(const float&) = 0;
     virtual void draw() = 0;
 
-    virtual IAttributes& getAttributes() = 0;
-    virtual void setWorldsObjectsVector(wObjects_t&) = 0;
+    virtual IAttributes& getAttr() = 0;
+    virtual void setWorldObjects(wObjects_t&) = 0;
 };
 
 #endif /* end of include guard: _ACTOR_HPP_ */

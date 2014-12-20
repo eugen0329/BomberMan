@@ -28,7 +28,7 @@
 
 class Player : public Actor {
 private:
-    typedef TiXmlElement xmlElement_t;
+    typedef TiXmlElement xmlElem_t;
     typedef std::shared_ptr<IWorldsObject> pWObject_t;
     typedef std::list<pWObject_t> collisionExcludes_t;
     class Initializer;
@@ -46,31 +46,30 @@ private:
     Delegate* createSignal;
 public:
     Player();
-    Player(xmlElement_t&);
+    Player(xmlElem_t&);
     virtual ~Player();
 
-    virtual void handleEvents(const event_t&);
-    virtual void update(const float&);
-    virtual void draw();
+    void handleEvents(const event_t&);
+    void update(const float&);
+    void draw();
 
     void updateCoordinates(const float&);
     
     bool hasSolidCollisions();
     bool isExclude(pWObject_t);
 
-    virtual void addCollision(Collision);
+    void addCollision(Collision);
     void handleCollisions();
     void updateCollisionExcludes();
-    
     void addCollisionExclude(pWObject_t) ;
     
 
 
-    IAttributes& getAttributes() 
+    IAttributes& getAttr() 
     {
         return attr;
     }
-    virtual void setWorldsObjectsVector(wObjects_t&);
+    virtual void setWorldObjects(wObjects_t&);
     void setSignal(Delegate*, std::string);
 };
 
@@ -79,7 +78,7 @@ private:
     mutable PlayerAttributes* attr; 
 public:
     Initializer();
-    Initializer(xmlElement_t&, PlayerAttributes&);
+    Initializer(xmlElem_t&, PlayerAttributes&);
     virtual ~Initializer();
     
     int load() const;

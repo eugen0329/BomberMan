@@ -1,7 +1,7 @@
 #ifndef _BASESHAPE_HPP_
 #define _BASESHAPE_HPP_
 
-#include "Common/Vector2D.hpp"
+#include "Common/Vec2.hpp"
 #include "Common/Angle.hpp"
 
 class BaseShape {
@@ -9,7 +9,7 @@ public:
     BaseShape() {}
     ~BaseShape() {}
 
-    Vector2D<float> pos;
+    Vec2<float> pos;
 
     float    width;
     float    heigth;

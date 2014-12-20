@@ -2,14 +2,14 @@
 #define _PLAYERATTRIBUTES_HPP_
 
 #include <cmath>
-#include "Common/Vector2D.hpp"
+#include "Common/Vec2.hpp"
 #include "Game/Attributes/IAttributes.hpp"
 
 class PlayerAttributes : public IAttributes {
 public:
-    Vector2D<float> v;
+    Vec2<float> v;
     float vMax;
-    Vector2D<float> origin;
+    Vec2<float> origin;
 
     texture_t texture;
     sprite_t  sprite;

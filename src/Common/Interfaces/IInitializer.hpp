@@ -3,18 +3,18 @@
 
 #include "XMLParser/tinyxml.h"
 
-typedef TiXmlElement xmlElement_t;
+typedef TiXmlElement xmlElem_t;
 
 class IInitializer {
 protected:
-    xmlElement_t* element;
+    xmlElem_t* element;
 public:
     IInitializer() {}
     virtual ~IInitializer() {}
 
     virtual int load() const = 0;
 
-    inline void setXmlElement(xmlElement_t& element)
+    inline void setXmlElement(xmlElem_t& element)
     {
         this->element = &element;
     }

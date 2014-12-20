@@ -7,7 +7,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Common/Matrix.hpp"
-#include "Common/Vector2D.hpp"
+#include "Common/Vec2.hpp"
 #include "Game/Map/Cell.hpp"
 #include <exception>
 
@@ -18,8 +18,8 @@ typedef sf::RenderWindow window_t;
 class GameMap {
 public:
     Matrix<cell_t> grid;
-    Vector2D<size_t> cellSize;
-    Vector2D<size_t> size;
+    Vec2<size_t> cellSize;
+    Vec2<size_t> size;
 private:
     window_t * window;
     renderableTexture_t rendTexture;

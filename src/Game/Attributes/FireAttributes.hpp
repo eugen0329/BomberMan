@@ -1,12 +1,12 @@
 #ifndef _FIREATTRIBUTES_HPP_
 #define _FIREATTRIBUTES_HPP_
 
-#include "Common/Vector2D.hpp"
+#include "Common/Vec2.hpp"
 #include "Game/Attributes/IAttributes.hpp"
 
 class FireAttributes : public IAttributes {
 public:
-    Vector2D<float> origin;
+    Vec2<float> origin;
     float lifeTime;
     float actLifeTime;
 

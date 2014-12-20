@@ -8,7 +8,7 @@
 
 #include "Common/Interfaces/IEventManager.hpp"
 #include "Common/Interfaces/IInitializer.hpp"
-#include "Common/Vector2D.hpp"
+#include "Common/Vec2.hpp"
 
 #include "Rendering/Animation.hpp"
 
@@ -23,14 +23,14 @@ private:
     sprite_t * sprite;
 public:
     AnimationManager();
-    AnimationManager(xmlElement_t &);
+    AnimationManager(xmlElem_t &);
     virtual ~AnimationManager();
 
     void setCurrentAnimation(std::string);
     void updateCurrentAnimation(const float&);
 
     void setSprite(sprite_t&);
-    void loadAnimations(xmlElement_t&);
+    void loadAnimations(xmlElem_t&);
 };
 
 #endif /* end of include guard: _ANIMATIONMANAGER_HPP_ */

@@ -70,7 +70,7 @@ GameMap::GameMap(const GameMap& second) : grid(second.grid)
 
 GameMap::~GameMap()
 {
-}
+} 
 
 
 //Matrix<cell_t> & GameMap::getGridRef()

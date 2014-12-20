@@ -31,6 +31,14 @@ public:
             space = Set::Return;
         }
     }
+    Keyset(const Keyset& second) 
+    {   
+        up    = second.up;
+        down  = second.down;
+        right = second.right;
+        left  = second.left;
+        space = second.space;
+    }
     Set::Key up;
     Set::Key down;
     Set::Key right;

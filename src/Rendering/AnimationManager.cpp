@@ -4,14 +4,14 @@ AnimationManager::AnimationManager() : sprite(NULL)
 {
 }
 
-void AnimationManager::loadAnimations(xmlElement_t& element)
+void AnimationManager::loadAnimations(xmlElem_t& element)
 {
-    Vector2D<int> pos;
+    Vec2<int> pos;
     int width, heigth, nFrames, offset;
     float timeToFrame;
     std::string animName;
 
-    xmlElement_t* it = element.FirstChildElement("animation");
+    xmlElem_t* it = element.FirstChildElement("animation");
     for( ;it ; it = it->NextSiblingElement("animation")) {
 
         pos.x       = atoi(it->Attribute("posX")  );
@@ -35,7 +35,7 @@ void AnimationManager::setSprite(sprite_t & sprite)
     this->sprite = &sprite;
 }
 
-AnimationManager::AnimationManager(xmlElement_t& element)
+AnimationManager::AnimationManager(xmlElem_t& element)
 {
     loadAnimations(element);
 }

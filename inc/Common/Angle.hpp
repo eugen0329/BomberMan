@@ -5,13 +5,11 @@
 #define _USE_MATH_DEFINES 
 
 class Angle {
-public:
 private:
     typedef float angle_t;
     angle_t piRadAngle;
-private:
 public:
-    Angle correctAngle()
+    Angle normalize()
     {
         while(piRadAngle >= 2.0) {
             piRadAngle -= 2.0;

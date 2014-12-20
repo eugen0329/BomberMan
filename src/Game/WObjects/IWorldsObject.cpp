@@ -20,7 +20,7 @@ void IWorldsObject::setMap(GameMap& map)
     this->map = &map;
 }
 
-void IWorldsObject::setWorldsObjectsVector(wObjects_t& wObjects)
+void IWorldsObject::setWorldObjects(wObjects_t& wObjects)
 {
     this->wObjects = &wObjects;
 }

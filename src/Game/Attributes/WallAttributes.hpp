@@ -1,7 +1,7 @@
 #ifndef _WALLATTRIBUTES_HPP_
 #define _WALLATTRIBUTES_HPP_
 
-#include "Common/Vector2D.hpp"
+#include "Common/Vec2.hpp"
 #include "Game/Attributes/IAttributes.hpp"
 
 class WallAttributes : public IAttributes{
@@ -9,7 +9,7 @@ public:
     texture_t texture;
     sprite_t  sprite;
     
-    Vector2D<float> origin;
+    Vec2<float> origin;
 };
 
 

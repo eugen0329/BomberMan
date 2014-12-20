@@ -16,7 +16,7 @@ anim(NULL)
 {
 }
 
-void Actions::setPlayerAttributes(PlayerAttributes & attrib)
+void Actions::setPlayerAttr(PlayerAttributes & attrib)
 { 
     this->attrib = &attrib;
 }
@@ -50,19 +50,19 @@ void Actions::stop(float angle)
 void Actions::calculateAngle()
 {
     if(dir.size() == 0) {                                   // if stopping
-        attrib->v.setCoordinates(0,0);
+        attrib->v.setComponents(0,0);
     } else if(dir.size() == 1) {                            // if starting to move
         attrib->angle = dir.front();
-        attrib->v.setCoordinates(getVx(), getVy());
+        attrib->v.setComponents(getVx(), getVy());
     } else {                                                // if turning
         for(directions_t::iterator it = dir.begin(); it!= dir.end(); it++) {
-            if( (*it - Angle(1.0)).correctAngle() != attrib->angle) {    // i
+            if( (*it - Angle(1.0)).normalize() != attrib->angle) {    // i
                 attrib->angle = alg::getAvarage(attrib->angle, *(it)) ;
             } else {
                 attrib->angle = *it;
             }
         }
-        attrib->v.setCoordinates(getVx(),getVy());
+        attrib->v.setComponents(getVx(),getVy());
     }
     if(attrib->v.getAbs() == 0.0f) {
         changeAnimation("stand");

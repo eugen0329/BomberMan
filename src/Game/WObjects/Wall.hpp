@@ -15,12 +15,12 @@ private:
     WallAttributes attrib;
 public:
     Wall();
-    Wall(xmlElement_t&);
+    Wall(xmlElem_t&);
     virtual ~Wall() {}
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);
     virtual void draw();
-    virtual IAttributes& getAttributes() 
+    virtual IAttributes& getAttr() 
     {
         return attrib;
     }
@@ -28,7 +28,7 @@ public:
     virtual void addCollision(Collision); 
     virtual void handleCollisions();
     
-    virtual void setWorldsObjectsVector(wObjects_t&);
+    virtual void setWorldObjects(wObjects_t&);
 
 };
 
@@ -37,7 +37,7 @@ private:
     mutable WallAttributes* attrib; 
 public:
     Initializer();
-    Initializer(xmlElement_t&, WallAttributes&);
+    Initializer(xmlElem_t&, WallAttributes&);
     virtual ~Initializer();
     
     int load() const;

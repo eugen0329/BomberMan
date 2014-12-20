@@ -1,12 +1,13 @@
 #include "Game/Attributes/PlayerEventManager.hpp"
 
-PlayerEventManager::PlayerEventManager(Keyset::SetID setID)
+PlayerEventManager::PlayerEventManager(Keyset keyset)
 {
-    keys = new Keyset(setID);
+    keys = new Keyset(keyset);
     //keys = new Keyset(Keyset::NUM8564Right);
 }
 PlayerEventManager::~PlayerEventManager()
 {
+    delete keys;
 }
 
 void PlayerEventManager::handleEvents(const event_t& event)

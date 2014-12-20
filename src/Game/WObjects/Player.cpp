@@ -4,7 +4,7 @@ Player::Player()
 {
 }
 
-Player::Player(xmlElement_t& xmlElement)
+Player::Player(xmlElem_t& xmlElement)
 {
     Player::Initializer initializer(xmlElement, attr);
 
@@ -13,21 +13,30 @@ Player::Player(xmlElement_t& xmlElement)
     } 
 
     collisions = new CollisionManager;
-    xmlElement_t* animationList = xmlElement.FirstChildElement("animations");
+    xmlElem_t* animationList = xmlElement.FirstChildElement("animations");
     if(animationList == NULL) {
         exit(1);
     }
     animationManager.setSprite(attr.sprite);
     animationManager.loadAnimations(*animationList);
 
-    act.setPlayerAttributes(attr);
-    act.setAnimationManager(animationManager);
-    act.setSignal(alg::createSignal(this, & Player::addCollisionExclude), "addCollisionExclude");
 
-    eventManager = new PlayerEventManager(static_cast<Keyset::SetID>(attr.groupID));
-    eventManager->setAction(alg::createSignal(&act, & Actions::stop), "stop"); 
-    eventManager->setAction(alg::createSignal(&act, & Actions::move), "move"); 
-    eventManager->setAction(alg::createSignal(&act, & Actions::throwBomb), "throwBomb"); 
+
+    Delegate delegate;
+
+    act.setPlayerAttr(attr);
+    act.setAnimationManager(animationManager);
+    act.setSignal(&delegate.bind(this, & Player::addCollisionExclude), "addCollisionExclude");
+
+
+
+   
+    // retrieving keyset according groupId
+    Keyset keyset(static_cast<Keyset::SetID>(attr.groupID));
+    eventManager = new PlayerEventManager(keyset);
+    eventManager->setAction(&delegate.bind(&act, & Actions::stop), "stop"); 
+    eventManager->setAction(&delegate.bind(&act, & Actions::move), "move"); 
+    eventManager->setAction(&delegate.bind(&act, & Actions::throwBomb), "throwBomb"); 
 }
 
 void Player::setSignal(Delegate* delegate, std::string signalName)
@@ -39,16 +48,18 @@ void Player::setSignal(Delegate* delegate, std::string signalName)
     }
 }
 
-void Player::setWorldsObjectsVector(wObjects_t& wObjects_)
+void Player::setWorldObjects(wObjects_t& wObjects_)
 {
     this->wObjects = &wObjects_;
     act.setWObjects(wObjects_);
     collisions->setWObjects((*this->wObjects));
-    collisions->setOwner(std::shared_ptr<IWorldsObject>(this));
+    collisions->setOwner(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
 }
 
 Player::~Player()
 {
+    delete collisions;
+    delete eventManager;
 }
 
 void Player::handleEvents(const event_t& event)
@@ -87,7 +98,7 @@ void Player::handleCollisions()
     CollisionManager::iterator last = collisions->end();
     for (CollisionManager::iterator it = collisions->begin(); it != last; ++it)
     {
-        if((*it)->getAttributes().isHarmful()) {
+        if((*it)->getAttr().isHarmful()) {
             //destroyingSignal(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
             attr.sprite.setColor(sf::Color::Red);
         }
@@ -113,7 +124,7 @@ bool Player::hasSolidCollisions()
     CollisionManager::iterator last = collisions->end();
     for (CollisionManager::iterator it = collisions->begin(); it != last; ++it)
     {
-        if(! isExclude(*it) && (*it)->getAttributes().isSolid()) {
+        if(! isExclude(*it) && (*it)->getAttr().isSolid()) {
             return true;
         }
     }
@@ -125,7 +136,7 @@ void Player::updateCollisionExcludes()
     collisionExcludes_t::iterator last = collisionExcludes.end();
     for(collisionExcludes_t::iterator it = collisionExcludes.begin(); it != last; it++) {
         // if the object no longer exists or if bomber do not crossing the object 
-        if(  (*it).use_count() < 2 || ! alg::isCrossing(this->getAttributes(), (*it)->getAttributes())) {
+        if(  (*it).use_count() < 2 || ! alg::isCrossing(this->getAttr(), (*it)->getAttr())) {
             collisionExcludes.erase(it);
             it--;
         }
@@ -135,7 +146,7 @@ void Player::updateCollisionExcludes()
 
 // Initializer /---------------------------
 
-Player::Initializer::Initializer(xmlElement_t& element, PlayerAttributes& attr)
+Player::Initializer::Initializer(xmlElem_t& element, PlayerAttributes& attr)
 {
     this->element = &element;   
     this->attr  = &attr;

@@ -4,7 +4,7 @@ Wall::Wall()
 {
 }
 
-Wall::Wall(xmlElement_t& xmlElement)
+Wall::Wall(xmlElem_t& xmlElement)
 {    
 	Wall::Initializer initializer(xmlElement, attrib);
 
@@ -13,7 +13,7 @@ Wall::Wall(xmlElement_t& xmlElement)
     }
 }
 
-void Wall::setWorldsObjectsVector(wObjects_t& wObjects)
+void Wall::setWorldObjects(wObjects_t& wObjects)
 {
     this->wObjects = &wObjects;
 }
@@ -75,7 +75,7 @@ int Wall::Initializer::load() const
     return 0;
 }
 
-Wall::Initializer::Initializer(xmlElement_t& element, WallAttributes& attrib)
+Wall::Initializer::Initializer(xmlElem_t& element, WallAttributes& attrib)
 {
     this->element = &element;   
     this->attrib  = &attrib;

@@ -195,13 +195,14 @@ public:
             delete container;
         } 
     }
-    template<class T, class U> void bind(T* newClass, U newMethod) 
+    template<class T, class U> Delegate& bind(T* newClass, U newMethod) 
     {
         if(container) {
             delete container;
         }
         container = new Container<T, U>(newClass, newMethod);
         this->isBinded_ = true;
+        return *this;
     }
     void operator() () {
         ArgList<> args;

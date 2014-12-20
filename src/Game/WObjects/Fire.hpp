@@ -5,7 +5,7 @@
 
 #include "Common/Interfaces/IInitializer.hpp"
 
-#include "Common/Vector2D.hpp"
+#include "Common/Vec2.hpp"
 #include "Common/Algorithms.hpp"
 
 #include "Game/Attributes/IAttributes.hpp"
@@ -23,13 +23,13 @@ public:
     Fire();
 
     Fire(const IAttributes&);
-    Fire(const IAttributes&, Vector2D<float>);
-    Fire(xmlElement_t&);
+    Fire(const IAttributes&, Vec2<float>);
+    Fire(xmlElem_t&);
     virtual ~Fire();
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);
     virtual void draw();
-    virtual IAttributes& getAttributes() 
+    virtual IAttributes& getAttr() 
     {
         return attrib;
     }
@@ -40,7 +40,7 @@ public:
 
     virtual void setSignal(Delegate*, std::string);
 
-    virtual void setWorldsObjectsVector(wObjects_t&);
+    virtual void setWorldObjects(wObjects_t&);
 };
 
 
@@ -50,7 +50,7 @@ private:
     mutable FireAttributes* attrib; 
 public:
     Initializer();
-    Initializer(xmlElement_t&, FireAttributes&);
+    Initializer(xmlElem_t&, FireAttributes&);
     virtual ~Initializer();
     
     int load() const;

@@ -61,7 +61,7 @@ public:
         attrib->angle.setGradAngle(newAngle);
     }
     
-    void setPlayerAttributes(PlayerAttributes &);
+    void setPlayerAttr(PlayerAttributes &);
     void setWObjects(wObjects_t&);
     void setAnimationManager(AnimationManager &);
     void setSignal(Delegate*, std::string);

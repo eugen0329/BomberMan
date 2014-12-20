@@ -5,7 +5,7 @@
 
 #include "Common/Interfaces/IInitializer.hpp"
 
-#include "Common/Vector2D.hpp"
+#include "Common/Vec2.hpp"
 #include "Common/Angle.hpp"
 #include "Common/Algorithms.hpp"
 
@@ -30,12 +30,12 @@ public:
     Bomb();
 
     Bomb(const IAttributes&);
-    Bomb(xmlElement_t&, const IAttributes&);
+    Bomb(xmlElem_t&, const IAttributes&);
     virtual ~Bomb();
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);
     virtual void draw();
-    virtual IAttributes& getAttributes() 
+    virtual IAttributes& getAttr() 
     {
         return attrib;
     }
@@ -47,7 +47,7 @@ public:
 
     virtual void setSignal(Delegate*, std::string);
 
-    virtual void setWorldsObjectsVector(wObjects_t&);
+    virtual void setWorldObjects(wObjects_t&);
 
 
     void makeFire();
@@ -59,7 +59,7 @@ private:
     mutable BombAttributes* attrib; 
 public:
     Initializer();
-    Initializer(xmlElement_t&, BombAttributes&);
+    Initializer(xmlElem_t&, BombAttributes&);
     virtual ~Initializer();
     
     int load() const;

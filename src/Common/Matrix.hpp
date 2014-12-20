@@ -16,21 +16,21 @@ public:
     ~Matrix();
 
     void setSize(size_t, size_t);
-    const size_t getXSize() const;
-    const size_t getYSize() const;
+    const size_t getSizeX() const;
+    const size_t getSizeY() const;
 
     T*& operator [] (size_t);
     const T*& operator [] (size_t) const;
 };
 
 template<class T>
-const size_t Matrix<T>::getXSize() const 
+const size_t Matrix<T>::getSizeX() const 
 {
     return xSize;
 }
 
 template<class T>
-const size_t Matrix<T>::getYSize() const 
+const size_t Matrix<T>::getSizeY() const 
 {
     return ySize;
 }    
@@ -42,7 +42,7 @@ Matrix<T>::Matrix(size_t x, size_t y)
     ySize = y;
 
     matrix = new T* [ySize];
-    for (int i = 0; i < this->ySize; i++) {
+    for (unsigned int i = 0; i < this->ySize; i++) {
         matrix[i] = new T [xSize];
     }
 }
@@ -50,16 +50,16 @@ Matrix<T>::Matrix(size_t x, size_t y)
 template<class T>
 void Matrix<T>::setSize(size_t x, size_t y) 
 {
-    for (int i = 0; i < this->ySize; i++) {
+    for (unsigned int i = 0; i < this->ySize; i++) {
         delete [] matrix[i];
     }
-    delete matrix;
+    delete [] matrix;
 
     xSize = x;
     ySize = y;
 
     matrix = new T* [ySize];
-    for (int i = 0; i < this->ySize; i++) {
+    for (unsigned int i = 0; i < this->ySize; i++) {
         matrix[i] = new T [xSize];
     }
 
@@ -68,10 +68,10 @@ void Matrix<T>::setSize(size_t x, size_t y)
 template<class T>
 Matrix<T>::~Matrix()
 {
-    for (int i = 0; i < this->ySize; i++) {
+    for (unsigned int i = 0; i < this->ySize; i++) {
         delete [] matrix[i];
     }
-    delete matrix;
+    delete [] matrix;
 }
 
 template<class T>

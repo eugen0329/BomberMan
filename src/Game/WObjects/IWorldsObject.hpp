@@ -12,7 +12,7 @@
 
 #include "Game/Collision.hpp"
 
-#include "Common/Vector2D.hpp"
+#include "Common/Vec2.hpp"
 #include "Common/Delegate.hpp"
 #include "Game/Map/GameMap.hpp"
 #include "Game/Attributes/IAttributes.hpp"
@@ -43,7 +43,7 @@ public:
     void setMap(GameMap&);
     void setRenderWindow(window_t&);
     virtual void setSignal(Delegate *, std::string) = 0;
-    virtual void setWorldsObjectsVector(wObjects_t&) = 0;
+    virtual void setWorldObjects(wObjects_t&) = 0;
 
     virtual void handleCollisions() = 0;
     virtual void addCollision(Collision) = 0;
@@ -52,7 +52,7 @@ public:
     virtual void update(const float&) = 0;
     virtual void draw() = 0; 
 
-    virtual IAttributes& getAttributes() = 0;
+    virtual IAttributes& getAttr() = 0;
 
 
 };

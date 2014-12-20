@@ -10,7 +10,7 @@
 #include "XMLParser/tinyxml.h"
 
 #include "Common/BaseShape.hpp"
-#include "Common/Vector2D.hpp"
+#include "Common/Vec2.hpp"
 #include "Common/Angle.hpp"
 #include "Common/Delegate.hpp"
 
@@ -26,11 +26,11 @@ namespace alg {
 
     inline bool isCrossing(const BaseShape& first, const BaseShape& second)
     {
-        static Vector2D<float> currentDist;
+        static Vec2<float> currentDist;
         currentDist.x = ::abs(first.pos.y - second.pos.y);
         currentDist.y = ::abs(first.pos.x - second.pos.x);
 
-        static Vector2D<float> minPossibleDist;
+        static Vec2<float> minPossibleDist;
         minPossibleDist.x = (first.width + second.width) / 2;
         minPossibleDist.y = (first.heigth + second.heigth) / 2;
         
@@ -39,7 +39,7 @@ namespace alg {
 
     inline float getDistance(const BaseShape& first, const BaseShape& second)
     {
-        return ::abs( first.pos.getAbs() - second.pos.getAbs() );
+        return ::abs(first.pos.getAbs() - second.pos.getAbs());
     }
 
     inline Angle getAvarage(Angle& first, Angle& second)
@@ -50,9 +50,10 @@ namespace alg {
         } else {
             temp = (first + second) / 2 ;
         }
-        temp.correctAngle();
+        temp.normalize();
         return temp;
     }
+
     template<class T, class U> 
     Delegate* createSignal(T* connectableClass, U connectableMethod)
     {
@@ -60,6 +61,8 @@ namespace alg {
         delegate->bind(connectableClass, connectableMethod);
         return delegate;
     }
+
+
 
     inline TiXmlDocument * openXmlFile(const std::string& filename)
     {
@@ -70,12 +73,12 @@ namespace alg {
         return xmlFile;
     }
 
-    inline TiXmlElement * getXmlElement(TiXmlDocument* xmlFile, std::vector<std::string> pathNodes)
+    inline TiXmlElement * getXmlElement(TiXmlDocument* xmlFile, std::vector<std::string> path)
     {
-        std::vector<std::string>::iterator node = pathNodes.begin();
+        std::vector<std::string>::iterator node = path.begin();
         TiXmlElement *xmlElement = xmlFile->FirstChildElement((*node).c_str());
         node++;
-        for(; node != pathNodes.end(); node++) {
+        for(; node != path.end(); node++) {
             xmlElement = xmlElement->FirstChildElement((*node).c_str());
         }
         return xmlElement;
