@@ -34,13 +34,13 @@ Application::~Application()
 void Application::run()
 {
     while(window.isOpen()) {
-        float fps = timer.getFPS();
-        if(fps < 55) std::cerr << "fps: " << fps << std::endl;
-
         handleEvents();
         states.top()->update(timer.getElapsedTime());
         states.top()->draw();
         states.top()->display(); 
+
+        float fps = timer.getFPS();
+        if(fps < 55) std::cerr << "fps: " << fps << std::endl;
     }
 }
 
@@ -50,5 +50,13 @@ void Application::handleEvents()
     while(window.pollEvent(event)) { 
         globalEventManager.handleEvents(event);            
         states.top()->handleEvents(event);
+    }
+}
+
+void Application::handleDeferred()
+{
+    while(! deferred.empty()) {
+        deferred.top()->call();
+        deferred.pop();
     }
 }

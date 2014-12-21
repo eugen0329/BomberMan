@@ -6,7 +6,7 @@
 #include <map>
 #include <string>
 
-#include "XMLParser/tinyxml.h"
+#include "TinyXML/tinyxml.h"
 
 #include "Common/Delegate.hpp"
 

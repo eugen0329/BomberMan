@@ -11,7 +11,7 @@
 
 #include "Common/Algorithms.hpp"
 
-#include "XMLParser/tinyxml.h"
+#include "TinyXML/tinyxml.h"
 
 #include "Game/WObjects/IWorldsObject.hpp"
 #include "Game/WObjects/Player.hpp"

@@ -12,10 +12,13 @@
 #include "Application/GlobalEventManager.hpp"
 #include "Common/Timer.hpp"
 
+#include "Common/Deferred.hpp"
+
 class Application {
 private:
     typedef sf::RenderWindow window_t;
     typedef sf::Event event_t;
+    typedef std::stack<IDeferred*> DeferredActions;
 
     typedef struct {
         unsigned int xSize; 
@@ -32,7 +35,10 @@ private:
     GlobalEventManager globalEventManager;
     Timer timer;
 
+    DeferredActions deferred;
+
     void handleEvents();
+    void handleDeferred();
      
 public:
     Application();

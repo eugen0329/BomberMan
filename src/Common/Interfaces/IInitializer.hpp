@@ -1,7 +1,7 @@
 #ifndef _IINITIALIZER_HPP_
 #define _IINITIALIZER_HPP_
 
-#include "XMLParser/tinyxml.h"
+#include "TinyXML/tinyxml.h"
 
 typedef TiXmlElement xmlElem_t;
 

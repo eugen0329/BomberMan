@@ -1,7 +1,7 @@
 #ifndef _FIRE_HPP_
 #define _FIRE_HPP_
 
-#include "XMLParser/tinyxml.h"
+#include "TinyXML/tinyxml.h"
 
 #include "Common/Interfaces/IInitializer.hpp"
 

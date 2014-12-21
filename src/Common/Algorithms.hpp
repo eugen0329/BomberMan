@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "XMLParser/tinyxml.h"
+#include "TinyXML/tinyxml.h"
 
 #include "Common/BaseShape.hpp"
 #include "Common/Vec2.hpp"
