@@ -3,7 +3,6 @@
 PlayerEventManager::PlayerEventManager(Keyset keyset)
 {
     keys = new Keyset(keyset);
-    //keys = new Keyset(Keyset::NUM8564Right);
 }
 PlayerEventManager::~PlayerEventManager()
 {

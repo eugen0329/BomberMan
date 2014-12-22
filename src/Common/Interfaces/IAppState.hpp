@@ -4,7 +4,7 @@
 #include <functional>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "Common/Deferred.hpp"
-#include "Application/StateStack.hpp"
+#include "StateStack.hpp"
 
 typedef sf::Event event_t;
 class StateStack;

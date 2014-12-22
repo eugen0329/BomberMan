@@ -1,4 +1,4 @@
-#include "Application/GlobalEventManager.hpp"
+#include "GlobalEventManager.hpp"
 
 GlobalEventManager::GlobalEventManager()
 {

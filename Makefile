@@ -169,77 +169,29 @@ tinyxml/fast:
 	$(MAKE) -f lib/TinyXML/CMakeFiles/tinyxml.dir/build.make lib/TinyXML/CMakeFiles/tinyxml.dir/build
 .PHONY : tinyxml/fast
 
-src/Application/Application.o: src/Application/Application.cpp.o
-.PHONY : src/Application/Application.o
+src/Application.o: src/Application.cpp.o
+.PHONY : src/Application.o
 
 # target to build an object file
-src/Application/Application.cpp.o:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Application/Application.cpp.o
-.PHONY : src/Application/Application.cpp.o
+src/Application.cpp.o:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Application.cpp.o
+.PHONY : src/Application.cpp.o
 
-src/Application/Application.i: src/Application/Application.cpp.i
-.PHONY : src/Application/Application.i
-
-# target to preprocess a source file
-src/Application/Application.cpp.i:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Application/Application.cpp.i
-.PHONY : src/Application/Application.cpp.i
-
-src/Application/Application.s: src/Application/Application.cpp.s
-.PHONY : src/Application/Application.s
-
-# target to generate assembly for a file
-src/Application/Application.cpp.s:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Application/Application.cpp.s
-.PHONY : src/Application/Application.cpp.s
-
-src/Application/GlobalEventManager.o: src/Application/GlobalEventManager.cpp.o
-.PHONY : src/Application/GlobalEventManager.o
-
-# target to build an object file
-src/Application/GlobalEventManager.cpp.o:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Application/GlobalEventManager.cpp.o
-.PHONY : src/Application/GlobalEventManager.cpp.o
-
-src/Application/GlobalEventManager.i: src/Application/GlobalEventManager.cpp.i
-.PHONY : src/Application/GlobalEventManager.i
+src/Application.i: src/Application.cpp.i
+.PHONY : src/Application.i
 
 # target to preprocess a source file
-src/Application/GlobalEventManager.cpp.i:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Application/GlobalEventManager.cpp.i
-.PHONY : src/Application/GlobalEventManager.cpp.i
+src/Application.cpp.i:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Application.cpp.i
+.PHONY : src/Application.cpp.i
 
-src/Application/GlobalEventManager.s: src/Application/GlobalEventManager.cpp.s
-.PHONY : src/Application/GlobalEventManager.s
-
-# target to generate assembly for a file
-src/Application/GlobalEventManager.cpp.s:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Application/GlobalEventManager.cpp.s
-.PHONY : src/Application/GlobalEventManager.cpp.s
-
-src/Application/StateStack.o: src/Application/StateStack.cpp.o
-.PHONY : src/Application/StateStack.o
-
-# target to build an object file
-src/Application/StateStack.cpp.o:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Application/StateStack.cpp.o
-.PHONY : src/Application/StateStack.cpp.o
-
-src/Application/StateStack.i: src/Application/StateStack.cpp.i
-.PHONY : src/Application/StateStack.i
-
-# target to preprocess a source file
-src/Application/StateStack.cpp.i:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Application/StateStack.cpp.i
-.PHONY : src/Application/StateStack.cpp.i
-
-src/Application/StateStack.s: src/Application/StateStack.cpp.s
-.PHONY : src/Application/StateStack.s
+src/Application.s: src/Application.cpp.s
+.PHONY : src/Application.s
 
 # target to generate assembly for a file
-src/Application/StateStack.cpp.s:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Application/StateStack.cpp.s
-.PHONY : src/Application/StateStack.cpp.s
+src/Application.cpp.s:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Application.cpp.s
+.PHONY : src/Application.cpp.s
 
 src/Common/Interfaces/IAppState.o: src/Common/Interfaces/IAppState.cpp.o
 .PHONY : src/Common/Interfaces/IAppState.o
@@ -457,6 +409,30 @@ src/Game/Map/GameMap.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Map/GameMap.cpp.s
 .PHONY : src/Game/Map/GameMap.cpp.s
 
+src/Game/Menu/GameMenuState.o: src/Game/Menu/GameMenuState.cpp.o
+.PHONY : src/Game/Menu/GameMenuState.o
+
+# target to build an object file
+src/Game/Menu/GameMenuState.cpp.o:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Menu/GameMenuState.cpp.o
+.PHONY : src/Game/Menu/GameMenuState.cpp.o
+
+src/Game/Menu/GameMenuState.i: src/Game/Menu/GameMenuState.cpp.i
+.PHONY : src/Game/Menu/GameMenuState.i
+
+# target to preprocess a source file
+src/Game/Menu/GameMenuState.cpp.i:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Menu/GameMenuState.cpp.i
+.PHONY : src/Game/Menu/GameMenuState.cpp.i
+
+src/Game/Menu/GameMenuState.s: src/Game/Menu/GameMenuState.cpp.s
+.PHONY : src/Game/Menu/GameMenuState.s
+
+# target to generate assembly for a file
+src/Game/Menu/GameMenuState.cpp.s:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Menu/GameMenuState.cpp.s
+.PHONY : src/Game/Menu/GameMenuState.cpp.s
+
 src/Game/WObjects/Actor.o: src/Game/WObjects/Actor.cpp.o
 .PHONY : src/Game/WObjects/Actor.o
 
@@ -625,6 +601,30 @@ src/Game/WObjects/Wall.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/WObjects/Wall.cpp.s
 .PHONY : src/Game/WObjects/Wall.cpp.s
 
+src/GlobalEventManager.o: src/GlobalEventManager.cpp.o
+.PHONY : src/GlobalEventManager.o
+
+# target to build an object file
+src/GlobalEventManager.cpp.o:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/GlobalEventManager.cpp.o
+.PHONY : src/GlobalEventManager.cpp.o
+
+src/GlobalEventManager.i: src/GlobalEventManager.cpp.i
+.PHONY : src/GlobalEventManager.i
+
+# target to preprocess a source file
+src/GlobalEventManager.cpp.i:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/GlobalEventManager.cpp.i
+.PHONY : src/GlobalEventManager.cpp.i
+
+src/GlobalEventManager.s: src/GlobalEventManager.cpp.s
+.PHONY : src/GlobalEventManager.s
+
+# target to generate assembly for a file
+src/GlobalEventManager.cpp.s:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/GlobalEventManager.cpp.s
+.PHONY : src/GlobalEventManager.cpp.s
+
 src/Menu/Button.o: src/Menu/Button.cpp.o
 .PHONY : src/Menu/Button.o
 
@@ -721,6 +721,30 @@ src/Rendering/AnimationManager.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Rendering/AnimationManager.cpp.s
 .PHONY : src/Rendering/AnimationManager.cpp.s
 
+src/StateStack.o: src/StateStack.cpp.o
+.PHONY : src/StateStack.o
+
+# target to build an object file
+src/StateStack.cpp.o:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/StateStack.cpp.o
+.PHONY : src/StateStack.cpp.o
+
+src/StateStack.i: src/StateStack.cpp.i
+.PHONY : src/StateStack.i
+
+# target to preprocess a source file
+src/StateStack.cpp.i:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/StateStack.cpp.i
+.PHONY : src/StateStack.cpp.i
+
+src/StateStack.s: src/StateStack.cpp.s
+.PHONY : src/StateStack.s
+
+# target to generate assembly for a file
+src/StateStack.cpp.s:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/StateStack.cpp.s
+.PHONY : src/StateStack.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -759,15 +783,9 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... tinyxml"
-	@echo "... src/Application/Application.o"
-	@echo "... src/Application/Application.i"
-	@echo "... src/Application/Application.s"
-	@echo "... src/Application/GlobalEventManager.o"
-	@echo "... src/Application/GlobalEventManager.i"
-	@echo "... src/Application/GlobalEventManager.s"
-	@echo "... src/Application/StateStack.o"
-	@echo "... src/Application/StateStack.i"
-	@echo "... src/Application/StateStack.s"
+	@echo "... src/Application.o"
+	@echo "... src/Application.i"
+	@echo "... src/Application.s"
 	@echo "... src/Common/Interfaces/IAppState.o"
 	@echo "... src/Common/Interfaces/IAppState.i"
 	@echo "... src/Common/Interfaces/IAppState.s"
@@ -795,6 +813,9 @@ help:
 	@echo "... src/Game/Map/GameMap.o"
 	@echo "... src/Game/Map/GameMap.i"
 	@echo "... src/Game/Map/GameMap.s"
+	@echo "... src/Game/Menu/GameMenuState.o"
+	@echo "... src/Game/Menu/GameMenuState.i"
+	@echo "... src/Game/Menu/GameMenuState.s"
 	@echo "... src/Game/WObjects/Actor.o"
 	@echo "... src/Game/WObjects/Actor.i"
 	@echo "... src/Game/WObjects/Actor.s"
@@ -816,6 +837,9 @@ help:
 	@echo "... src/Game/WObjects/Wall.o"
 	@echo "... src/Game/WObjects/Wall.i"
 	@echo "... src/Game/WObjects/Wall.s"
+	@echo "... src/GlobalEventManager.o"
+	@echo "... src/GlobalEventManager.i"
+	@echo "... src/GlobalEventManager.s"
 	@echo "... src/Menu/Button.o"
 	@echo "... src/Menu/Button.i"
 	@echo "... src/Menu/Button.s"
@@ -828,6 +852,9 @@ help:
 	@echo "... src/Rendering/AnimationManager.o"
 	@echo "... src/Rendering/AnimationManager.i"
 	@echo "... src/Rendering/AnimationManager.s"
+	@echo "... src/StateStack.o"
+	@echo "... src/StateStack.i"
+	@echo "... src/StateStack.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

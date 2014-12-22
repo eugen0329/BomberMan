@@ -1,4 +1,4 @@
-#include "Application/StateStack.hpp"
+#include "StateStack.hpp"
 
 
 StateStack::StateStack(window_t & window) : window(&window)

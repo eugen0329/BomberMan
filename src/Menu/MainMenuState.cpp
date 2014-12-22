@@ -34,7 +34,6 @@ void MainMenuState::draw()
 
 }
 
-
 void MainMenuState::load(window_t &window, StateStack& st, std::function<void(IDeferred*)>& fn)
 {
     this->window = &window;
@@ -44,16 +43,25 @@ void MainMenuState::load(window_t &window, StateStack& st, std::function<void(ID
     bgTexture.loadFromFile("./res/space.png");
     bgSprite.setTexture(bgTexture);
 
+
+    // loading buttons
     int textHeight = 80;
     startBtn = new Button(window.getSize().x * 0.5, window.getSize().y * 0.5 , 200, textHeight);
     startBtn->setWindow(window);
     startBtn->setText("Start", "./res/Arcade.ttf", sf::Color(84, 84, 84), textHeight);
-    startBtn->submit( std::bind([&](){ pushDeferred(new Deferred<void>(changeToGame, stateStack)); }) );
-
-
+    
     exitBtn = new Button(window.getSize().x * 0.5, window.getSize().y * 0.75 , 150, textHeight);
     exitBtn->setWindow(window);
     exitBtn->setText("Exit", "./res/Arcade.ttf", sf::Color(84, 84, 84), textHeight);
-    //exitBtn->submit(new Deferred<void>(changeToGame, stateStack));
+    
 
+    exitBtn->submit( std::bind(pushDeferred, new Deferred<void>([&]() {
+        this->window->close();
+    })) );
+
+    startBtn->submit( std::bind(pushDeferred, new Deferred<void>([&]() {
+        if(typeid(stateStack->top()) == typeid(GameState*)) return ;    // if state already changed
+        stateStack->pop();
+        stateStack->push(new GameState);
+    })) );
 }

@@ -6,14 +6,17 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Game/GameState.hpp"
-#include "Application/StateStack.hpp"
-#include "Common/StatesID.hpp"
-#include "Application/GlobalEventManager.hpp"
-#include "Common/Timer.hpp"
 
-#include "Common/Deferred.hpp"
+
+#include "StateStack.hpp"
+#include "GlobalEventManager.hpp"
+
 #include "Menu/MainMenuState.hpp"
+#include "Game/GameState.hpp"
+#include "Common/StatesID.hpp"
+
+#include "Common/Timer.hpp"
+#include "Common/Deferred.hpp"
 
 class Application {
 private:

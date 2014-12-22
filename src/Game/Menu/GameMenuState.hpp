@@ -8,32 +8,23 @@
 
 #include "Common/Interfaces/IAppState.hpp"
 #include "Common/Deferred.hpp"
+#include "Game/GameState.hpp"
 
 #include "Menu/Button.hpp"
-#include "Game/GameState.hpp"
+#include "Menu/MainMenuState.hpp"
 
 typedef sf::Event event_t;
 
-
-class MainMenuState : public IAppState  {
+class GameMenuState : public IAppState  {
 private:
-
     Button * exitBtn;
-    Button * startBtn;
+    Button * resumeBtn;
     sf::Sprite bgSprite;
     sf::Texture bgTexture;
 
-private:
-    static void changeToGame(StateStack* st)
-    {
-        if(typeid(st->top()) == typeid(GameState*)) return ;
-        st->pop();
-        st->push(new GameState);
-    }
-
 public:
-    MainMenuState();
-    virtual ~MainMenuState();
+    GameMenuState();
+    virtual ~GameMenuState();
 
     virtual void draw();
     virtual void handleEvents(const event_t&);

@@ -114,17 +114,21 @@
     <!-- Bomb -->
 
     <!-- Players -->
-    <object class="Player" posX="100" posY="100" width="32" heigth="32" vx="200" vy="200" texture="res/Animations/Player.gif" origX="22" origY="34" isSolid="true"  groupID="1" >  
+    <object class="Player" posX="50" posY="50" width="32" heigth="32" vx="200" vy="200" texture="res/Animations/Player2.gif" origX="22" origY="34" isSolid="true"  groupID="1" >  
+                                                                        
+
         <animations  nAnimations="8" initialAnimation="standDown">                                                                             
-            <animation name="moveUp" nFrames="3" posX="0" posY="190" width="65" heigth="95" offset="65" timeToFrame="0.15" />         
-            <animation name="moveDown" nFrames="3" posX="0" posY="0" width="65" heigth="95" offset="65" timeToFrame="0.15" />         
-            <animation name="moveRight" nFrames="3" posX="0" posY="285" width="65" heigth="95" offset="65" timeToFrame="0.15" />      
-            <animation name="moveLeft" nFrames="3" posX="0" posY="95" width="65" heigth="95" offset="65" timeToFrame="0.15" />        
-            <animation name="standUp" nFrames="1" posX="65" posY="190" width="65" heigth="95" offset="65" timeToFrame="0.15" />       
-            <animation name="standDown" nFrames="1" posX="65" posY="0" width="65" heigth="95" offset="65" timeToFrame="0.15" />      
-            <animation name="standRight" nFrames="1" posX="65" posY="285" width="65" heigth="95" offset="65" timeToFrame="0.15" />    
-            <animation name="standLeft" nFrames="1" posX="65" posY="95" width="65" heigth="95" offset="65" timeToFrame="0.15" />      
-        </animations>                                                                                                               
+            <animation name="moveUp"  nFrames="3" posX="0" posY="128" width="40" heigth="64" offset="45" timeToFrame="0.25" />         
+            <animation name="moveDown" nFrames="3" posX="0" posY="0" width="40" heigth="64" offset="45" timeToFrame="0.25" />         
+            <animation name="moveRight" nFrames="3" posX="0" posY="192" width="40" heigth="64" offset="45" timeToFrame="0.25" />      
+            <animation name="moveLeft" nFrames="3" posX="0" posY="64" width="40" heigth="64" offset="45" timeToFrame="0.25" />        
+            <animation name="standUp" nFrames="1" posX="45" posY="128" width="40" heigth="64" offset="45" timeToFrame="0.25" />       
+            <animation name="standDown" nFrames="1" posX="45" posY="0" width="40" heigth="64" offset="45" timeToFrame="0.25" />      
+            <animation name="standRight" nFrames="1" posX="45" posY="192" width="40" heigth="64" offset="45" timeToFrame="0.25" />    
+            <animation name="standLeft" nFrames="1" posX="45" posY="64" width="40" heigth="64" offset="45" timeToFrame="0.25" />      
+        </animations> 
+    
+                                                                                                              
     </object>
 
 <!--

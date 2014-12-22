@@ -16,12 +16,9 @@ class IAppState;
 
 class StateStack {
 private:
-
     window_t* window;
     std::stack<IAppState*> stateStack;
     std::function<void(IDeferred*)> pushDeferred;
-
-
 
 public:
     StateStack(window_t &);

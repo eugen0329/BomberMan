@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "Application/Application.hpp" 
+#include "Application.hpp" 
 
 #include <exception>
 #include <stack>

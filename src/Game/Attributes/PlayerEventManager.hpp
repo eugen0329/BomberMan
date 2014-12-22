@@ -1,17 +1,20 @@
 #ifndef _PLAYEREVENTMANAGER_HPP_
 #define _PLAYEREVENTMANAGER_HPP_
 
+#include <iostream>
+
+#include "SFML/System.hpp"
+#include "SFML/Graphics.hpp"
+
 #include "Common/Interfaces/IEventManager.hpp"
 #include "Common/Angle.hpp"
 #include "Common/Delegate.hpp"
-#include "SFML/System.hpp"
-#include "SFML/Graphics.hpp"
 
 #include "Game/Attributes/Actions.hpp"
 
 #include "Game/Keyset.hpp"
 
-#include <iostream>
+
 
 typedef sf::Event event_t;
 

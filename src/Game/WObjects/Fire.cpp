@@ -11,10 +11,8 @@ void Fire::setWorldObjects(wObjects_t& wObjects)
 
 Fire::Fire(const IAttributes& parAttr, Vec2<float> offset)
 {    
-
-
-      TiXmlDocument * xmlFile = alg::openXmlFile("./res/FireAnimation.xml");
-    xmlElem_t * animationList = alg::getXmlElement(xmlFile, {"animations"});
+    TiXmlDocument * xmlFile = alg::openXmlFile("./res/FireAnimation.xml");
+    xmlElem_t * animationList = alg::getXmlElement(xmlFile, {"fire"});
 
 
 
@@ -30,7 +28,7 @@ Fire::Fire(const IAttributes& parAttr, Vec2<float> offset)
     attr.groupID = parAttr.groupID;
 
     attr.damage = 20;
-    attr.lifeTime = 1;
+    attr.lifeTime = 1.5;
     attr.actLifeTime = 0.0;
 
     attr.width = 32;
@@ -39,9 +37,6 @@ Fire::Fire(const IAttributes& parAttr, Vec2<float> offset)
     attr.origin.x =  16;
     attr.origin.y  = 16;
 
-
-    //attr.texture.loadFromFile(textureName);
-    //attr.sprite.setTexture(attr.texture);
     attr.sprite.setOrigin(attr.origin.x, attr.origin.y);
     attr.pos.x = parAttr.pos.x;
     attr.pos.y = parAttr.pos.y;
@@ -71,11 +66,10 @@ Fire::Fire(xmlElem_t& xmlElement)
 
 Fire::Fire(const IAttributes& parAttr)
 {    
-
     TiXmlDocument * xmlFile = alg::openXmlFile("./res/FireAnimation.xml");
-    xmlElem_t * animationList = alg::getXmlElement(xmlFile, {"animations"});
+    xmlElem_t * animationList = alg::getXmlElement(xmlFile, {"blow"});
 
-    attr.texture.loadFromFile("./res/Animations/Fire.gif");
+    attr.texture.loadFromFile("./res/Animations/Blow.gif");
     attr.sprite.setTexture(attr.texture);
     animationManager.setSprite(attr.sprite);
     animationManager.loadAnimations(*animationList);
