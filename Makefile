@@ -625,6 +625,30 @@ src/Game/WObjects/Wall.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/WObjects/Wall.cpp.s
 .PHONY : src/Game/WObjects/Wall.cpp.s
 
+src/Menu/Button.o: src/Menu/Button.cpp.o
+.PHONY : src/Menu/Button.o
+
+# target to build an object file
+src/Menu/Button.cpp.o:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Menu/Button.cpp.o
+.PHONY : src/Menu/Button.cpp.o
+
+src/Menu/Button.i: src/Menu/Button.cpp.i
+.PHONY : src/Menu/Button.i
+
+# target to preprocess a source file
+src/Menu/Button.cpp.i:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Menu/Button.cpp.i
+.PHONY : src/Menu/Button.cpp.i
+
+src/Menu/Button.s: src/Menu/Button.cpp.s
+.PHONY : src/Menu/Button.s
+
+# target to generate assembly for a file
+src/Menu/Button.cpp.s:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Menu/Button.cpp.s
+.PHONY : src/Menu/Button.cpp.s
+
 src/Menu/MainMenuState.o: src/Menu/MainMenuState.cpp.o
 .PHONY : src/Menu/MainMenuState.o
 
@@ -792,6 +816,9 @@ help:
 	@echo "... src/Game/WObjects/Wall.o"
 	@echo "... src/Game/WObjects/Wall.i"
 	@echo "... src/Game/WObjects/Wall.s"
+	@echo "... src/Menu/Button.o"
+	@echo "... src/Menu/Button.i"
+	@echo "... src/Menu/Button.s"
 	@echo "... src/Menu/MainMenuState.o"
 	@echo "... src/Menu/MainMenuState.i"
 	@echo "... src/Menu/MainMenuState.s"

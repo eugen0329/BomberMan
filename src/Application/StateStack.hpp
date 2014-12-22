@@ -9,21 +9,26 @@
 #include "Common/Interfaces/IAppState.hpp"
 #include "Common/StatesID.hpp"
 
+#include "Common/Deferred.hpp"
+
 typedef sf::RenderWindow window_t;
+class IAppState;
 
 class StateStack {
 private:
 
     window_t* window;
     std::stack<IAppState*> stateStack;
+    std::function<void(IDeferred*)> pushDeferred;
+
+
+
 public:
     StateStack(window_t &);
     ~StateStack();
     StateStack();
-    void setRenderWindow(window_t& window)
-    {
-        this->window = &window;
-    }
+
+    void load(window_t &window, std::function<void(IDeferred*)>&& fn);
 
     int push(IAppState*);
     int pop();
@@ -40,8 +45,7 @@ public:
     {
         return ! stateStack.empty();
     }
-    void pushStateSignal(IAppState*);
-    void popStateSignal(unsigned int N = 1);
+
     virtual void clearStack();
 };
 

@@ -28,9 +28,6 @@ Player::Player(xmlElem_t& xmlElement)
     act.setAnimationManager(animationManager);
     act.setSignal(&delegate.bind(this, & Player::addCollisionExclude), "addCollisionExclude");
 
-
-
-   
     // retrieving keyset according groupId
     Keyset keyset(static_cast<Keyset::SetID>(attr.groupID));
     eventManager = new PlayerEventManager(keyset);

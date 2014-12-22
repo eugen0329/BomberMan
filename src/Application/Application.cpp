@@ -11,7 +11,7 @@ Application::Application()
     
     sf::VideoMode mode(windProp.xSize, windProp.ySize);
 
-    window.create(mode, windProp.name);
+    window.create(mode, windProp.name, sf::Style::Titlebar);
     window.setFramerateLimit(windProp.fps);
     window.setVerticalSyncEnabled(true);
     window.setKeyRepeatEnabled(false);
@@ -19,8 +19,16 @@ Application::Application()
     
     globalEventManager.setRenderWindow(window);
 
-    states.setRenderWindow(window);
-    states.push(new GameState);
+    //auto a = std::bind(&Application::pushDeferred, *this); [&](IDeferred* newDeferred) { deferred.push(newDeferred);};
+    states.load(window, [&](IDeferred* newDeferred) { deferred.push(newDeferred);} );
+
+   // auto a = new Deferred<void>([](){std::cout <<1;});
+
+    //std::function<void(IDeferred*)> fn = [&](IDeferred* newDeferred) { deferred.push(newDeferred);};
+    states.push(new MainMenuState);
+    //deferred.push(new Deferred<void>(&MainMenuState::changeToGame, &states));
+    
+    //states.push(new MainMenuState( std::bind(&Application::pushDeferred, *this) ));
 }
 
 Application::~Application()
@@ -33,11 +41,14 @@ Application::~Application()
 
 void Application::run()
 {
+
     while(window.isOpen()) {
         handleEvents();
         states.top()->update(timer.getElapsedTime());
         states.top()->draw();
         states.top()->display(); 
+
+        handleDeferred();       
 
         float fps = timer.getFPS();
         if(fps < 55) std::cerr << "fps: " << fps << std::endl;
@@ -56,6 +67,7 @@ void Application::handleEvents()
 void Application::handleDeferred()
 {
     while(! deferred.empty()) {
+        std::cout << "\nhandle\n";
         deferred.top()->call();
         deferred.pop();
     }

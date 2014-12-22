@@ -18,9 +18,12 @@ public:
     GameState();
     virtual ~GameState();
 
-    virtual void load()
+    virtual void load(window_t &window, StateStack& st, std::function<void(IDeferred*)>& fn)
     {
-        level = new GameLevel(*window);
+        this->window = &window;
+        pushDeferred = fn;
+        stateStack = &st;
+        level = new GameLevel(window);
     }
     
     virtual void draw();

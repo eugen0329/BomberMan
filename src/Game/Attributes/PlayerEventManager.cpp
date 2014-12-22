@@ -29,8 +29,7 @@ void PlayerEventManager::handleKeyPressedEvents(const event_t& event)
             this->move(1.0f);
         } else if(event.key.code == keys->space) {
             this->throwBomb(std::string("SimpleBomb"));
-        }
-        
+        }   
     }
 }
 

@@ -13,6 +13,7 @@
 #include "Common/Timer.hpp"
 
 #include "Common/Deferred.hpp"
+#include "Menu/MainMenuState.hpp"
 
 class Application {
 private:

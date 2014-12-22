@@ -35,7 +35,7 @@ void Actions::move(float angle)
 
 void Actions::throwBomb(const std::string bombType)
 {
-    pWObject_t newBomb( new Bomb(*attrib));
+    pWObject_t newBomb(new Bomb(*attrib));
 
     this->createWObject(newBomb);
     addCollisionExclude(newBomb);
@@ -43,7 +43,7 @@ void Actions::throwBomb(const std::string bombType)
  
 void Actions::stop(float angle)
 {  
-    dir.erase(std::find(dir.begin(), dir.end(), angle));
+    if(! dir.empty()) dir.erase(std::find(dir.begin(), dir.end(), angle));
     calculateAngle();
 }   
 

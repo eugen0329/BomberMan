@@ -21,3 +21,11 @@ void IAppState::setRenderWindow(window_t& window)
 {
     this->window = &window;
 }
+
+void IAppState::load(window_t &window, StateStack& st, std::function<void(IDeferred*)>& fn)
+{
+    this->window = &window;
+    pushDeferred = fn;
+    stateStack = &st;
+}
+

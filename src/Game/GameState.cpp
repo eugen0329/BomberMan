@@ -3,6 +3,7 @@
 
 GameState::GameState()
 {
+	std::cerr << "in game\n";
 }
 
 GameState::~GameState()

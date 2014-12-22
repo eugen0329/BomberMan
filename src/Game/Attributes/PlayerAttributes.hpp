@@ -5,6 +5,9 @@
 #include "Common/Vec2.hpp"
 #include "Game/Attributes/IAttributes.hpp"
 
+typedef sf::Sprite sprite_t;
+typedef sf::Texture texture_t;
+
 class PlayerAttributes : public IAttributes {
 public:
     Vec2<float> v;

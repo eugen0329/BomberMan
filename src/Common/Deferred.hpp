@@ -9,8 +9,12 @@ class Deferred : public IDeferred {
     std::function<Ret()> procedure;
 public:
     template<class Fn, class... Args> 
-    Deferred(Fn fn, Args... args) {
+    Deferred(Fn&& fn, Args&&... args) {
         this->procedure = std::bind<Ret>(fn, args...);
+    }
+
+    Deferred(const Deferred&& second) {
+        this->procedure = second.procedure;
     }
 
     void call() {

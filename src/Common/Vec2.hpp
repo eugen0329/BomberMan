@@ -6,7 +6,7 @@
 
 #include <Common/Angle.hpp>
 
-template<typename T = size_t> 
+template<typename T = float> 
 class Vec2 {
 public:
     T x;
