@@ -7,9 +7,6 @@
 class Keyset {
 private:
     typedef sf::Keyboard Set;
-    //struct Set1 {
-    //    
-    //};
 public:
     enum SetID {
         WSDASpace = 1,

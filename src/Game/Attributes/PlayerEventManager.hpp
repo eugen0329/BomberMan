@@ -10,7 +10,7 @@
 #include "Common/Angle.hpp"
 #include "Common/Delegate.hpp"
 
-#include "Game/Attributes/Actions.hpp"
+#include "Game/Attributes/PlayerEventHandler.hpp"
 
 #include "Game/Keyset.hpp"
 

@@ -4,34 +4,18 @@ Player::Player()
 {
 }
 
-Player::Player(xmlElem_t& xmlElement)
+Player::Player(xmlElem_t& xmlElem)
 {
-    Player::Initializer initializer(xmlElement, attr);
-
-    if(initializer.load()) {
-        exit(1);
-    } 
+    load(xmlElem);
 
     collisions = new CollisionManager;
-    xmlElem_t* animationList = xmlElement.FirstChildElement("animations");
-    if(animationList == NULL) {
-        exit(1);
-    }
+    xmlElem_t* animationList = xmlElem.FirstChildElement("animations");
     animationManager.setSprite(attr.sprite);
     animationManager.loadAnimations(*animationList);
 
-    Delegate delegate;
-
-    act.setPlayerAttr(attr);
-    act.setAnimationManager(animationManager);
-    act.setSignal(&delegate.bind(this, & Player::addCollisionExclude), "addCollisionExclude");
-
-    // retrieving keyset according groupId
-    Keyset keyset(static_cast<Keyset::SetID>(attr.groupID));
-    eventManager = new PlayerEventManager(keyset);
-    eventManager->setAction(&delegate.bind(&act, & Actions::stop), "stop"); 
-    eventManager->setAction(&delegate.bind(&act, & Actions::move), "move"); 
-    eventManager->setAction(&delegate.bind(&act, & Actions::throwBomb), "throwBomb"); 
+    act.addCollisionExclude = [&](pWObject_t n) { collisionExcludes.push_back(n);};
+    act.setKeyset(new Keyset(Keyset::WSDASpace));
+    act.load(attr, animationManager);
 }
 
 void Player::setSignal(Delegate* delegate, std::string signalName)
@@ -54,12 +38,11 @@ void Player::setWorldObjects(wObjects_t& wObjects_)
 Player::~Player()
 {
     delete collisions;
-    delete eventManager;
 }
 
 void Player::handleEvents(const event_t& event)
 {
-    eventManager->handleEvents(event);
+    act.handleEvents(event);
 }
 
 void Player::update(const float& dt)
@@ -139,61 +122,37 @@ void Player::updateCollisionExcludes()
     }
 }
 
-// Initializer /---------------------------
-
-Player::Initializer::Initializer(xmlElem_t& element, PlayerAttributes& attr)
+void Player::load(xmlElem_t& elem)
 {
-    this->element = &element;   
-    this->attr  = &attr;
-}
-
-Player::Initializer::Initializer()
-{
-    this->element = NULL;
-    this->attr =  NULL;
-}
-
-Player::Initializer::~Initializer()
-{
-}
-
-int Player::Initializer::load() const
-{
-
-    if(attr == NULL) {
-        return 1;
-    }
-
-    if(std::string(element->Attribute("isSolid")) == "true") {
-        attr->solid = true;
+    if(std::string(elem.Attribute("isSolid")) == "true") {
+        attr.solid = true;
     } else {
-        attr->solid = false;
+        attr.solid = false;
     }
 
-    attr->groupID = atoi(element->Attribute("groupID"));
+    attr.groupID = atoi(elem.Attribute("groupID"));
 
-    attr->harmful = false;
+    attr.harmful = false;
     
 
-    attr->v.x = 0.0;
-    attr->v.y = 0.0;
-    attr->angle.setPiRadAngle(-0.5);
-    attr->vMax = 200;
+    attr.v.x = 0.0;
+    attr.v.y = 0.0;
+    attr.angle.setPiRadAngle(-0.5);
+    attr.vMax = 200;
     
-    attr->width = atoi(element->Attribute("width"));;
-    attr->heigth = atoi(element->Attribute("heigth"));
+    attr.width = atoi(elem.Attribute("width"));;
+    attr.heigth = atoi(elem.Attribute("heigth"));
 
-    attr->origin.x =  atoi(element->Attribute("origX"));
-    attr->origin.y  = atoi(element->Attribute("origY"));
+    attr.origin.x =  atoi(elem.Attribute("origX"));
+    attr.origin.y  = atoi(elem.Attribute("origY"));
 
-    std::string textureName = element->Attribute("texture");
+    std::string textureName = elem.Attribute("texture");
 
-    attr->texture.loadFromFile(textureName);
-    attr->sprite.setTexture(attr->texture);
+    attr.texture.loadFromFile(textureName);
+    attr.sprite.setTexture(attr.texture);
     
-    attr->pos.x = atoi(element->Attribute("posX"));
-    attr->pos.y = atoi(element->Attribute("posY"));
-    attr->sprite.setPosition(attr->pos.x, attr->pos.y );
-    attr->sprite.setOrigin(attr->origin.x, attr->origin.y);
-    return 0;
+    attr.pos.x = atoi(elem.Attribute("posX"));
+    attr.pos.y = atoi(elem.Attribute("posY"));
+    attr.sprite.setPosition(attr.pos.x, attr.pos.y );
+    attr.sprite.setOrigin(attr.origin.x, attr.origin.y);
 }

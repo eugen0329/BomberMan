@@ -61,6 +61,7 @@ Bomb::Bomb(const IAttributes& parAttr)
     attrib.sprite.setOrigin(attrib.origin.x, attrib.origin.y);
     attrib.pos.x = parAttr.pos.x;
     attrib.pos.y = parAttr.pos.y;
+    std::cout << "Parrent atttr:\n" << parAttr.pos.x << parAttr.pos.y << ";";
     attrib.sprite.setPosition(attrib.pos.x, attrib.pos.y );
 }
 

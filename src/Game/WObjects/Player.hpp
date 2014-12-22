@@ -7,7 +7,7 @@
 #include <cmath>
 #include <memory>
 
-#include "Game/Attributes/Actions.hpp"
+#include "Game/Attributes/PlayerEventHandler.hpp"
 
 #include "Game/WObjects/IWorldsObject.hpp"
 #include "Game/WObjects/Actor.hpp"
@@ -37,7 +37,7 @@ private:
     PlayerEventManager * eventManager;
     AnimationManager animationManager;
     
-    Actions act;
+    PlayerEventHandler act;
     PlayerAttributes attr;
 
     CollisionManager* collisions;
@@ -71,18 +71,9 @@ public:
     }
     virtual void setWorldObjects(wObjects_t&);
     void setSignal(Delegate*, std::string);
+    void load(xmlElem_t&);
 };
 
-class Player::Initializer : public IInitializer {
-private:
-    mutable PlayerAttributes* attr; 
-public:
-    Initializer();
-    Initializer(xmlElem_t&, PlayerAttributes&);
-    virtual ~Initializer();
-    
-    int load() const;
-    
-};
+
 
 #endif /* end of include guard: _PLAYER_HPP_ */
