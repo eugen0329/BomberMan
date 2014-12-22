@@ -11,8 +11,8 @@
 #include "StateStack.hpp"
 #include "GlobalEventManager.hpp"
 
-#include "Menu/MainMenuState.hpp"
-#include "Game/GameState.hpp"
+#include "States/MainMenuState.hpp"
+#include "States/GameState.hpp"
 #include "Common/StatesID.hpp"
 
 #include "Common/Timer.hpp"

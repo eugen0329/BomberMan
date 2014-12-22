@@ -1,5 +1,5 @@
 <fire  nAnimations="1" initialAnimation="burn">                                                                             
-    <animation  name="burn" nFrames="3" posX="0" posY="0" width="116" heigth="85" offset="116" timeToFrame="0.15" />         
+    <animation  name="burn" nFrames="3" posX="0" posY="0" width="99" heigth="64" offset="99" timeToFrame="0.15" />         
 </fire> 
 
 <blow  nAnimations="1" initialAnimation="burn">                                                                             

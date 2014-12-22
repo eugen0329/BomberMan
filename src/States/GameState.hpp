@@ -11,7 +11,7 @@
 #include "Common/Interfaces/IAppState.hpp"
 #include "Game/GameLevel.hpp"
 
-#include "Game/Menu/GameMenuState.hpp"
+#include "States/GameMenuState.hpp"
 
 typedef sf::Event event_t;
 

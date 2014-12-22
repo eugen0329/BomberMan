@@ -20,8 +20,6 @@ Player::Player(xmlElem_t& xmlElement)
     animationManager.setSprite(attr.sprite);
     animationManager.loadAnimations(*animationList);
 
-
-
     Delegate delegate;
 
     act.setPlayerAttr(attr);

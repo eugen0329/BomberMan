@@ -1,4 +1,4 @@
-#include "Game/Menu/GameMenuState.hpp"
+#include "States/GameMenuState.hpp"
 
 
 GameMenuState::GameMenuState()

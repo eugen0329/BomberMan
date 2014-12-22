@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/eugen/Kurs/fire/BomberMan
+CMAKE_SOURCE_DIR = /home/eugen/Kurs/BomberMan
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/eugen/Kurs/fire/BomberMan
+CMAKE_BINARY_DIR = /home/eugen/Kurs/BomberMan
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -83,16 +83,6 @@ install/local: preinstall
 install/local/fast: install/local
 .PHONY : install/local/fast
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: install/strip
-.PHONY : install/strip/fast
-
 # Special rule for the target list_install_components
 list_install_components:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
@@ -114,9 +104,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/eugen/Kurs/fire/BomberMan/CMakeFiles /home/eugen/Kurs/fire/BomberMan/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/eugen/Kurs/BomberMan/CMakeFiles /home/eugen/Kurs/BomberMan/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/eugen/Kurs/fire/BomberMan/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/eugen/Kurs/BomberMan/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -156,6 +146,11 @@ bin/fast:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/build
 .PHONY : bin/fast
 
+# Manual pre-install relink rule for target.
+bin/preinstall:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/preinstall
+.PHONY : bin/preinstall
+
 #=============================================================================
 # Target rules for targets named tinyxml
 
@@ -192,6 +187,30 @@ src/Application.s: src/Application.cpp.s
 src/Application.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Application.cpp.s
 .PHONY : src/Application.cpp.s
+
+src/Common/Button.o: src/Common/Button.cpp.o
+.PHONY : src/Common/Button.o
+
+# target to build an object file
+src/Common/Button.cpp.o:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Common/Button.cpp.o
+.PHONY : src/Common/Button.cpp.o
+
+src/Common/Button.i: src/Common/Button.cpp.i
+.PHONY : src/Common/Button.i
+
+# target to preprocess a source file
+src/Common/Button.cpp.i:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Common/Button.cpp.i
+.PHONY : src/Common/Button.cpp.i
+
+src/Common/Button.s: src/Common/Button.cpp.s
+.PHONY : src/Common/Button.s
+
+# target to generate assembly for a file
+src/Common/Button.cpp.s:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Common/Button.cpp.s
+.PHONY : src/Common/Button.cpp.s
 
 src/Common/Interfaces/IAppState.o: src/Common/Interfaces/IAppState.cpp.o
 .PHONY : src/Common/Interfaces/IAppState.o
@@ -337,30 +356,6 @@ src/Game/GameLevel.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/GameLevel.cpp.s
 .PHONY : src/Game/GameLevel.cpp.s
 
-src/Game/GameState.o: src/Game/GameState.cpp.o
-.PHONY : src/Game/GameState.o
-
-# target to build an object file
-src/Game/GameState.cpp.o:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/GameState.cpp.o
-.PHONY : src/Game/GameState.cpp.o
-
-src/Game/GameState.i: src/Game/GameState.cpp.i
-.PHONY : src/Game/GameState.i
-
-# target to preprocess a source file
-src/Game/GameState.cpp.i:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/GameState.cpp.i
-.PHONY : src/Game/GameState.cpp.i
-
-src/Game/GameState.s: src/Game/GameState.cpp.s
-.PHONY : src/Game/GameState.s
-
-# target to generate assembly for a file
-src/Game/GameState.cpp.s:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/GameState.cpp.s
-.PHONY : src/Game/GameState.cpp.s
-
 src/Game/Map/Cell.o: src/Game/Map/Cell.cpp.o
 .PHONY : src/Game/Map/Cell.o
 
@@ -408,30 +403,6 @@ src/Game/Map/GameMap.s: src/Game/Map/GameMap.cpp.s
 src/Game/Map/GameMap.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Map/GameMap.cpp.s
 .PHONY : src/Game/Map/GameMap.cpp.s
-
-src/Game/Menu/GameMenuState.o: src/Game/Menu/GameMenuState.cpp.o
-.PHONY : src/Game/Menu/GameMenuState.o
-
-# target to build an object file
-src/Game/Menu/GameMenuState.cpp.o:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Menu/GameMenuState.cpp.o
-.PHONY : src/Game/Menu/GameMenuState.cpp.o
-
-src/Game/Menu/GameMenuState.i: src/Game/Menu/GameMenuState.cpp.i
-.PHONY : src/Game/Menu/GameMenuState.i
-
-# target to preprocess a source file
-src/Game/Menu/GameMenuState.cpp.i:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Menu/GameMenuState.cpp.i
-.PHONY : src/Game/Menu/GameMenuState.cpp.i
-
-src/Game/Menu/GameMenuState.s: src/Game/Menu/GameMenuState.cpp.s
-.PHONY : src/Game/Menu/GameMenuState.s
-
-# target to generate assembly for a file
-src/Game/Menu/GameMenuState.cpp.s:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Menu/GameMenuState.cpp.s
-.PHONY : src/Game/Menu/GameMenuState.cpp.s
 
 src/Game/WObjects/Actor.o: src/Game/WObjects/Actor.cpp.o
 .PHONY : src/Game/WObjects/Actor.o
@@ -625,54 +596,6 @@ src/GlobalEventManager.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/GlobalEventManager.cpp.s
 .PHONY : src/GlobalEventManager.cpp.s
 
-src/Menu/Button.o: src/Menu/Button.cpp.o
-.PHONY : src/Menu/Button.o
-
-# target to build an object file
-src/Menu/Button.cpp.o:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Menu/Button.cpp.o
-.PHONY : src/Menu/Button.cpp.o
-
-src/Menu/Button.i: src/Menu/Button.cpp.i
-.PHONY : src/Menu/Button.i
-
-# target to preprocess a source file
-src/Menu/Button.cpp.i:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Menu/Button.cpp.i
-.PHONY : src/Menu/Button.cpp.i
-
-src/Menu/Button.s: src/Menu/Button.cpp.s
-.PHONY : src/Menu/Button.s
-
-# target to generate assembly for a file
-src/Menu/Button.cpp.s:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Menu/Button.cpp.s
-.PHONY : src/Menu/Button.cpp.s
-
-src/Menu/MainMenuState.o: src/Menu/MainMenuState.cpp.o
-.PHONY : src/Menu/MainMenuState.o
-
-# target to build an object file
-src/Menu/MainMenuState.cpp.o:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Menu/MainMenuState.cpp.o
-.PHONY : src/Menu/MainMenuState.cpp.o
-
-src/Menu/MainMenuState.i: src/Menu/MainMenuState.cpp.i
-.PHONY : src/Menu/MainMenuState.i
-
-# target to preprocess a source file
-src/Menu/MainMenuState.cpp.i:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Menu/MainMenuState.cpp.i
-.PHONY : src/Menu/MainMenuState.cpp.i
-
-src/Menu/MainMenuState.s: src/Menu/MainMenuState.cpp.s
-.PHONY : src/Menu/MainMenuState.s
-
-# target to generate assembly for a file
-src/Menu/MainMenuState.cpp.s:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Menu/MainMenuState.cpp.s
-.PHONY : src/Menu/MainMenuState.cpp.s
-
 src/Rendering/Animation.o: src/Rendering/Animation.cpp.o
 .PHONY : src/Rendering/Animation.o
 
@@ -745,6 +668,78 @@ src/StateStack.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/StateStack.cpp.s
 .PHONY : src/StateStack.cpp.s
 
+src/States/GameMenuState.o: src/States/GameMenuState.cpp.o
+.PHONY : src/States/GameMenuState.o
+
+# target to build an object file
+src/States/GameMenuState.cpp.o:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/GameMenuState.cpp.o
+.PHONY : src/States/GameMenuState.cpp.o
+
+src/States/GameMenuState.i: src/States/GameMenuState.cpp.i
+.PHONY : src/States/GameMenuState.i
+
+# target to preprocess a source file
+src/States/GameMenuState.cpp.i:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/GameMenuState.cpp.i
+.PHONY : src/States/GameMenuState.cpp.i
+
+src/States/GameMenuState.s: src/States/GameMenuState.cpp.s
+.PHONY : src/States/GameMenuState.s
+
+# target to generate assembly for a file
+src/States/GameMenuState.cpp.s:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/GameMenuState.cpp.s
+.PHONY : src/States/GameMenuState.cpp.s
+
+src/States/GameState.o: src/States/GameState.cpp.o
+.PHONY : src/States/GameState.o
+
+# target to build an object file
+src/States/GameState.cpp.o:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/GameState.cpp.o
+.PHONY : src/States/GameState.cpp.o
+
+src/States/GameState.i: src/States/GameState.cpp.i
+.PHONY : src/States/GameState.i
+
+# target to preprocess a source file
+src/States/GameState.cpp.i:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/GameState.cpp.i
+.PHONY : src/States/GameState.cpp.i
+
+src/States/GameState.s: src/States/GameState.cpp.s
+.PHONY : src/States/GameState.s
+
+# target to generate assembly for a file
+src/States/GameState.cpp.s:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/GameState.cpp.s
+.PHONY : src/States/GameState.cpp.s
+
+src/States/MainMenuState.o: src/States/MainMenuState.cpp.o
+.PHONY : src/States/MainMenuState.o
+
+# target to build an object file
+src/States/MainMenuState.cpp.o:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/MainMenuState.cpp.o
+.PHONY : src/States/MainMenuState.cpp.o
+
+src/States/MainMenuState.i: src/States/MainMenuState.cpp.i
+.PHONY : src/States/MainMenuState.i
+
+# target to preprocess a source file
+src/States/MainMenuState.cpp.i:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/MainMenuState.cpp.i
+.PHONY : src/States/MainMenuState.cpp.i
+
+src/States/MainMenuState.s: src/States/MainMenuState.cpp.s
+.PHONY : src/States/MainMenuState.s
+
+# target to generate assembly for a file
+src/States/MainMenuState.cpp.s:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/MainMenuState.cpp.s
+.PHONY : src/States/MainMenuState.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -779,13 +774,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... install/local"
-	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... tinyxml"
 	@echo "... src/Application.o"
 	@echo "... src/Application.i"
 	@echo "... src/Application.s"
+	@echo "... src/Common/Button.o"
+	@echo "... src/Common/Button.i"
+	@echo "... src/Common/Button.s"
 	@echo "... src/Common/Interfaces/IAppState.o"
 	@echo "... src/Common/Interfaces/IAppState.i"
 	@echo "... src/Common/Interfaces/IAppState.s"
@@ -804,18 +801,12 @@ help:
 	@echo "... src/Game/GameLevel.o"
 	@echo "... src/Game/GameLevel.i"
 	@echo "... src/Game/GameLevel.s"
-	@echo "... src/Game/GameState.o"
-	@echo "... src/Game/GameState.i"
-	@echo "... src/Game/GameState.s"
 	@echo "... src/Game/Map/Cell.o"
 	@echo "... src/Game/Map/Cell.i"
 	@echo "... src/Game/Map/Cell.s"
 	@echo "... src/Game/Map/GameMap.o"
 	@echo "... src/Game/Map/GameMap.i"
 	@echo "... src/Game/Map/GameMap.s"
-	@echo "... src/Game/Menu/GameMenuState.o"
-	@echo "... src/Game/Menu/GameMenuState.i"
-	@echo "... src/Game/Menu/GameMenuState.s"
 	@echo "... src/Game/WObjects/Actor.o"
 	@echo "... src/Game/WObjects/Actor.i"
 	@echo "... src/Game/WObjects/Actor.s"
@@ -840,12 +831,6 @@ help:
 	@echo "... src/GlobalEventManager.o"
 	@echo "... src/GlobalEventManager.i"
 	@echo "... src/GlobalEventManager.s"
-	@echo "... src/Menu/Button.o"
-	@echo "... src/Menu/Button.i"
-	@echo "... src/Menu/Button.s"
-	@echo "... src/Menu/MainMenuState.o"
-	@echo "... src/Menu/MainMenuState.i"
-	@echo "... src/Menu/MainMenuState.s"
 	@echo "... src/Rendering/Animation.o"
 	@echo "... src/Rendering/Animation.i"
 	@echo "... src/Rendering/Animation.s"
@@ -855,6 +840,15 @@ help:
 	@echo "... src/StateStack.o"
 	@echo "... src/StateStack.i"
 	@echo "... src/StateStack.s"
+	@echo "... src/States/GameMenuState.o"
+	@echo "... src/States/GameMenuState.i"
+	@echo "... src/States/GameMenuState.s"
+	@echo "... src/States/GameState.o"
+	@echo "... src/States/GameState.i"
+	@echo "... src/States/GameState.s"
+	@echo "... src/States/MainMenuState.o"
+	@echo "... src/States/MainMenuState.i"
+	@echo "... src/States/MainMenuState.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

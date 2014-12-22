@@ -1,4 +1,4 @@
-#include "Menu/Button.hpp"
+#include "Common/Button.hpp"
 
 
 Button::Button(float x, float y, float width, float height)
