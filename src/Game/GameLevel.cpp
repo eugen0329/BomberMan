@@ -3,11 +3,15 @@
 GameLevel::GameLevel() :
 window(NULL)
 {
+
 }
 
 GameLevel::GameLevel(window_t& window) : 
 window(&window)
 {
+
+
+
     levelMap.setRenderWindow(window);
 
     std::string filename("res/WObjectsList.xml");
@@ -28,6 +32,7 @@ GameLevel::~GameLevel()
 
 void GameLevel::readObjectsFromXml(TiXmlElement* xml)
 {
+
     for (TiXmlElement* it = xml; it; it = it->NextSiblingElement("object")) {
 
         std::string className = it->Attribute("class");

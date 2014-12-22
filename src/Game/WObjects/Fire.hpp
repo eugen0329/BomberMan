@@ -12,13 +12,17 @@
 #include "Game/Attributes/FireAttributes.hpp" 
 #include "Game/WObjects/Item.hpp"
 
+#include "Rendering/AnimationManager.hpp"
+
+
 class Fire : public Item {
 private:
     class Initializer;
 
-    FireAttributes attrib;
+    FireAttributes attr;
     Delegate destroyingSignal;
     Delegate createSignal;
+    AnimationManager animationManager;
 public:
     Fire();
 
@@ -29,9 +33,10 @@ public:
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);
     virtual void draw();
+    void loadAttr(xmlElem_t& elem);
     virtual IAttributes& getAttr() 
     {
-        return attrib;
+        return attr;
     }
 
     virtual void addCollision(Collision);
@@ -47,7 +52,7 @@ public:
 
 class Fire::Initializer : public IInitializer {
 private:
-    mutable FireAttributes* attrib; 
+    mutable FireAttributes* attr; 
 public:
     Initializer();
     Initializer(xmlElem_t&, FireAttributes&);

@@ -11,37 +11,57 @@ void Fire::setWorldObjects(wObjects_t& wObjects)
 
 Fire::Fire(const IAttributes& parAttr, Vec2<float> offset)
 {    
-    attrib.harmful = true; 
-    attrib.solid = false;
 
-    attrib.groupID = parAttr.groupID;
 
-    attrib.damage = 20;
-    attrib.lifeTime = 1;
-    attrib.actLifeTime = 0.0;
+      TiXmlDocument * xmlFile = alg::openXmlFile("./res/FireAnimation.xml");
+    xmlElem_t * animationList = alg::getXmlElement(xmlFile, {"animations"});
 
-    attrib.width = 32;
-    attrib.heigth = 32;
 
-    attrib.origin.x =  16;
-    attrib.origin.y  = 16;
 
-    std::string textureName = "res/Tiles/fire.png";
+    attr.texture.loadFromFile("./res/Animations/Fire.gif");
+    attr.sprite.setTexture(attr.texture);
+    animationManager.setSprite(attr.sprite);
+    animationManager.loadAnimations(*animationList);
 
-    attrib.texture.loadFromFile(textureName);
-    attrib.sprite.setTexture(attrib.texture);
-    attrib.sprite.setOrigin(attrib.origin.x, attrib.origin.y);
-    attrib.pos.x = parAttr.pos.x;
-    attrib.pos.y = parAttr.pos.y;
 
-    attrib.pos += offset;
+    attr.harmful = true; 
+    attr.solid = false;
 
-    attrib.sprite.setPosition(attrib.pos.x, attrib.pos.y );
+    attr.groupID = parAttr.groupID;
+
+    attr.damage = 20;
+    attr.lifeTime = 1;
+    attr.actLifeTime = 0.0;
+
+    attr.width = 32;
+    attr.heigth = 32;
+
+    attr.origin.x =  16;
+    attr.origin.y  = 16;
+
+
+    //attr.texture.loadFromFile(textureName);
+    //attr.sprite.setTexture(attr.texture);
+    attr.sprite.setOrigin(attr.origin.x, attr.origin.y);
+    attr.pos.x = parAttr.pos.x;
+    attr.pos.y = parAttr.pos.y;
+
+    attr.pos += offset;
+
+    attr.sprite.setPosition(attr.pos.x, attr.pos.y );
+
+
+    animationManager.updateCurrentAnimation(0);
+    delete xmlFile;
+}
+void Fire::loadAttr(xmlElem_t& elem)
+{
+
 }
 
 Fire::Fire(xmlElem_t& xmlElement)
 {    
-	Fire::Initializer initializer(xmlElement, attrib);
+	Fire::Initializer initializer(xmlElement, attr);
 
     if(initializer.load()) {
         exit(1);
@@ -51,29 +71,35 @@ Fire::Fire(xmlElem_t& xmlElement)
 
 Fire::Fire(const IAttributes& parAttr)
 {    
-    attrib.harmful = true; 
-    attrib.solid = false;
 
-    attrib.groupID = parAttr.groupID;
+    TiXmlDocument * xmlFile = alg::openXmlFile("./res/FireAnimation.xml");
+    xmlElem_t * animationList = alg::getXmlElement(xmlFile, {"animations"});
 
-    attrib.damage = 20;
-    attrib.lifeTime = 1;
-    attrib.actLifeTime = 0.0;
+    attr.texture.loadFromFile("./res/Animations/Fire.gif");
+    attr.sprite.setTexture(attr.texture);
+    animationManager.setSprite(attr.sprite);
+    animationManager.loadAnimations(*animationList);
 
-    attrib.width = 32;
-    attrib.heigth = 32;
+    attr.harmful = true; 
+    attr.solid = false;
 
-    attrib.origin.x =  16;
-    attrib.origin.y  = 16;
+    attr.groupID = parAttr.groupID;
 
-    std::string textureName = "res/Tiles/fire.png";
+    attr.damage = 20;
+    attr.lifeTime = 1;
+    attr.actLifeTime = 0.0;
 
-    attrib.texture.loadFromFile(textureName);
-    attrib.sprite.setTexture(attrib.texture);
-    attrib.sprite.setOrigin(attrib.origin.x, attrib.origin.y);
-    attrib.pos.x = parAttr.pos.x;
-    attrib.pos.y = parAttr.pos.y;
-    attrib.sprite.setPosition(attrib.pos.x, attrib.pos.y );
+    attr.width = 32;
+    attr.heigth = 32;
+
+    attr.origin.x =  16;
+    attr.origin.y  = 16;
+
+    attr.pos.x = parAttr.pos.x;
+    attr.pos.y = parAttr.pos.y;
+    attr.sprite.setPosition(attr.pos.x, attr.pos.y );
+    animationManager.updateCurrentAnimation(0);
+    delete xmlFile;
 }
 
 void Fire::addCollision(Collision)
@@ -90,10 +116,11 @@ void Fire::handleEvents(const event_t&)
 
 void Fire::update(const float& dt) 
 { 
-    attrib.actLifeTime += dt;
+    attr.actLifeTime += dt;
+    animationManager.updateCurrentAnimation(dt);
  
-    //std::cout <<  attrib.actLifeTime;
-    if(attrib.actLifeTime >= attrib.lifeTime) 
+    //std::cout <<  attr.actLifeTime;
+    if(attr.actLifeTime >= attr.lifeTime) 
     {
         destroyingSignal(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
     }
@@ -108,7 +135,7 @@ void Fire::checkCollisions()
 
 void Fire::draw()
 {
-    window->draw(attrib.sprite);
+    window->draw(attr.sprite);
 }
 
 void Fire::setSignal(Delegate* delegate, std::string signalName)
@@ -122,52 +149,52 @@ void Fire::setSignal(Delegate* delegate, std::string signalName)
 
 int Fire::Initializer::load() const
 {
-    if(attrib == NULL) {
+    if(attr == NULL) {
         return 1; 
     }
 
 
     if(std::string(element->Attribute("isSolid")) == "true") {
-        attrib->solid = true;
+        attr->solid = true;
     } else {
-        attrib->solid = false;
+        attr->solid = false;
     }
 
-    attrib->harmful = true;
+    attr->harmful = true;
 
-    attrib->lifeTime = atof(element->Attribute("lifeTime"));
-    attrib->actLifeTime = 0.0;
+    attr->lifeTime = atof(element->Attribute("lifeTime"));
+    attr->actLifeTime = 0.0;
 
-    attrib->width = atoi(element->Attribute("width"));
-    attrib->heigth = atoi(element->Attribute("heigth"));
+    attr->width = atoi(element->Attribute("width"));
+    attr->heigth = atoi(element->Attribute("heigth"));
 
-    attrib->pos.x = atoi(element->Attribute("posX"));
-    attrib->pos.y = atoi(element->Attribute("posY"));
+    attr->pos.x = atoi(element->Attribute("posX"));
+    attr->pos.y = atoi(element->Attribute("posY"));
 
-    attrib->origin.x =  atoi(element->Attribute("origX"));
-    attrib->origin.y  = atoi(element->Attribute("origY"));
+    attr->origin.x =  atoi(element->Attribute("origX"));
+    attr->origin.y  = atoi(element->Attribute("origY"));
 
     std::string textureName = element->Attribute("texture");
 
 
-    attrib->texture.loadFromFile(textureName);
-    attrib->sprite.setTexture(attrib->texture);
-    attrib->sprite.setPosition(attrib->pos.x, attrib->pos.y );
-    attrib->sprite.setOrigin(attrib->origin.x, attrib->origin.y);
+    attr->texture.loadFromFile(textureName);
+    attr->sprite.setTexture(attr->texture);
+    attr->sprite.setPosition(attr->pos.x, attr->pos.y );
+    attr->sprite.setOrigin(attr->origin.x, attr->origin.y);
 
     return 0;
 }
 
-Fire::Initializer::Initializer(xmlElem_t& element, FireAttributes& attrib)
+Fire::Initializer::Initializer(xmlElem_t& element, FireAttributes& attr)
 {
     this->element = &element;   
-    this->attrib  = &attrib;
+    this->attr  = &attr;
 }
 
 Fire::Initializer::Initializer()
 {
     this->element = NULL;
-    this->attrib =  NULL;
+    this->attr =  NULL;
 }
 
 Fire::Initializer::~Initializer()

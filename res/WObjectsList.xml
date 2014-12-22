@@ -1,22 +1,40 @@
 <WObjects>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- left -->
-    <object class="Wall" posX="16" posY="16"  width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="16" posY="48"  width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="16" posY="80"  width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="16" posY="112" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="16" posY="112" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="16" posY="144" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="16" posY="176" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="16" posY="208" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="16" posY="240" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="16" posY="272" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="16" posY="304" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="16" posY="336" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="16" posY="368" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="16" posY="368" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="16" posY="400" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="16" posY="432" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="16" posY="464" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="27" posY="0"  width="60" heigth="60" texture="res/Tiles/block.metal.gif" origX="30" origY="30" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="27" posY="54"  width="60" heigth="60" texture="res/Tiles/block.metal.gif" origX="30" origY="30" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="27" posY="108"  width="60" heigth="60" texture="res/Tiles/block.metal.gif" origX="30" origY="30" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="27" posY="162"  width="60" heigth="60" texture="res/Tiles/block.metal.gif" origX="30" origY="30" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="27" posY="216" width="60" heigth="60" texture="res/Tiles/block.metal.gif" origX="30" origY="30" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="27" posY="270" width="60" heigth="60" texture="res/Tiles/block.metal.gif" origX="30" origY="30" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="27" posY="324" width="60" heigth="60" texture="res/Tiles/block.metal.gif" origX="30" origY="30" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="27" posY="378" width="60" heigth="60" texture="res/Tiles/block.metal.gif" origX="30" origY="30" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="27" posY="432" width="60" heigth="60" texture="res/Tiles/block.metal.gif" origX="30" origY="30" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="27" posY="486" width="60" heigth="60" texture="res/Tiles/block.metal.gif" origX="30" origY="30" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="27" posY="540" width="60" heigth="60" texture="res/Tiles/block.metal.gif" origX="30" origY="30" isSolid="true" groupID="0"/>
+
 
     <!-- top-->
     <object class="Wall" posX="48" posY="16"  width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
@@ -38,7 +56,7 @@
     <object class="Wall" posX="560" posY="16" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="592" posY="16" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="624" posY="16" width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
- groupID="0"
+
      <!-- right-->
     <object class="Wall" posX="624" posY="16"  width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="624" posY="48"  width="32" heigth="32" texture="res/Tiles/wall.png" origX="16" origY="16" isSolid="true" groupID="0"/>
@@ -95,22 +113,21 @@
 
     <!-- Bomb -->
 
-    <object class="Bomb" posX="80" posY="208" width="32" heigth="32" texture="res/Tiles/bomb.jpg" origX="16" origY="16" lifeTime="2" isSolid="true" />
-    <object class="Fire" posX="80" posY="208" width="32" heigth="32" texture="res/Tiles/fire.png" origX="16" origY="16" lifeTime="2" isSolid="true" />
-
     <!-- Players -->
-    <object class="Player" posX="50" posY="50" width="32" heigth="32" vx="200" vy="200" texture="res/Animations/tileSheet1.png" origX="22" origY="34" isSolid="true"  groupID="1" >  
+    <object class="Player" posX="100" posY="100" width="32" heigth="32" vx="200" vy="200" texture="res/Animations/Player.gif" origX="22" origY="34" isSolid="true"  groupID="1" >  
         <animations  nAnimations="8" initialAnimation="standDown">                                                                             
-            <animation name="moveUp" nFrames="3" posX="0" posY="202" width="40" heigth="64" offset="45" timeToFrame="0.25" />         
-            <animation name="moveDown" nFrames="3" posX="0" posY="10" width="40" heigth="64" offset="45" timeToFrame="0.25" />         
-            <animation name="moveRight" nFrames="3" posX="0" posY="138" width="40" heigth="64" offset="45" timeToFrame="0.25" />      
-            <animation name="moveLeft" nFrames="3" posX="0" posY="74" width="40" heigth="64" offset="45" timeToFrame="0.25" />        
-            <animation name="standUp" nFrames="1" posX="45" posY="202" width="40" heigth="64" offset="45" timeToFrame="0.25" />       
-            <animation name="standDown" nFrames="1" posX="45" posY="10" width="40" heigth="64" offset="45" timeToFrame="0.25" />      
-            <animation name="standRight" nFrames="1" posX="45" posY="138" width="40" heigth="64" offset="45" timeToFrame="0.25" />    
-            <animation name="standLeft" nFrames="1" posX="45" posY="74" width="40" heigth="64" offset="45" timeToFrame="0.25" />      
+            <animation name="moveUp" nFrames="3" posX="0" posY="190" width="65" heigth="95" offset="65" timeToFrame="0.15" />         
+            <animation name="moveDown" nFrames="3" posX="0" posY="0" width="65" heigth="95" offset="65" timeToFrame="0.15" />         
+            <animation name="moveRight" nFrames="3" posX="0" posY="285" width="65" heigth="95" offset="65" timeToFrame="0.15" />      
+            <animation name="moveLeft" nFrames="3" posX="0" posY="95" width="65" heigth="95" offset="65" timeToFrame="0.15" />        
+            <animation name="standUp" nFrames="1" posX="65" posY="190" width="65" heigth="95" offset="65" timeToFrame="0.15" />       
+            <animation name="standDown" nFrames="1" posX="65" posY="0" width="65" heigth="95" offset="65" timeToFrame="0.15" />      
+            <animation name="standRight" nFrames="1" posX="65" posY="285" width="65" heigth="95" offset="65" timeToFrame="0.15" />    
+            <animation name="standLeft" nFrames="1" posX="65" posY="95" width="65" heigth="95" offset="65" timeToFrame="0.15" />      
         </animations>                                                                                                               
     </object>
+
+<!--
     <object class="Player" posX="250" posY="250" width="32" heigth="32" vx="200" vy="200" texture="res/Animations/tileSheet2.png" origX="22" origY="34" isSolid="true"  groupID="2" >  
         <animations  nAnimations="8" initialAnimation="standDown">                                                                             
             <animation name="moveUp" nFrames="3" posX="0" posY="202" width="40" heigth="64" offset="45" timeToFrame="0.25" />         
@@ -123,4 +140,5 @@
             <animation name="standLeft" nFrames="1" posX="45" posY="74" width="40" heigth="64" offset="45" timeToFrame="0.25" />      
         </animations>                                                                                                               
     </object>  
+-->
 </WObjects>
