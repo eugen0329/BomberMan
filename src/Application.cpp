@@ -38,7 +38,7 @@ Application::~Application()
         window.close();
     }
     while(! deferred.empty()) {
-        ///delete deferred.top(); 
+        delete deferred.top(); 
         deferred.pop();
     }
 }
@@ -72,7 +72,7 @@ void Application::handleDeferred()
 {
     while(! deferred.empty()) {
         deferred.top()->call();
-        //delete deferred.top(); 
+        delete deferred.top(); 
         deferred.pop();
     }
 }
