@@ -30,14 +30,10 @@ public:
     iterator end();
 
 
-    void setWObjects(wObjects_t& wObjects)
-    {
-        this->wObjects = & wObjects;
-    }
-    inline void setOwner(pWObject_t owner)
-    {
-        this->owner = owner;
-    }
+    void setWObjects(wObjects_t& wObjects);
+
+    void setOwner(pWObject_t owner);
+
 };
 
 

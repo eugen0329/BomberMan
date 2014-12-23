@@ -37,6 +37,10 @@ Application::~Application()
     if(window.isOpen()) {
         window.close();
     }
+    while(! deferred.empty()) {
+        ///delete deferred.top(); 
+        deferred.pop();
+    }
 }
 
 void Application::run()
@@ -67,8 +71,8 @@ void Application::handleEvents()
 void Application::handleDeferred()
 {
     while(! deferred.empty()) {
-        std::cout << "\nhandle\n";
         deferred.top()->call();
+        //delete deferred.top(); 
         deferred.pop();
     }
 }

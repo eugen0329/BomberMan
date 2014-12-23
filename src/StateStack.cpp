@@ -29,7 +29,6 @@ int StateStack::pop()
     } else {
         delete stateStack.top();
         stateStack.pop();
-        std::cerr << "pop";
     }
     
     return 0;
@@ -37,7 +36,7 @@ int StateStack::pop()
 
 void StateStack::clearStack()
 {
-    for(unsigned int i = 0; i < stateStack.size(); i++) {
+    while(! stateStack.empty()) {
         delete stateStack.top();
         stateStack.pop();
     }

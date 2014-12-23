@@ -22,15 +22,6 @@ private:
     Button * startBtn;
     sf::Sprite bgSprite;
     sf::Texture bgTexture;
-
-private:
-    static void changeToGame(StateStack* st)
-    {
-        if(typeid(st->top()) == typeid(GameState*)) return ;
-        st->pop();
-        st->push(new GameState);
-    }
-
 public:
     MainMenuState();
     virtual ~MainMenuState();

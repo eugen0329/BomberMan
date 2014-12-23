@@ -20,6 +20,7 @@ public:
     void call() {
         procedure();
     }
+    virtual ~Deferred() {}
 };
 
 #endif /* end of include guard: DEFERRED_4HO6ROV7 */

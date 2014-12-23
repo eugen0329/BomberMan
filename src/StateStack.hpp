@@ -22,7 +22,7 @@ private:
 
 public:
     StateStack(window_t &);
-    ~StateStack();
+    virtual ~StateStack();
     StateStack();
 
     void load(window_t &window, std::function<void(IDeferred*)>&& fn);

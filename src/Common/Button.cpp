@@ -10,7 +10,6 @@ Button::Button(float x, float y, float width, float height)
 
 Button::~Button()
 {
-
 }
 
 void Button::setTexture(std::string textureName)

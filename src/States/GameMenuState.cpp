@@ -40,10 +40,6 @@ void GameMenuState::load(window_t &window, StateStack& st, std::function<void(ID
     pushDeferred = fn;
     stateStack = &st;
 
-    //bgTexture.loadFromFile("./res/space.png");
-    //bgSprite.setTexture(bgTexture);
-
-
     // loading buttons
     int textHeight = 80;
     resumeBtn = new Button(window.getSize().x * 0.5, window.getSize().y * 0.35 , 200, textHeight);
@@ -55,13 +51,17 @@ void GameMenuState::load(window_t &window, StateStack& st, std::function<void(ID
     exitBtn->setText("Exit game", "./res/Arcade.ttf", sf::Color(84, 84, 84), textHeight);
     
 
-    exitBtn->submit( std::bind(pushDeferred, new Deferred<void>([&]() {
-        window.close();
-    })) );
 
-    resumeBtn->submit( std::bind(pushDeferred, new Deferred<void>([&]() {
-        if(typeid(stateStack->top()) == typeid(GameState*)) return ;    // if state already changed
-        stateStack->pop();
-        //stateStack->push(new GameState);
-    })) );
+    resumeBtn->submit( [&]() { 
+        pushDeferred(new Deferred<void>( [&]() {
+            if(typeid(stateStack->top()) == typeid(GameState*)) return ;    
+            stateStack->pop();
+        }));
+    });
+
+    exitBtn->submit( [&]() { 
+        pushDeferred(new Deferred<void>( [&]() {
+            window.close();
+        }));
+    });
 }

@@ -53,15 +53,19 @@ void MainMenuState::load(window_t &window, StateStack& st, std::function<void(ID
     exitBtn = new Button(window.getSize().x * 0.5, window.getSize().y * 0.75 , 150, textHeight);
     exitBtn->setWindow(window);
     exitBtn->setText("Exit", "./res/Arcade.ttf", sf::Color(84, 84, 84), textHeight);
-    
 
-    exitBtn->submit( std::bind(pushDeferred, new Deferred<void>([&]() {
-        this->window->close();
-    })) );
+    startBtn->submit( [&]() { 
+        pushDeferred(new Deferred<void>( [&]() {
+            if(typeid(stateStack->top()) == typeid(GameState*)) return ;    // if state already changed
+            stateStack->pop();
+            stateStack->push(new GameState);
+        }));
+    });
 
-    startBtn->submit( std::bind(pushDeferred, new Deferred<void>([&]() {
-        if(typeid(stateStack->top()) == typeid(GameState*)) return ;    // if state already changed
-        stateStack->pop();
-        stateStack->push(new GameState);
-    })) );
+
+    exitBtn->submit( [&]() { 
+        pushDeferred(new Deferred<void>( [&]() {
+            this->window->close();
+        }));
+    });
 }
