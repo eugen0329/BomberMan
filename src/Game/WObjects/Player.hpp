@@ -7,7 +7,9 @@
 #include <cmath>
 #include <memory>
 
-#include "Game/Attributes/PlayerEventHandler.hpp"
+#include <stack>
+#include <cstdint> /* int8_t */
+
 
 #include "Game/WObjects/IWorldsObject.hpp"
 #include "Game/WObjects/Actor.hpp"
@@ -17,10 +19,11 @@
 #include "Common/Algorithms.hpp"
 #include "Game/CollisionManager.hpp"
 
-#include "Game/Attributes/PlayerEventManager.hpp"
+
 #include "Game/Attributes/IAttributes.hpp"
 #include "Game/Attributes/PlayerAttributes.hpp"
 #include "Game/Keyset.hpp"
+#include "Game/WObjects/Bomb.hpp"
 
 #include "Rendering/AnimationManager.hpp"
 
@@ -33,23 +36,43 @@ private:
     typedef std::list<pWObject_t> collisionExcludes_t;
     class Initializer;
 
-
-    PlayerEventManager * eventManager;
-    AnimationManager animationManager;
-    
-    PlayerEventHandler act;
+    AnimationManager anim;
     PlayerAttributes attr;
-
     CollisionManager* collisions;
     collisionExcludes_t collisionExcludes;
 
+    std::function<void(float, float)> move;
+    std::function<void()> throwBomb;
+    //std::function<void(float)> stop;
+    Delegate createWObject;
+
     Delegate* createSignal;
+
+    enum class ACTIONS : std::int8_t {
+        MOVE_UP, 
+        MOVE_DOWN,
+        MOVE_RIGHT,
+        MOVE_LEFT,
+        THROW_BOMB,
+        COUNT
+    };
+    typedef std::function<void(const float&)> action_t;
+    
+    Keyset * keys;
+    std::map<ACTIONS,action_t> actBinds;        // action bindings
+    std::map<sf::Keyboard::Key, ACTIONS> keyBinds;
+    std::stack<action_t> actions;
+    std::string lastDirection;
+
+
 public:
     Player();
     Player(xmlElem_t&);
     virtual ~Player();
+    virtual void addCollision(Collision) {};
 
     void handleEvents(const event_t&);
+    void handleRealtimeEvents();
     void update(const float&);
     void draw();
 
@@ -58,12 +81,11 @@ public:
     bool hasSolidCollisions();
     bool isExclude(pWObject_t);
 
-    void addCollision(Collision);
+
     void handleCollisions();
     void updateCollisionExcludes();
-    void addCollisionExclude(pWObject_t) ;
     
-
+    void changeAnimation();
 
     IAttributes& getAttr() 
     {

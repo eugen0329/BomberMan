@@ -48,9 +48,8 @@ AnimationManager::~AnimationManager()
     }
 }
 
-void AnimationManager::setCurrentAnimation(std::string newCurrAnimation)
+void AnimationManager::setCurrent(std::string newCurrAnimation)
 {
-    animations[currAnimation]->resetFrameIndex();
     currAnimation = newCurrAnimation;
 }
 

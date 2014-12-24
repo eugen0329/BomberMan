@@ -26,7 +26,7 @@ public:
     AnimationManager(xmlElem_t &);
     virtual ~AnimationManager();
 
-    void setCurrentAnimation(std::string);
+    void setCurrent(std::string);
     void updateCurrentAnimation(const float&);
 
     void setSprite(sprite_t&);

@@ -265,54 +265,6 @@ src/Common/Interfaces/IEventManager.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Common/Interfaces/IEventManager.cpp.s
 .PHONY : src/Common/Interfaces/IEventManager.cpp.s
 
-src/Game/Attributes/PlayerEventHandler.o: src/Game/Attributes/PlayerEventHandler.cpp.o
-.PHONY : src/Game/Attributes/PlayerEventHandler.o
-
-# target to build an object file
-src/Game/Attributes/PlayerEventHandler.cpp.o:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Attributes/PlayerEventHandler.cpp.o
-.PHONY : src/Game/Attributes/PlayerEventHandler.cpp.o
-
-src/Game/Attributes/PlayerEventHandler.i: src/Game/Attributes/PlayerEventHandler.cpp.i
-.PHONY : src/Game/Attributes/PlayerEventHandler.i
-
-# target to preprocess a source file
-src/Game/Attributes/PlayerEventHandler.cpp.i:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Attributes/PlayerEventHandler.cpp.i
-.PHONY : src/Game/Attributes/PlayerEventHandler.cpp.i
-
-src/Game/Attributes/PlayerEventHandler.s: src/Game/Attributes/PlayerEventHandler.cpp.s
-.PHONY : src/Game/Attributes/PlayerEventHandler.s
-
-# target to generate assembly for a file
-src/Game/Attributes/PlayerEventHandler.cpp.s:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Attributes/PlayerEventHandler.cpp.s
-.PHONY : src/Game/Attributes/PlayerEventHandler.cpp.s
-
-src/Game/Attributes/PlayerEventManager.o: src/Game/Attributes/PlayerEventManager.cpp.o
-.PHONY : src/Game/Attributes/PlayerEventManager.o
-
-# target to build an object file
-src/Game/Attributes/PlayerEventManager.cpp.o:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Attributes/PlayerEventManager.cpp.o
-.PHONY : src/Game/Attributes/PlayerEventManager.cpp.o
-
-src/Game/Attributes/PlayerEventManager.i: src/Game/Attributes/PlayerEventManager.cpp.i
-.PHONY : src/Game/Attributes/PlayerEventManager.i
-
-# target to preprocess a source file
-src/Game/Attributes/PlayerEventManager.cpp.i:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Attributes/PlayerEventManager.cpp.i
-.PHONY : src/Game/Attributes/PlayerEventManager.cpp.i
-
-src/Game/Attributes/PlayerEventManager.s: src/Game/Attributes/PlayerEventManager.cpp.s
-.PHONY : src/Game/Attributes/PlayerEventManager.s
-
-# target to generate assembly for a file
-src/Game/Attributes/PlayerEventManager.cpp.s:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Attributes/PlayerEventManager.cpp.s
-.PHONY : src/Game/Attributes/PlayerEventManager.cpp.s
-
 src/Game/CollisionManager.o: src/Game/CollisionManager.cpp.o
 .PHONY : src/Game/CollisionManager.o
 
@@ -795,12 +747,6 @@ help:
 	@echo "... src/Common/Interfaces/IEventManager.o"
 	@echo "... src/Common/Interfaces/IEventManager.i"
 	@echo "... src/Common/Interfaces/IEventManager.s"
-	@echo "... src/Game/Attributes/PlayerEventHandler.o"
-	@echo "... src/Game/Attributes/PlayerEventHandler.i"
-	@echo "... src/Game/Attributes/PlayerEventHandler.s"
-	@echo "... src/Game/Attributes/PlayerEventManager.o"
-	@echo "... src/Game/Attributes/PlayerEventManager.i"
-	@echo "... src/Game/Attributes/PlayerEventManager.s"
 	@echo "... src/Game/CollisionManager.o"
 	@echo "... src/Game/CollisionManager.i"
 	@echo "... src/Game/CollisionManager.s"

@@ -4,18 +4,39 @@ Player::Player()
 {
 }
 
-Player::Player(xmlElem_t& xmlElem)
+Player::Player(xmlElem_t& xmlElem) : lastDirection("Down")
 {
     load(xmlElem);
 
     collisions = new CollisionManager;
     xmlElem_t* animationList = xmlElem.FirstChildElement("animations");
-    animationManager.setSprite(attr.sprite);
-    animationManager.loadAnimations(*animationList);
+    anim.setSprite(attr.sprite);
+    anim.loadAnimations(*animationList);
 
-    act.addCollisionExclude = [&](pWObject_t n) { collisionExcludes.push_back(n);};
-    act.setKeyset(new Keyset(Keyset::WSDASpace));
-    act.load(attr, animationManager);
+    move = [&](float vx, float vy) {
+        attr.v.x += vx;
+        attr.v.y += vy;      
+    };
+
+    throwBomb = [&]() {
+        pWObject_t newBomb(new Bomb(attr));
+        createWObject(newBomb);
+        collisionExcludes.push_back(newBomb);   
+    };
+
+    keys = new Keyset(Keyset::WSDASpace);
+    actBinds[ACTIONS::MOVE_UP]    = std::bind(move, 0.0, -attr.vMax);
+    actBinds[ACTIONS::MOVE_DOWN]  = std::bind(move, 0.0, attr.vMax) ;
+    actBinds[ACTIONS::MOVE_RIGHT] = std::bind(move, attr.vMax, 0.0);
+    actBinds[ACTIONS::MOVE_LEFT]  = std::bind(move, -attr.vMax, 0.0);
+    actBinds[ACTIONS::THROW_BOMB] = std::bind(throwBomb);
+
+    keyBinds[keys->up ]   = ACTIONS::MOVE_UP ;
+    keyBinds[keys->down]  = ACTIONS::MOVE_DOWN ;
+    keyBinds[keys->right] = ACTIONS::MOVE_RIGHT ;
+    keyBinds[keys->left]  = ACTIONS::MOVE_LEFT ;
+    keyBinds[keys->space] = ACTIONS::THROW_BOMB ;
+
 }
 
 void Player::setSignal(Delegate* delegate, std::string signalName)
@@ -23,14 +44,13 @@ void Player::setSignal(Delegate* delegate, std::string signalName)
     if(signalName == "destroying") {
         this->destroyingSignal = *delegate;
     } else if(signalName == "create") {
-         act.setSignal(delegate, signalName);
+        createWObject = *delegate;
     }
 }
 
 void Player::setWorldObjects(wObjects_t& wObjects_)
 {
     this->wObjects = &wObjects_;
-    act.setWObjects(wObjects_);
     collisions->setWObjects((*this->wObjects));
     collisions->setOwner(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
 }
@@ -39,16 +59,61 @@ Player::~Player()
 {
     delete collisions;
 }
-
 void Player::handleEvents(const event_t& event)
 {
-    act.handleEvents(event);
+    if(event.type == sf::Event::KeyReleased) {
+        if(event.key.code == keys->space) {
+            actions.push(actBinds[keyBinds[keys->space]]);
+        }
+    }
+}
+
+void Player::handleRealtimeEvents()
+{
+    using namespace std;
+    for_each(begin(keyBinds), end(keyBinds), [&](pair<sf::Keyboard::Key, ACTIONS> it) {
+        if(sf::Keyboard::isKeyPressed(it.first) && keyBinds[it.first] != ACTIONS::THROW_BOMB) {
+            actions.push(actBinds[keyBinds[it.first]]);
+        }
+    });
 }
 
 void Player::update(const float& dt)
 {
-    animationManager.updateCurrentAnimation(dt);
+    handleRealtimeEvents();
+    attr.v.setComponents(0.0, 0.0);
+    while(! actions.empty()) {
+        action_t action = actions.top();
+        action(dt);
+        actions.pop();
+    }
+
+    if(attr.v.x != 0.f && attr.v.y != 0.f) {
+        attr.v.x /= std::sqrt(2.0);
+        attr.v.y /= std::sqrt(2.0);
+    }
+
+    changeAnimation();
+    
+    anim.updateCurrentAnimation(dt);
+    updateCollisionExcludes();
     updateCoordinates(dt);
+
+}
+
+void Player::changeAnimation()
+{
+    if(attr.v.getAbs() == 0.0f) {
+        anim.setCurrent("stand" + lastDirection);
+        return ;
+    }
+
+    if(attr.v.y == 0) {
+        attr.v.x > 0.0 ? lastDirection = "Right" : lastDirection = "Left";
+    } else {
+        attr.v.y >= 0.0 ? lastDirection = "Down" : lastDirection = "Up";
+    }
+    anim.setCurrent("move" + lastDirection);
 }
 
 void Player::draw() 
@@ -56,10 +121,7 @@ void Player::draw()
     window->draw(attr.sprite);
 }
 
-void Player::addCollisionExclude(pWObject_t newExclude) 
-{
-    collisionExcludes.push_back(newExclude);
-}
+
 
 void Player::updateCoordinates(const float& dt)
 {
@@ -77,10 +139,23 @@ void Player::handleCollisions()
     for (CollisionManager::iterator it = collisions->begin(); it != last; ++it)
     {
         if((*it)->getAttr().isHarmful()) {
-            //destroyingSignal(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
             attr.sprite.setColor(sf::Color::Red);
         }
     }
+}
+
+
+bool Player::hasSolidCollisions()
+{
+    
+    CollisionManager::iterator last = collisions->end();
+    for (CollisionManager::iterator it = collisions->begin(); it != last; ++it)
+    {
+        if(! isExclude(*it) && (*it)->getAttr().isSolid()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 bool Player::isExclude(pWObject_t verifiable)
@@ -88,23 +163,6 @@ bool Player::isExclude(pWObject_t verifiable)
     if( std::find(collisionExcludes.begin(), collisionExcludes.end(), verifiable) 
         != collisionExcludes.end() ) {
         return true;
-    }
-    return false;
-}
-
-void Player::addCollision(Collision)
-{
-}
-
-bool Player::hasSolidCollisions()
-{
-    updateCollisionExcludes();
-    CollisionManager::iterator last = collisions->end();
-    for (CollisionManager::iterator it = collisions->begin(); it != last; ++it)
-    {
-        if(! isExclude(*it) && (*it)->getAttr().isSolid()) {
-            return true;
-        }
     }
     return false;
 }
@@ -134,7 +192,6 @@ void Player::load(xmlElem_t& elem)
 
     attr.harmful = false;
     
-
     attr.v.x = 0.0;
     attr.v.y = 0.0;
     attr.angle.setPiRadAngle(-0.5);
