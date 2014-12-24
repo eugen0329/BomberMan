@@ -84,11 +84,11 @@ public:
 
     void updateCoordinates(const float&);
     
+
+    void handleCollisions();
     bool hasSolidCollisions();
     bool isExclude(pWObject_t);
 
-
-    void handleCollisions();
     void updateCollisionExcludes();
     
     void changeAnimation();

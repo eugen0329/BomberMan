@@ -59,7 +59,6 @@ public:
     virtual void setSignal(Delegate *, std::string) = 0;
     virtual void setWorldObjects(wObjects_t&) = 0;
 
-    virtual void handleCollisions() = 0;
     virtual void addCollision(Collision) = 0;
 
     virtual void handleEvents(const event_t&) = 0;
@@ -68,12 +67,6 @@ public:
 
     virtual Attributes& getAttr() = 0;
     virtual void setDeferredPusher(std::function<void(Deferred)>&&);
-
-    
 };
-
-
-
-
 
 #endif /* end of include guard: _IWORLDSOBJECT_HPP_ */

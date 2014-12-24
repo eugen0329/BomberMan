@@ -31,10 +31,6 @@ void Wall::draw()
     window->draw(attr.sprite);
 }
 
-void Wall::handleCollisions()
-{
-}
-
 void Wall::addCollision(Collision collision) 
 {
     if(collision.isHarmful()) {

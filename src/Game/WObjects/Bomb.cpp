@@ -71,9 +71,6 @@ void Bomb::update(const float& dt)
     }
 }
 
-void Bomb::handleCollisions()
-{
-}
 void Bomb::checkCollisions()
 {
 }
@@ -144,7 +141,7 @@ void Bomb::makeFireWave(Angle& angle)
         createSignal(newFire);
         cManager.setOwner(std::shared_ptr<IWorldsObject>(newFire.get(), [](IWorldsObject*){}));
         for(CollisionManager::iterator it = cManager.begin(); it != cManager.end(); ++it) {
-            // 0 - is static objects that cant react on external collisions by themself
+            // 0 - is static objects that can't react on external collisions by themself
             if(it->getAttr().groupID != 0) continue;
             it->addCollision(newFire->getAttr());
             if(it->getAttr().isSolid()) return ;

@@ -46,7 +46,6 @@ public:
     }
 
     virtual void addCollision(Collision);
-    virtual void handleCollisions();
     virtual void checkCollisions();
 
     virtual void setSignal(Delegate*, std::string);

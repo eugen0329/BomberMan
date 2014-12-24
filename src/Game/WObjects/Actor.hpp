@@ -15,7 +15,6 @@ public:
     Actor();
     virtual ~Actor();
 
-    virtual void handleCollisions() = 0;
     virtual void addCollision(Collision) = 0;
 
     virtual void handleEvents(const event_t&) = 0;

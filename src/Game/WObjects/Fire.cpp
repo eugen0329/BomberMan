@@ -120,9 +120,6 @@ void Fire::update(const float& dt)
     }
 }
 
-void Fire::handleCollisions()
-{
-}
 void Fire::checkCollisions()
 {
 }

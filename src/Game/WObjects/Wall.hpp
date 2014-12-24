@@ -31,7 +31,6 @@ public:
     }
 
     virtual void addCollision(Collision); 
-    virtual void handleCollisions();
     
     virtual void setWorldObjects(wObjects_t&);
 

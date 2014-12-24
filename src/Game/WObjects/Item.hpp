@@ -13,8 +13,6 @@ public:
     Item(GameMap&, wObjects_t&, window_t&);
     virtual ~Item() {}
 
-    virtual void handleCollisions() = 0;
-
     virtual void setWorldObjects(wObjects_t&) = 0;
 
     virtual void addCollision(Collision) = 0;

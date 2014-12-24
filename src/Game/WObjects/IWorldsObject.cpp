@@ -47,8 +47,3 @@ int IWorldsObject::Attributes::getGroupID()
 {
     return groupID;
 }
-
-//void IWorldsObject::setSignalsQueue(signals_t& signals)
-//{
-//    this->signals = &signals; 
-//}

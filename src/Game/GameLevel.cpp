@@ -9,9 +9,6 @@ window(NULL)
 GameLevel::GameLevel(window_t& window) : 
 window(&window)
 {
-
-
-
     levelMap.setRenderWindow(window);
 
     std::string filename("res/WObjectsList.xml");
@@ -94,9 +91,6 @@ void GameLevel::update(const float& dt)
 
     for(wObjects_t::iterator wObject = wObjects.begin(); wObject != wObjects.end(); wObject++) {
        (*wObject)->update(dt);
-    }
-    for(wObjects_t::iterator wObject = wObjects.begin(); wObject != wObjects.end(); wObject++) {
-       (*wObject)->handleCollisions();
     }
 
     while(! signals.empty()) {

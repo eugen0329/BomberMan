@@ -98,6 +98,7 @@ void Player::update(const float& dt)
     anim.updateCurrentAnimation(dt);
     updateCollisionExcludes();
     updateCoordinates(dt);
+    handleCollisions();
 
 }
 
