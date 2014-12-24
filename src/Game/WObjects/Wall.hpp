@@ -2,17 +2,22 @@
 #define _WALL_HPP_
 
 #include "Common/Interfaces/IInitializer.hpp"
-
-#include "Game/WObjects/Item.hpp"
-#include "Game/Attributes/WallAttributes.hpp"
-
 #include "Common/Algorithms.hpp"
 
+#include "Game/WObjects/Item.hpp"
+
+
+
 class Wall : public Item {
-private:
+protected:
+    struct  Attributes : public Item::Attributes {
+        texture_t texture;
+        sprite_t  sprite;
+        Vec2<float> origin;
+    };
     class Initializer;
 
-    WallAttributes attrib;
+    Wall::Attributes attr;
 public:
     Wall();
     Wall(xmlElem_t&);
@@ -20,9 +25,9 @@ public:
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);
     virtual void draw();
-    virtual IAttributes& getAttr() 
+    virtual IWorldsObject::Attributes& getAttr() 
     {
-        return attrib;
+        return attr;
     }
 
     virtual void addCollision(Collision); 
@@ -34,10 +39,10 @@ public:
 
 class Wall::Initializer : public IInitializer {
 private:
-    mutable WallAttributes* attrib; 
+    mutable Wall::Attributes* attr; 
 public:
     Initializer();
-    Initializer(xmlElem_t&, WallAttributes&);
+    Initializer(xmlElem_t&, Wall::Attributes&);
     virtual ~Initializer();
     
     int load() const;

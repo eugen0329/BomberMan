@@ -7,34 +7,40 @@
 
 #include "Common/Vec2.hpp"
 #include "Common/Algorithms.hpp"
-
-#include "Game/Attributes/IAttributes.hpp"
-#include "Game/Attributes/FireAttributes.hpp" 
+#include "Game/WObjects/IWorldsObject.hpp"
 #include "Game/WObjects/Item.hpp"
 
 #include "Rendering/AnimationManager.hpp"
 
-
 class Fire : public Item {
-private:
+protected:
+    struct  Attributes : public Item::Attributes {
+        Vec2<float> origin;
+        float lifeTime;
+        float actLifeTime;
+        int damage;
+        texture_t texture;
+        sprite_t  sprite;
+    };
+protected:
     class Initializer;
 
-    FireAttributes attr;
+    Fire::Attributes attr;
     Delegate destroyingSignal;
     Delegate createSignal;
     AnimationManager animationManager;
 public:
     Fire();
 
-    Fire(const IAttributes&);
-    Fire(const IAttributes&, Vec2<float>);
+    Fire(const IWorldsObject::Attributes&);
+    Fire(const IWorldsObject::Attributes&, Vec2<float>);
     Fire(xmlElem_t&);
     virtual ~Fire();
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);
     virtual void draw();
     void loadAttr(xmlElem_t& elem);
-    virtual IAttributes& getAttr() 
+    virtual IWorldsObject::Attributes& getAttr() 
     {
         return attr;
     }
@@ -52,10 +58,10 @@ public:
 
 class Fire::Initializer : public IInitializer {
 private:
-    mutable FireAttributes* attr; 
+    mutable Fire::Attributes* attr; 
 public:
     Initializer();
-    Initializer(xmlElem_t&, FireAttributes&);
+    Initializer(xmlElem_t&, Fire::Attributes&);
     virtual ~Initializer();
     
     int load() const;

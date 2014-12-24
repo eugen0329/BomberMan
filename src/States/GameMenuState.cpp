@@ -1,6 +1,8 @@
 #include "States/GameMenuState.hpp"
 
 
+
+
 GameMenuState::GameMenuState()
 {
 }
@@ -61,7 +63,8 @@ void GameMenuState::load(window_t &window, StateStack& st, std::function<void(ID
 
     exitBtn->submit( [&]() { 
         pushDeferred(new Deferred<void>( [&]() {
-            window.close();
+            if(window.isOpen()) window.close();
+            //window.close();
         }));
     });
 }

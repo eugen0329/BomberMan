@@ -2,22 +2,20 @@
 #define _IWORLDSOBJECT_HPP_
 
 #include <vector>
-#include "queue"
 #include <string>
 #include <cstdio>
 #include <memory>
+#include <functional>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System.hpp>
 
-#include "Game/Collision.hpp"
-
+#include "Common/Algorithms.hpp"
 #include "Common/Vec2.hpp"
 #include "Common/Delegate.hpp"
 #include "Game/Map/GameMap.hpp"
-#include "Game/Attributes/IAttributes.hpp"
 
-#include "Common/Algorithms.hpp"
+
 
 class IWorldsObject;
 
@@ -28,10 +26,26 @@ typedef sf::RenderWindow window_t;
 
 class IWorldsObject {
 protected:
+    struct Attributes : public BaseShape {
+        bool solid;
+        bool harmful;
+        int groupID;
+
+        Attributes(bool solid = true, int groupID = 0) : solid(solid), groupID(groupID) {}
+        ~Attributes() {}
+        bool isSolid();
+        bool isHarmful();
+        int getGroupID();
+    };
+    typedef  IWorldsObject::Attributes Collision;
+
     GameMap* map;
     wObjects_t* wObjects;
     window_t * window;
     Delegate destroyingSignal;
+
+    typedef std::function<void()> Deferred;  
+    std::function<void(Deferred)> pushDeferred;
 
 public:
 
@@ -52,9 +66,14 @@ public:
     virtual void update(const float&) = 0;
     virtual void draw() = 0; 
 
-    virtual IAttributes& getAttr() = 0;
+    virtual Attributes& getAttr() = 0;
+    virtual void setDeferredPusher(std::function<void(Deferred)>&&);
 
-
+    
 };
+
+
+
+
 
 #endif /* end of include guard: _IWORLDSOBJECT_HPP_ */

@@ -30,6 +30,23 @@ void IWorldsObject::setRenderWindow(window_t& window)
     this->window = &window; 
 }
 
+void IWorldsObject::setDeferredPusher(std::function<void(Deferred)>&& deferred)
+{
+    this->pushDeferred = pushDeferred; 
+}
+
+bool IWorldsObject::Attributes::isSolid()
+{
+    return solid;
+}
+bool IWorldsObject::Attributes::isHarmful()
+{
+    return harmful;
+}
+int IWorldsObject::Attributes::getGroupID()
+{
+    return groupID;
+}
 
 //void IWorldsObject::setSignalsQueue(signals_t& signals)
 //{

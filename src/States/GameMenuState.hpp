@@ -8,12 +8,16 @@
 
 #include "Common/Interfaces/IAppState.hpp"
 #include "Common/Deferred.hpp"
-#include "States/GameState.hpp"
+
 
 #include "Common/Button.hpp"
 #include "States/MainMenuState.hpp"
+#include "States/GameState.hpp"
+#include "States/MainMenuState.hpp"
 
 typedef sf::Event event_t;
+
+class MainMenuState;
 
 class GameMenuState : public IAppState  {
 private:

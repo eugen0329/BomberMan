@@ -9,7 +9,7 @@ void Fire::setWorldObjects(wObjects_t& wObjects)
     this->wObjects = &wObjects;
 }
 
-Fire::Fire(const IAttributes& parAttr, Vec2<float> offset)
+Fire::Fire(const IWorldsObject::Attributes& parAttr, Vec2<float> offset)
 {    
     TiXmlDocument * xmlFile = alg::openXmlFile("./res/FireAnimation.xml");
     xmlElem_t * animationList = alg::getXmlElement(xmlFile, {"fire"});
@@ -64,7 +64,7 @@ Fire::Fire(xmlElem_t& xmlElement)
 
 }
 
-Fire::Fire(const IAttributes& parAttr)
+Fire::Fire(const IWorldsObject::Attributes& parAttr)
 {    
     TiXmlDocument * xmlFile = alg::openXmlFile("./res/FireAnimation.xml");
     xmlElem_t * animationList = alg::getXmlElement(xmlFile, {"blow"});
@@ -179,7 +179,7 @@ int Fire::Initializer::load() const
     return 0;
 }
 
-Fire::Initializer::Initializer(xmlElem_t& element, FireAttributes& attr)
+Fire::Initializer::Initializer(xmlElem_t& element, Fire::Attributes& attr)
 {
     this->element = &element;   
     this->attr  = &attr;

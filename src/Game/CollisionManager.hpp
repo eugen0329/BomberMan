@@ -8,7 +8,7 @@
 #include "Common/Algorithms.hpp"
 #include "Common/BaseShape.hpp"
 
-#include "Game/Attributes/IAttributes.hpp"
+
 #include "Game/WObjects/IWorldsObject.hpp"
 
 typedef std::vector<pWObject_t> wObjects_t;

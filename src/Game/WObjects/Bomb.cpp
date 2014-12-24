@@ -4,17 +4,6 @@ Bomb::Bomb()
 {
 }
 
-//Bomb::Bomb(xmlElem_t& xmlElement, int groupID)
-//{    
-//	Bomb::Initializer initializer(xmlElement, attrib);
-//
-//    if(initializer.load()) {
-//        exit(1);
-//    }    
-//    attrib.groupID = groupID;
-//    //setObjectID("Bomb");
-//}
-
 void Bomb::setWorldObjects(wObjects_t& wObjects)
 {
     
@@ -23,46 +12,41 @@ void Bomb::setWorldObjects(wObjects_t& wObjects)
     this->wObjects = &wObjects;
 }
 
-Bomb::Bomb(xmlElem_t& xmlElement, const IAttributes& parAttr)
+Bomb::Bomb(xmlElem_t& xmlElement, const IWorldsObject::Attributes& parAttr)
 {    
-	Bomb::Initializer initializer(xmlElement, attrib);
+	load(xmlElement);
 
-    if(initializer.load()) {
-        exit(1);
-    }    
-
-    attrib.pos.x = parAttr.pos.x;
-    attrib.pos.y = parAttr.pos.y;
-    attrib.sprite.setPosition(attrib.pos.x, attrib.pos.y );
+    attr.pos.x = parAttr.pos.x;
+    attr.pos.y = parAttr.pos.y;
+    attr.sprite.setPosition(attr.pos.x, attr.pos.y );
 }
 
-Bomb::Bomb(const IAttributes& parAttr)
+Bomb::Bomb(const IWorldsObject::Attributes& parAttr)
 {    
 
-    attrib.solid = true;
-    attrib.harmful = false;
+    attr.solid = true;
+    attr.harmful = false;
 
-    attrib.groupID = parAttr.groupID;
+    attr.groupID = parAttr.groupID;
 
-    attrib.lifeTime = 1;
-    attrib.actLifeTime = 0.0;
+    attr.lifeTime = 1;
+    attr.actLifeTime = 0.0;
 
-    attrib.width = 32;
-    attrib.heigth = 32;
+    attr.width = 32;
+    attr.heigth = 32;
 
-    attrib.origin.x =  16;
-    attrib.origin.y  = 16;
+    attr.origin.x =  16;
+    attr.origin.y  = 16;
 
 
     std::string textureName = "res/Tiles/bomb1.png";
 
-    attrib.texture.loadFromFile(textureName);
-    attrib.sprite.setTexture(attrib.texture);
-    attrib.sprite.setOrigin(attrib.origin.x, attrib.origin.y);
-    attrib.pos.x = parAttr.pos.x;
-    attrib.pos.y = parAttr.pos.y;
-    std::cout << "Parrent atttr:\n" << parAttr.pos.x << parAttr.pos.y << ";";
-    attrib.sprite.setPosition(attrib.pos.x, attrib.pos.y );
+    attr.texture.loadFromFile(textureName);
+    attr.sprite.setTexture(attr.texture);
+    attr.sprite.setOrigin(attr.origin.x, attr.origin.y);
+    attr.pos.x = parAttr.pos.x;
+    attr.pos.y = parAttr.pos.y;
+    attr.sprite.setPosition(attr.pos.x, attr.pos.y );
 }
 
 void Bomb::addCollision(Collision)
@@ -79,10 +63,8 @@ void Bomb::handleEvents(const event_t&)
 
 void Bomb::update(const float& dt) 
 { 
-    attrib.actLifeTime += dt;
- 
-    //std::cout <<  attrib.actLifeTime;
-    if(attrib.actLifeTime >= attrib.lifeTime) 
+    attr.actLifeTime += dt;
+    if(attr.actLifeTime >= attr.lifeTime) 
     {
         makeFire();
         destroyingSignal(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
@@ -98,7 +80,7 @@ void Bomb::checkCollisions()
 
 void Bomb::draw()
 {
-    window->draw(attrib.sprite);
+    window->draw(attr.sprite);
 }
 
 void Bomb::setSignal(Delegate* delegate, std::string signalName)
@@ -111,67 +93,40 @@ void Bomb::setSignal(Delegate* delegate, std::string signalName)
 
 }
 
-int Bomb::Initializer::load() const
+void Bomb::load(xmlElem_t& elem)
 {
-    if(attrib == NULL) {
-        return 1; 
-    }
-
-
-    if(std::string(element->Attribute("isSolid")) == "true") {
-        attrib->solid = true;
+    if(std::string(elem.Attribute("isSolid")) == "true") {
+        attr.solid = true;
     } else {
-        attrib->solid = false;
+        attr.solid = false;
     }
 
+    attr.harmful = false;
 
-    attrib->harmful = false;
+    attr.lifeTime = atof(elem.Attribute("lifeTime"));
+    attr.actLifeTime = 0.0;
 
-    attrib->lifeTime = atof(element->Attribute("lifeTime"));
-    attrib->actLifeTime = 0.0;
+    attr.width = atoi(elem.Attribute("width"));
+    attr.heigth = atoi(elem.Attribute("heigth"));
 
-    attrib->width = atoi(element->Attribute("width"));
-    attrib->heigth = atoi(element->Attribute("heigth"));
+    attr.pos.x = atoi(elem.Attribute("posX"));
+    attr.pos.y = atoi(elem.Attribute("posY"));
 
-    attrib->pos.x = atoi(element->Attribute("posX"));
-    attrib->pos.y = atoi(element->Attribute("posY"));
+    attr.origin.x =  atoi(elem.Attribute("origX"));
+    attr.origin.y  = atoi(elem.Attribute("origY"));
 
-    attrib->origin.x =  atoi(element->Attribute("origX"));
-    attrib->origin.y  = atoi(element->Attribute("origY"));
-
-    std::string textureName = element->Attribute("texture");
+    std::string textureName = elem.Attribute("texture");
 
 
-    attrib->texture.loadFromFile(textureName);
-    attrib->sprite.setTexture(attrib->texture);
-    attrib->sprite.setPosition(attrib->pos.x, attrib->pos.y );
-    attrib->sprite.setOrigin(attrib->origin.x, attrib->origin.y);
-
-    return 0;
-}
-
-Bomb::Initializer::Initializer(xmlElem_t& element, BombAttributes& attrib)
-{
-    this->element = &element;   
-    this->attrib  = &attrib;
-}
-
-Bomb::Initializer::Initializer()
-{
-    this->element = NULL;
-    this->attrib =  NULL;
-}
-
-Bomb::Initializer::~Initializer()
-{
+    attr.texture.loadFromFile(textureName);
+    attr.sprite.setTexture(attr.texture);
+    attr.sprite.setPosition(attr.pos.x, attr.pos.y );
+    attr.sprite.setOrigin(attr.origin.x, attr.origin.y);
 }
 
 void Bomb::makeFire()
 {
-
-
-
-    pWObject_t newFire = std::make_shared<Fire>(this->attrib);
+    pWObject_t newFire = std::make_shared<Fire>(this->attr);
     createSignal(newFire);
 
     for(Angle angle = 0; angle != Angle(2.f); angle += Angle(0.5)) {
@@ -185,7 +140,7 @@ void Bomb::makeFireWave(Angle& angle)
     int waveCount = 3;
 
     for(int wave = 1; wave < waveCount + 1; wave++) {
-        pWObject_t newFire = std::make_shared<Fire>(this->attrib, Vec2<float>(offset * wave, angle));
+        pWObject_t newFire = std::make_shared<Fire>(this->attr, Vec2<float>(offset * wave, angle));
         createSignal(newFire);
         cManager.setOwner(std::shared_ptr<IWorldsObject>(newFire.get(), [](IWorldsObject*){}));
         for(CollisionManager::iterator it = cManager.begin(); it != cManager.end(); ++it) {

@@ -2,11 +2,12 @@
 #define _ITEM_HPP_
 
 #include "Game/WObjects/IWorldsObject.hpp"
-#include "Game/Attributes/IAttributes.hpp"
 
 
 class Item : public IWorldsObject {
-private:
+protected:
+    struct  Attributes : public IWorldsObject::Attributes {
+    };
 public:
     Item();
     Item(GameMap&, wObjects_t&, window_t&);
@@ -21,7 +22,7 @@ public:
     virtual void handleEvents(const event_t&) = 0;
     virtual void update(const float&) = 0;
     virtual void draw() = 0;
-    virtual IAttributes& getAttr() = 0;
+    virtual IWorldsObject::Attributes& getAttr() = 0;
     virtual void setSignal(Delegate*, std::string);
 };
 

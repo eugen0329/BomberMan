@@ -1,5 +1,6 @@
 #include "Application.hpp"
 
+
 Application::Application() 
 {
     windProp.xSize = 640;

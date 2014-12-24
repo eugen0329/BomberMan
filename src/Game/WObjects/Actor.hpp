@@ -4,19 +4,12 @@
 #include <vector>
 #include <queue>
 #include "Game/WObjects/IWorldsObject.hpp"
-#include "Game/Attributes/IAttributes.hpp"
 
 
 class Actor : public IWorldsObject {
 protected:
-    //enum ActorCommands {
-    //    moveUp,
-    //    moveDown,
-    //    moveRight,
-    //    moveLeft
-    //};
-    //std::queue<ActorCommands> commandsQueue;
-private:
+    struct Attributes : public IWorldsObject::Attributes {
+    };
 public:
     Actor(GameMap &, wObjects_t&, window_t&);
     Actor();
@@ -29,8 +22,10 @@ public:
     virtual void update(const float&) = 0;
     virtual void draw() = 0;
 
-    virtual IAttributes& getAttr() = 0;
+    virtual IWorldsObject::Attributes& getAttr() = 0;
     virtual void setWorldObjects(wObjects_t&) = 0;
+
+
 };
 
 #endif /* end of include guard: _ACTOR_HPP_ */

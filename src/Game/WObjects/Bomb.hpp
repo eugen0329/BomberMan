@@ -9,35 +9,39 @@
 #include "Common/Angle.hpp"
 #include "Common/Algorithms.hpp"
 
-#include "Game/Attributes/IAttributes.hpp"
-#include "Game/Attributes/BombAttributes.hpp" 
 #include "Game/WObjects/Item.hpp"
-
 #include "Game/WObjects/Fire.hpp"
-
 #include "Game/CollisionManager.hpp"
 
 class Bomb : public Item {
-private:
+protected:
+    struct  Attributes : public Item::Attributes {
+        Vec2<float> origin;
+        float lifeTime;
+        float actLifeTime;
+    
+        texture_t texture;
+        sprite_t  sprite;
+    };
     class Initializer;
 
     CollisionManager cManager;
 
-    BombAttributes attrib;
+    Bomb::Attributes attr;
     Delegate destroyingSignal;
     Delegate createSignal;
 public:
     Bomb();
 
-    Bomb(const IAttributes&);
-    Bomb(xmlElem_t&, const IAttributes&);
+    Bomb(const IWorldsObject::Attributes&);
+    Bomb(xmlElem_t&, const IWorldsObject::Attributes&);
     virtual ~Bomb();
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);
     virtual void draw();
-    virtual IAttributes& getAttr() 
+    virtual IWorldsObject::Attributes& getAttr() 
     {
-        return attrib;
+        return attr;
     }
 
     virtual void addCollision(Collision);
@@ -50,20 +54,10 @@ public:
     virtual void setWorldObjects(wObjects_t&);
 
 
+    void load(xmlElem_t&);
+
     void makeFire();
     void makeFireWave(Angle&);
-};
-
-class Bomb::Initializer : public IInitializer {
-private:
-    mutable BombAttributes* attrib; 
-public:
-    Initializer();
-    Initializer(xmlElem_t&, BombAttributes&);
-    virtual ~Initializer();
-    
-    int load() const;
-    
 };
 
 #endif /* end of include guard: _BOMB_HPP_ */

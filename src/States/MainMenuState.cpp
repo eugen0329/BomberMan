@@ -1,6 +1,5 @@
 #include "States/MainMenuState.hpp"
 
-
 MainMenuState::MainMenuState()
 {
 

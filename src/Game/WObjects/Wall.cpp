@@ -6,7 +6,7 @@ Wall::Wall()
 
 Wall::Wall(xmlElem_t& xmlElement)
 {    
-	Wall::Initializer initializer(xmlElement, attrib);
+	Wall::Initializer initializer(xmlElement, attr);
 
     if(initializer.load()) {
         exit(1);
@@ -28,7 +28,7 @@ void Wall::update(const float&)
 
 void Wall::draw()
 {
-    window->draw(attrib.sprite);
+    window->draw(attr.sprite);
 }
 
 void Wall::handleCollisions()
@@ -37,54 +37,54 @@ void Wall::handleCollisions()
 
 void Wall::addCollision(Collision collision) 
 {
-    if(collision.secondAttributes.isHarmful()) {
+    if(collision.isHarmful()) {
         destroyingSignal(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
     }
 }
 
 int Wall::Initializer::load() const
 {
-    if(attrib == NULL) {
+    if(attr == NULL) {
         return 1;
     }
 
     if(std::string(element->Attribute("isSolid")) == "true") {
-        attrib->solid = true;
+        attr->solid = true;
     } else {
-        attrib->solid = false;
+        attr->solid = false;
     }
-    attrib->harmful = false;
-    attrib->groupID = atoi(element->Attribute("groupID"));
+    attr->harmful = false;
+    attr->groupID = atoi(element->Attribute("groupID"));
 
-    attrib->width = atoi(element->Attribute("width"));
-    attrib->heigth = atoi(element->Attribute("heigth"));
+    attr->width = atoi(element->Attribute("width"));
+    attr->heigth = atoi(element->Attribute("heigth"));
 
-    attrib->pos.x = atoi(element->Attribute("posX"));
-    attrib->pos.y = atoi(element->Attribute("posY"));
+    attr->pos.x = atoi(element->Attribute("posX"));
+    attr->pos.y = atoi(element->Attribute("posY"));
 
-    attrib->origin.x =  atoi(element->Attribute("origX"));
-    attrib->origin.y  = atoi(element->Attribute("origY"));
+    attr->origin.x =  atoi(element->Attribute("origX"));
+    attr->origin.y  = atoi(element->Attribute("origY"));
 
     std::string textureName = element->Attribute("texture");
 
-    attrib->texture.loadFromFile(textureName);
-    attrib->sprite.setTexture(attrib->texture);
-    attrib->sprite.setPosition(attrib->pos.x, attrib->pos.y );
-    attrib->sprite.setOrigin(attrib->origin.x, attrib->origin.y);
+    attr->texture.loadFromFile(textureName);
+    attr->sprite.setTexture(attr->texture);
+    attr->sprite.setPosition(attr->pos.x, attr->pos.y );
+    attr->sprite.setOrigin(attr->origin.x, attr->origin.y);
 
     return 0;
 }
 
-Wall::Initializer::Initializer(xmlElem_t& element, WallAttributes& attrib)
+Wall::Initializer::Initializer(xmlElem_t& element, Wall::Attributes& attr)
 {
     this->element = &element;   
-    this->attrib  = &attrib;
+    this->attr  = &attr;
 }
 
 Wall::Initializer::Initializer()
 {
     this->element = NULL;
-    this->attrib =  NULL;
+    this->attr =  NULL;
 }
 
 Wall::Initializer::~Initializer()
