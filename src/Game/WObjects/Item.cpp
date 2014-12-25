@@ -9,11 +9,3 @@ IWorldsObject(wObjects, window)
 {
 
 }
-
-
-void Item::setSignal(Delegate* delegate, std::string signalName)
-{
-    if(signalName == "destroying") {
-        this->destroyingSignal = *delegate;
-    }
-}

@@ -16,8 +16,7 @@
 #include "Common/Vec2.hpp"
 #include "Common/Delegate.hpp"
 #include "Game/Map/GameMap.hpp"
-
-
+#include "Game/DrawableScene.hpp"
 
 class DrawableScene;
 
@@ -43,20 +42,21 @@ protected:
 
     WObjects* wObjects;
     window_t * window;
-    Delegate destroyingSignal;
 
 public:
 
-    void setFnPushDeferred(pushDef_t&& pushDeferred);
+
 
 
     IWorldsObject(WObjects &, window_t &);
     IWorldsObject();
     virtual ~IWorldsObject();
 
+    virtual void destroyWObject(IWObjectPtr object);
+
     void setWindow(window_t&);
-    virtual void setSignal(Delegate *, std::string) = 0;
-    virtual void setWorldObjects(WObjects&) = 0;
+
+
 
     virtual void addCollision(Collision) = 0;
 
@@ -65,6 +65,8 @@ public:
     virtual void draw() = 0; 
 
     virtual Attributes& getAttr() = 0;
+    virtual void setWorldObjects(WObjects&) = 0;
+    void setFnPushDeferred(pushDef_t&& pushDeferred);
 
 };
 

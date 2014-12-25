@@ -41,3 +41,10 @@ void IWorldsObject::setFnPushDeferred(pushDef_t&& pushDeferred)
 {
    this->pushDeferred = pushDeferred;
 }
+
+void IWorldsObject::destroyWObject(IWObjectPtr object)
+{
+    pushDeferred([object, this](DrawableScene * scene) {
+        scene->remove(object);
+    });
+}

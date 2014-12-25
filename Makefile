@@ -289,6 +289,30 @@ src/Game/CollisionManager.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/CollisionManager.cpp.s
 .PHONY : src/Game/CollisionManager.cpp.s
 
+src/Game/DrawableScene.o: src/Game/DrawableScene.cpp.o
+.PHONY : src/Game/DrawableScene.o
+
+# target to build an object file
+src/Game/DrawableScene.cpp.o:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/DrawableScene.cpp.o
+.PHONY : src/Game/DrawableScene.cpp.o
+
+src/Game/DrawableScene.i: src/Game/DrawableScene.cpp.i
+.PHONY : src/Game/DrawableScene.i
+
+# target to preprocess a source file
+src/Game/DrawableScene.cpp.i:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/DrawableScene.cpp.i
+.PHONY : src/Game/DrawableScene.cpp.i
+
+src/Game/DrawableScene.s: src/Game/DrawableScene.cpp.s
+.PHONY : src/Game/DrawableScene.s
+
+# target to generate assembly for a file
+src/Game/DrawableScene.cpp.s:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/DrawableScene.cpp.s
+.PHONY : src/Game/DrawableScene.cpp.s
+
 src/Game/GameLevel.o: src/Game/GameLevel.cpp.o
 .PHONY : src/Game/GameLevel.o
 
@@ -750,6 +774,9 @@ help:
 	@echo "... src/Game/CollisionManager.o"
 	@echo "... src/Game/CollisionManager.i"
 	@echo "... src/Game/CollisionManager.s"
+	@echo "... src/Game/DrawableScene.o"
+	@echo "... src/Game/DrawableScene.i"
+	@echo "... src/Game/DrawableScene.s"
 	@echo "... src/Game/GameLevel.o"
 	@echo "... src/Game/GameLevel.i"
 	@echo "... src/Game/GameLevel.s"

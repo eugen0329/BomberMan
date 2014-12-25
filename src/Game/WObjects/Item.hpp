@@ -21,7 +21,7 @@ public:
     virtual void update(const float&) = 0;
     virtual void draw() = 0;
     virtual IWorldsObject::Attributes& getAttr() = 0;
-    virtual void setSignal(Delegate*, std::string);
+
 };
 
 

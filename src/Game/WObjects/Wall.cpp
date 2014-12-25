@@ -34,7 +34,7 @@ void Wall::draw()
 void Wall::addCollision(Collision collision) 
 {
     if(collision.isHarmful()) {
-        destroyingSignal(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
+        destroyWObject(IWObjectPtr(this, [](IWorldsObject*){}));
     }
 }
 

@@ -25,7 +25,6 @@ Player::Player(xmlElem_t& xmlElem) : lastDirection("Down")
     keyBinds[attr.keys->right] = ACTIONS::MOVE_RIGHT ;
     keyBinds[attr.keys->left]  = ACTIONS::MOVE_LEFT ;
     keyBinds[attr.keys->space] = ACTIONS::THROW_BOMB ;
-
 }
 
 void Player::move(float vx, float vy)
@@ -49,7 +48,7 @@ void Player::throwBomb()
 void Player::setSignal(Delegate* delegate, std::string signalName)
 {
     if(signalName == "destroying") {
-        this->destroyingSignal = *delegate;
+        //this->destroyingSignal = *delegate;
     } else if(signalName == "create") {
         createWObject = *delegate;
     }
