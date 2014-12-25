@@ -47,7 +47,7 @@ void CollisionManager::setWObjects(wObjects_t& wObjects)
     this->wObjects = & wObjects;
 }
 
-void CollisionManager::setOwner(pWObject_t owner)
+void CollisionManager::setTrackedObj(pWObject_t owner)
 {
     this->owner = owner;
 }

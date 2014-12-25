@@ -34,7 +34,11 @@ public:
     Bomb();
 
     Bomb(const IWorldsObject::Attributes&);
+
+    Bomb(const Vec2<float> pos, int groupId, float lifeTime);
+
     Bomb(xmlElem_t&, const IWorldsObject::Attributes&);
+
     virtual ~Bomb();
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);

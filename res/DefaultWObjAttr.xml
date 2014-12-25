@@ -1,0 +1,3 @@
+<WObjects>
+	<bomb  width="32" heigth="32" origX="16" origY="16" texture="res/Tiles/bomb1.png" isSolid="true" groupID="0" />
+</WObjects>

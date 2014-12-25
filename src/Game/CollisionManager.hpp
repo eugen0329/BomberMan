@@ -32,7 +32,7 @@ public:
 
     void setWObjects(wObjects_t& wObjects);
 
-    void setOwner(pWObject_t owner);
+    void setTrackedObj(pWObject_t owner);
 
 };
 

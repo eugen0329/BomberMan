@@ -19,23 +19,23 @@ Player::Player(xmlElem_t& xmlElem) : lastDirection("Down")
     };
 
     throwBomb = [&]() {
-        pWObject_t newBomb(new Bomb(attr));
+        pWObject_t newBomb(new Bomb(attr.pos, attr.groupID, 1.0));
         createWObject(newBomb);
         collisionExcludes.push_back(newBomb);   
     };
 
-    keys = new Keyset(Keyset::WSDASpace);
+    attr.keys = new Keyset(Keyset::WSDASpace);
     actBinds[ACTIONS::MOVE_UP]    = std::bind(move, 0.0, -attr.vMax);
     actBinds[ACTIONS::MOVE_DOWN]  = std::bind(move, 0.0, attr.vMax) ;
     actBinds[ACTIONS::MOVE_RIGHT] = std::bind(move, attr.vMax, 0.0);
     actBinds[ACTIONS::MOVE_LEFT]  = std::bind(move, -attr.vMax, 0.0);
     actBinds[ACTIONS::THROW_BOMB] = std::bind(throwBomb);
 
-    keyBinds[keys->up ]   = ACTIONS::MOVE_UP ;
-    keyBinds[keys->down]  = ACTIONS::MOVE_DOWN ;
-    keyBinds[keys->right] = ACTIONS::MOVE_RIGHT ;
-    keyBinds[keys->left]  = ACTIONS::MOVE_LEFT ;
-    keyBinds[keys->space] = ACTIONS::THROW_BOMB ;
+    keyBinds[attr.keys->up ]   = ACTIONS::MOVE_UP ;
+    keyBinds[attr.keys->down]  = ACTIONS::MOVE_DOWN ;
+    keyBinds[attr.keys->right] = ACTIONS::MOVE_RIGHT ;
+    keyBinds[attr.keys->left]  = ACTIONS::MOVE_LEFT ;
+    keyBinds[attr.keys->space] = ACTIONS::THROW_BOMB ;
 
 }
 
@@ -52,7 +52,7 @@ void Player::setWorldObjects(wObjects_t& wObjects_)
 {
     this->wObjects = &wObjects_;
     collisions->setWObjects((*this->wObjects));
-    collisions->setOwner(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
+    collisions->setTrackedObj(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
 }
 
 Player::~Player()
@@ -62,8 +62,8 @@ Player::~Player()
 void Player::handleEvents(const event_t& event)
 {
     if(event.type == sf::Event::KeyReleased) {
-        if(event.key.code == keys->space) {
-            actions.push(actBinds[keyBinds[keys->space]]);
+        if(event.key.code == attr.keys->space) {
+            actions.push(actBinds[keyBinds[attr.keys->space]]);
         }
     }
 }
@@ -87,42 +87,38 @@ void Player::update(const float& dt)
         action(dt);
         actions.pop();
     }
-
-    if(attr.v.x != 0.f && attr.v.y != 0.f) {
+    // normalize speed components if diagonal movement
+    if(attr.v.x != 0.f && attr.v.y != 0.f) {    
         attr.v.x /= std::sqrt(2.0);
         attr.v.y /= std::sqrt(2.0);
     }
 
-    changeAnimation();
-    
-    anim.updateCurrentAnimation(dt);
+    updateAnimation(dt);
+
     updateCollisionExcludes();
     updateCoordinates(dt);
     handleCollisions();
 
 }
 
-void Player::changeAnimation()
+void Player::updateAnimation(const float& dt)
 {
     if(attr.v.getAbs() == 0.0f) {
         anim.setCurrent("stand" + lastDirection);
-        return ;
-    }
-
-    if(attr.v.y == 0) {
-        attr.v.x > 0.0 ? lastDirection = "Right" : lastDirection = "Left";
     } else {
-        attr.v.y >= 0.0 ? lastDirection = "Down" : lastDirection = "Up";
+        if(attr.v.y == 0) attr.v.x >  0.0 ? lastDirection = "Right" : lastDirection = "Left";
+        else              attr.v.y >= 0.0 ? lastDirection = "Down"  : lastDirection = "Up";
+
+        anim.setCurrent("move" + lastDirection);
     }
-    anim.setCurrent("move" + lastDirection);
+    
+    anim.updateCurrentAnimation(dt);
 }
 
 void Player::draw() 
 {
     window->draw(attr.sprite);
 }
-
-
 
 void Player::updateCoordinates(const float& dt)
 {
@@ -171,14 +167,18 @@ bool Player::isExclude(pWObject_t verifiable)
 void Player::updateCollisionExcludes()
 {
     collisionExcludes_t::iterator last = collisionExcludes.end();
-    for(collisionExcludes_t::iterator it = collisionExcludes.begin(); it != last; it++) {
-        // if the object no longer exists or if bomber do not crossing the object 
-        if(  (*it).use_count() < 2 || ! alg::isCrossing(this->getAttr(), (*it)->getAttr())) {
-            collisionExcludes.erase(it);
-            it--;
+    collisionExcludes_t::iterator it = collisionExcludes.begin();
+    while( it != collisionExcludes.end()) {
+        if(isNoLongerExisted(it) || ! alg::isCrossing(this->getAttr(), (*it)->getAttr()) ) {
+            it = collisionExcludes.erase(it);
+        } else {
+            it++;
         }
-
     }
+}
+
+bool Player::isNoLongerExisted(const collisionExcludes_t::iterator& item) {
+    return (*item).use_count() < 2;
 }
 
 void Player::load(xmlElem_t& elem)
@@ -198,19 +198,24 @@ void Player::load(xmlElem_t& elem)
     attr.angle.setPiRadAngle(-0.5);
     attr.vMax = 200;
     
-    attr.width = atoi(elem.Attribute("width"));;
-    attr.heigth = atoi(elem.Attribute("heigth"));
+    attr.width = alg::parseInt(elem.Attribute("width"));
+    attr.heigth = alg::parseInt(elem.Attribute("heigth"));
 
-    attr.origin.x =  atoi(elem.Attribute("origX"));
-    attr.origin.y  = atoi(elem.Attribute("origY"));
+    attr.origin.x =  alg::parseInt(elem.Attribute("origX"));
+    attr.origin.y  = alg::parseInt(elem.Attribute("origY"));
 
     std::string textureName = elem.Attribute("texture");
 
     attr.texture.loadFromFile(textureName);
     attr.sprite.setTexture(attr.texture);
     
-    attr.pos.x = atoi(elem.Attribute("posX"));
-    attr.pos.y = atoi(elem.Attribute("posY"));
+    attr.pos.x = alg::parseInt(elem.Attribute("posX"));
+    attr.pos.y = alg::parseInt(elem.Attribute("posY"));
     attr.sprite.setPosition(attr.pos.x, attr.pos.y );
     attr.sprite.setOrigin(attr.origin.x, attr.origin.y);
+}
+
+Player::Attributes::~Attributes()
+{
+    if(keys != nullptr) delete keys;
 }

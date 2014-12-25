@@ -9,6 +9,11 @@
 class Actor : public IWorldsObject {
 protected:
     struct Attributes : public IWorldsObject::Attributes {
+        Vec2<float> v;
+        float vMax;
+        Vec2<float> origin;
+        texture_t texture;
+        sprite_t  sprite;
     };
 public:
     Actor(GameMap &, wObjects_t&, window_t&);

@@ -1,8 +1,5 @@
 #include "States/GameMenuState.hpp"
 
-
-
-
 GameMenuState::GameMenuState()
 {
 }

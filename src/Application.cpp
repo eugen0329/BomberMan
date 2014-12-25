@@ -6,9 +6,8 @@ Application::Application()
     windProp.xSize = 640;
     windProp.ySize = 480;
     windProp.bpp   = 32;
-    windProp.name  = "\\o";
+    windProp.name  = "BomberMan";
     windProp.fps   = 60;
-    
     
     sf::VideoMode mode(windProp.xSize, windProp.ySize);
 
@@ -20,16 +19,8 @@ Application::Application()
     
     globalEventManager.setRenderWindow(window);
 
-    //auto a = std::bind(&Application::pushDeferred, *this); [&](IDeferred* newDeferred) { deferred.push(newDeferred);};
     states.load(window, [&](IDeferred* newDeferred) { deferred.push(newDeferred);} );
-
-   // auto a = new Deferred<void>([](){std::cout <<1;});
-
-    //std::function<void(IDeferred*)> fn = [&](IDeferred* newDeferred) { deferred.push(newDeferred);};
     states.push(new MainMenuState);
-    //deferred.push(new Deferred<void>(&MainMenuState::changeToGame, &states));
-    
-    //states.push(new MainMenuState( std::bind(&Application::pushDeferred, *this) ));
 }
 
 Application::~Application()
@@ -46,7 +37,6 @@ Application::~Application()
 
 void Application::run()
 {
-
     while(window.isOpen()) {
         handleEvents();
         states.top()->update(timer.getElapsedTime());
@@ -56,7 +46,7 @@ void Application::run()
         handleDeferred();       
 
         float fps = timer.getFPS();
-        if(fps < 55) std::cerr << "fps: " << fps << std::endl;
+        if(fps < 55) std::cerr << "fps: " << fps << "; ";
     }
 }
 

@@ -1,7 +1,11 @@
-<fire  nAnimations="1" initialAnimation="burn">                                                                             
-    <animation  name="burn" nFrames="3" posX="0" posY="0" width="99" heigth="64" offset="99" timeToFrame="0.15" />         
-</fire> 
+<fire width="32" heigth="32" origX="50" origY="32" lifeTime="1.5" damage="1" texture="./res/Animations/Fire.gif" > 
+	<animations  nAnimations="1" initialAnimation="burn">
+		<animation  name="burn" nFrames="3" posX="0" posY="0" width="99" heigth="64" offset="99" timeToFrame="0.15" />
+	</animations>
+</fire>
 
-<blow  nAnimations="1" initialAnimation="burn">                                                                             
-    <animation  name="burn" nFrames="3" posX="0" posY="0" width="116" heigth="85" offset="116" timeToFrame="0.15" />         
-</blow> 
+<blow width="64" heigth="64" origX="58" origY="37" lifeTime="1.0" damage="1" texture="./res/Animations/Blow.gif" > 
+	<animations  nAnimations="1" initialAnimation="burn">
+		<animation  name="burn" nFrames="3" posX="0" posY="0" width="116" heigth="85" offset="116" timeToFrame="0.15" />
+	</animations>
+</blow>

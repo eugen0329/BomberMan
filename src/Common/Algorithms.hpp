@@ -3,9 +3,9 @@
 
 #include <iostream>
 #include <cmath>
-
 #include <string>
 #include <vector>
+#include <stdexcept>
 
 #include "TinyXML/tinyxml.h"
 
@@ -16,13 +16,23 @@
 
 
 namespace alg {
-
-    //struct NilClass {};
-
-    //template<class T>
-    //void nodelete(T*)
-    //{
-    //}
+    inline int parseInt(const char* source)
+    {
+        char* endptr;
+        int retVal = strtol(source, &endptr, 10);
+        if(*endptr != '\0') 
+            throw std::invalid_argument(std::string("parseInt: ") + source + " is wrong arg to parse");
+        return retVal;
+    }
+    
+    inline int parseFloat(const char* source)
+    {
+        char* endptr;
+        float retVal = strtof(source, &endptr);
+        if(*endptr != '\0') 
+            throw std::invalid_argument(std::string("parseFloat: \"") + source + "\" is wrong arg to parse");
+        return retVal;
+    }
 
     inline bool isCrossing(const BaseShape& first, const BaseShape& second)
     {
@@ -62,18 +72,16 @@ namespace alg {
         return delegate;
     }
 
-
-
     inline TiXmlDocument * openXmlFile(const std::string& filename)
     {
         TiXmlDocument * xmlFile = new TiXmlDocument;
-        if(! xmlFile->LoadFile(filename.c_str()) ) {
+        if(! xmlFile->LoadFile(filename.c_str()) ) 
             throw std::ios_base::failure( filename + ": ERROR while opening file" );
-        }
+
         return xmlFile;
     }
 
-    inline TiXmlElement * getXmlElement(TiXmlDocument* xmlFile, std::vector<std::string> path)
+    inline TiXmlElement * getXmlElem(TiXmlDocument* xmlFile, std::vector<std::string> path)
     {
         std::vector<std::string>::iterator node = path.begin();
         TiXmlElement *xmlElement = xmlFile->FirstChildElement((*node).c_str());

@@ -8,7 +8,7 @@ void Bomb::setWorldObjects(wObjects_t& wObjects)
 {
     
     cManager.setWObjects(wObjects);
-    cManager.setOwner(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
+    cManager.setTrackedObj(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
     this->wObjects = &wObjects;
 }
 
@@ -47,6 +47,38 @@ Bomb::Bomb(const IWorldsObject::Attributes& parAttr)
     attr.pos.x = parAttr.pos.x;
     attr.pos.y = parAttr.pos.y;
     attr.sprite.setPosition(attr.pos.x, attr.pos.y );
+}
+
+Bomb::Bomb(const Vec2<float> pos, int groupId, float lifeTime)
+{    
+
+    attr.pos.x = pos.x;
+    attr.pos.y = pos.y;
+    attr.groupID = groupId;
+    attr.lifeTime = lifeTime;
+
+    TiXmlDocument * xmlFile = alg::openXmlFile("./res/DefaultWObjAttr.xml");
+    xmlElem_t * xmlAttr = alg::getXmlElem(xmlFile, {"WObjects", "bomb"});
+
+    load(*xmlAttr);
+}
+
+void Bomb::load(xmlElem_t& elem)
+{
+    attr.solid = false;
+    attr.harmful = false;
+
+    attr.actLifeTime = 0.0;
+
+    attr.width = alg::parseInt(elem.Attribute("width"));
+    attr.heigth = alg::parseInt(elem.Attribute("heigth"));
+    attr.origin.x =  alg::parseInt(elem.Attribute("origX"));
+    attr.origin.y  = alg::parseInt(elem.Attribute("origY"));
+
+    attr.texture.loadFromFile(elem.Attribute("texture"));
+    attr.sprite.setTexture(attr.texture);
+    attr.sprite.setPosition(attr.pos.x, attr.pos.y );
+    attr.sprite.setOrigin(attr.origin.x, attr.origin.y);
 }
 
 void Bomb::addCollision(Collision)
@@ -90,40 +122,11 @@ void Bomb::setSignal(Delegate* delegate, std::string signalName)
 
 }
 
-void Bomb::load(xmlElem_t& elem)
-{
-    if(std::string(elem.Attribute("isSolid")) == "true") {
-        attr.solid = true;
-    } else {
-        attr.solid = false;
-    }
-
-    attr.harmful = false;
-
-    attr.lifeTime = atof(elem.Attribute("lifeTime"));
-    attr.actLifeTime = 0.0;
-
-    attr.width = atoi(elem.Attribute("width"));
-    attr.heigth = atoi(elem.Attribute("heigth"));
-
-    attr.pos.x = atoi(elem.Attribute("posX"));
-    attr.pos.y = atoi(elem.Attribute("posY"));
-
-    attr.origin.x =  atoi(elem.Attribute("origX"));
-    attr.origin.y  = atoi(elem.Attribute("origY"));
-
-    std::string textureName = elem.Attribute("texture");
-
-
-    attr.texture.loadFromFile(textureName);
-    attr.sprite.setTexture(attr.texture);
-    attr.sprite.setPosition(attr.pos.x, attr.pos.y );
-    attr.sprite.setOrigin(attr.origin.x, attr.origin.y);
-}
 
 void Bomb::makeFire()
 {
-    pWObject_t newFire = std::make_shared<Fire>(this->attr);
+    //pWObject_t newFire = std::make_shared<Fire>(this->attr);
+    pWObject_t newFire = std::make_shared<Fire>(attr.pos, attr.groupID, Fire::STYLE::BLOW);
     createSignal(newFire);
 
     for(Angle angle = 0; angle != Angle(2.f); angle += Angle(0.5)) {
@@ -136,14 +139,14 @@ void Bomb::makeFireWave(Angle& angle)
     float offset = 32;
     int waveCount = 3;
 
-    for(int wave = 1; wave < waveCount + 1; wave++) {
-        pWObject_t newFire = std::make_shared<Fire>(this->attr, Vec2<float>(offset * wave, angle));
+    for(int i = 1; i < waveCount + 1; i++) {
+
+        pWObject_t newFire = std::make_shared<Fire>(attr.pos + Vec2<float>(offset * i, angle), attr.groupID, Fire::STYLE::FLAME);
         createSignal(newFire);
-        cManager.setOwner(std::shared_ptr<IWorldsObject>(newFire.get(), [](IWorldsObject*){}));
+        //cManager.setTrackedObj(std::shared_ptr<IWorldsObject>(newFire.get(), [](IWorldsObject*){}));
+        cManager.setTrackedObj(newFire);
         for(CollisionManager::iterator it = cManager.begin(); it != cManager.end(); ++it) {
-            // 0 - is static objects that can't react on external collisions by themself
-            if(it->getAttr().groupID != 0) continue;
-            it->addCollision(newFire->getAttr());
+            if(it->getAttr().groupID == 0) it->addCollision(newFire->getAttr());
             if(it->getAttr().isSolid()) return ;
         }
     }

@@ -21,19 +21,11 @@
 #include "Game/Keyset.hpp"
 #include "Game/WObjects/Bomb.hpp"
 
-
-
-
-
 class Player : public Actor {
 protected:
     struct Attributes : public Actor::Attributes {
-        Vec2<float> v;
-        float vMax;
-        Vec2<float> origin;
-
-        texture_t texture;
-        sprite_t  sprite;
+        Keyset * keys;
+        ~Attributes();
     };
 
     typedef TiXmlElement xmlElem_t;
@@ -43,13 +35,12 @@ protected:
 
     AnimationManager anim;
     Attributes attr;
-    //PlayerAttributes  attr;
     CollisionManager* collisions;
     collisionExcludes_t collisionExcludes;
 
     std::function<void(float, float)> move;
     std::function<void()> throwBomb;
-    //std::function<void(float)> stop;
+
     Delegate createWObject;
 
     Delegate* createSignal;
@@ -64,13 +55,10 @@ protected:
     };
     typedef std::function<void(const float&)> action_t;
     
-    Keyset * keys;
     std::map<ACTIONS,action_t> actBinds;        // action bindings
     std::map<sf::Keyboard::Key, ACTIONS> keyBinds;
     std::stack<action_t> actions;
     std::string lastDirection;
-
-
 public:
     Player();
     Player(xmlElem_t&);
@@ -83,16 +71,11 @@ public:
     void draw();
 
     void updateCoordinates(const float&);
-    
+    void updateAnimation(const float& dt);
 
     void handleCollisions();
-    bool hasSolidCollisions();
-    bool isExclude(pWObject_t);
-
     void updateCollisionExcludes();
     
-    void changeAnimation();
-
     IWorldsObject::Attributes& getAttr() 
     {
         return attr;
@@ -100,6 +83,10 @@ public:
     virtual void setWorldObjects(wObjects_t&);
     void setSignal(Delegate*, std::string);
     void load(xmlElem_t&);
+
+    bool hasSolidCollisions();
+    bool isNoLongerExisted(const collisionExcludes_t::iterator&);
+    bool isExclude(pWObject_t);
 
 };
 

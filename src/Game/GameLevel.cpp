@@ -13,7 +13,7 @@ window(&window)
 
     std::string filename("res/WObjectsList.xml");
     TiXmlDocument * xmlFile = alg::openXmlFile(filename);
-    TiXmlElement  * wObjectIt = alg::getXmlElement(xmlFile, {"WObjects","object"});
+    TiXmlElement  * wObjectIt = alg::getXmlElem(xmlFile, {"WObjects","object"});
 
     layers.resize(2);
     

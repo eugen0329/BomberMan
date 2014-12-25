@@ -1,6 +1,8 @@
 #ifndef _FIRE_HPP_
 #define _FIRE_HPP_
 
+#include <cstdint> /* int8_t */
+
 #include "TinyXML/tinyxml.h"
 
 #include "Common/Interfaces/IInitializer.hpp"
@@ -30,11 +32,16 @@ protected:
     Delegate createSignal;
     AnimationManager animationManager;
 public:
+    enum class STYLE : std::int8_t {
+        FLAME,
+        BLOW
+    };
+
     Fire();
 
-    Fire(const IWorldsObject::Attributes&);
-    Fire(const IWorldsObject::Attributes&, Vec2<float>);
-    Fire(xmlElem_t&);
+    Fire(const Vec2<float>& pos, int groupId, STYLE style);
+
+
     virtual ~Fire();
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);
@@ -45,27 +52,13 @@ public:
         return attr;
     }
 
-    virtual void addCollision(Collision);
-    virtual void checkCollisions();
+    virtual void addCollision(Collision) {}
+    virtual void checkCollisions() {}
 
     virtual void setSignal(Delegate*, std::string);
 
     virtual void setWorldObjects(wObjects_t&);
+    void load(xmlElem_t& elem);
 };
-
-
-
-class Fire::Initializer : public IInitializer {
-private:
-    mutable Fire::Attributes* attr; 
-public:
-    Initializer();
-    Initializer(xmlElem_t&, Fire::Attributes&);
-    virtual ~Initializer();
-    
-    int load() const;
-    
-};
-
 
 #endif /* end of include guard: _FIRE_HPP_ */
