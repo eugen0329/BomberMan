@@ -10,7 +10,8 @@ Animation::Animation(sprite_t & sprite, int x, int y, int width, int heigth, int
 
 	for (int i = 0; i < nFrames; i++) {  
         frames.push_back(sf::IntRect(x + i*offset, y, width, heigth));
-    }  
+    }
+    this->sprite->setTextureRect(frames[0]);
 }
 
 Animation::~Animation()

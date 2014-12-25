@@ -10,7 +10,6 @@
 
 int main(int argc, char* argv[])
 {
-
     try {
         Application game; 
         game.run();

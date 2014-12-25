@@ -97,8 +97,7 @@
     <!-- Bomb -->
 
     <!-- Players -->
-    <object class="Player" posX="50" posY="50" width="22" heigth="12" vx="200" vy="200" texture="res/Animations/Player2.gif" origX="22" origY="48" isSolid="true"  groupID="1" >  
-                                                                    
+    <object class="Player" posX="50" posY="50" width="22" heigth="12" vx="200" vy="200" texture="res/Animations/Player2.gif" origX="22" origY="48" isSolid="true"  groupID="1" >
         <animations  nAnimations="8" initialAnimation="standDown">                                                                             
             <animation name="moveUp"  nFrames="3" posX="0" posY="128" width="45" heigth="64" offset="45" timeToFrame="0.25" />         
             <animation name="moveDown" nFrames="3" posX="0" posY="0" width="45" heigth="64" offset="45" timeToFrame="0.25" />         
@@ -108,9 +107,13 @@
             <animation name="standDown" nFrames="1" posX="45" posY="0" width="45" heigth="64" offset="45" timeToFrame="0.25" />      
             <animation name="standRight" nFrames="1" posX="45" posY="192" width="45" heigth="64" offset="45" timeToFrame="0.25" />    
             <animation name="standLeft" nFrames="1" posX="45" posY="64" width="45" heigth="64" offset="45" timeToFrame="0.25" />      
-        </animations> 
-    
-                                                                                                              
+        </animations>                                                                         
+    </object>
+
+    <object class="Slug" posX="350" posY="250" width="22" heigth="12" origX="22" origY="48"  vx="200" vy="200" texture="res/Animations/Slug.gif" isSolid="true"  groupID="2" >
+        <animations  nAnimations="1" initialAnimation="move">                                                                 
+            <animation name="move" nFrames="3" posX="0" posY="0" width="45" heigth="64" offset="45" timeToFrame="0.25" />
+        </animations>                                                                         
     </object>
 
 <!--

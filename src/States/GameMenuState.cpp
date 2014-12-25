@@ -25,11 +25,9 @@ void GameMenuState::update(const float& dt)
 
 void GameMenuState::draw()
 {
-    //window->clear(sf::Color::White);
     window->draw(bgSprite);
     resumeBtn->draw();
     exitBtn->draw();
-
 }
 
 
@@ -49,8 +47,6 @@ void GameMenuState::load(window_t &window, StateStack& st, std::function<void(ID
     exitBtn->setWindow(window);
     exitBtn->setText("Exit game", "./res/Arcade.ttf", sf::Color(84, 84, 84), textHeight);
     
-
-
     resumeBtn->submit( [&]() { 
         pushDeferred(new Deferred<void>( [&]() {
             if(typeid(stateStack->top()) == typeid(GameState*)) return ;    
@@ -61,7 +57,6 @@ void GameMenuState::load(window_t &window, StateStack& st, std::function<void(ID
     exitBtn->submit( [&]() { 
         pushDeferred(new Deferred<void>( [&]() {
             if(window.isOpen()) window.close();
-            //window.close();
         }));
     });
 }

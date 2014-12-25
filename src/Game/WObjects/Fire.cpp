@@ -26,8 +26,7 @@ Fire::Fire(const Vec2<float>& pos, int groupId, STYLE style)
 
     animationManager.setSprite(attr.sprite);
     animationManager.loadAnimations(*animationList);
-
-    animationManager.updateCurrentAnimation(0);
+    
     delete xmlFile;
 }
 

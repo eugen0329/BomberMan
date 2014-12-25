@@ -529,6 +529,30 @@ src/Game/WObjects/Player.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/WObjects/Player.cpp.s
 .PHONY : src/Game/WObjects/Player.cpp.s
 
+src/Game/WObjects/Slug.o: src/Game/WObjects/Slug.cpp.o
+.PHONY : src/Game/WObjects/Slug.o
+
+# target to build an object file
+src/Game/WObjects/Slug.cpp.o:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/WObjects/Slug.cpp.o
+.PHONY : src/Game/WObjects/Slug.cpp.o
+
+src/Game/WObjects/Slug.i: src/Game/WObjects/Slug.cpp.i
+.PHONY : src/Game/WObjects/Slug.i
+
+# target to preprocess a source file
+src/Game/WObjects/Slug.cpp.i:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/WObjects/Slug.cpp.i
+.PHONY : src/Game/WObjects/Slug.cpp.i
+
+src/Game/WObjects/Slug.s: src/Game/WObjects/Slug.cpp.s
+.PHONY : src/Game/WObjects/Slug.s
+
+# target to generate assembly for a file
+src/Game/WObjects/Slug.cpp.s:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/WObjects/Slug.cpp.s
+.PHONY : src/Game/WObjects/Slug.cpp.s
+
 src/Game/WObjects/Wall.o: src/Game/WObjects/Wall.cpp.o
 .PHONY : src/Game/WObjects/Wall.o
 
@@ -804,6 +828,9 @@ help:
 	@echo "... src/Game/WObjects/Player.o"
 	@echo "... src/Game/WObjects/Player.i"
 	@echo "... src/Game/WObjects/Player.s"
+	@echo "... src/Game/WObjects/Slug.o"
+	@echo "... src/Game/WObjects/Slug.i"
+	@echo "... src/Game/WObjects/Slug.s"
 	@echo "... src/Game/WObjects/Wall.o"
 	@echo "... src/Game/WObjects/Wall.i"
 	@echo "... src/Game/WObjects/Wall.s"

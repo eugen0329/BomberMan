@@ -24,6 +24,16 @@ namespace alg {
             throw std::invalid_argument(std::string("parseInt: ") + source + " is wrong arg to parse");
         return retVal;
     }
+
+    inline int randInRange(int from, int to)
+    {
+        return std::rand() % (to - from) + from;
+    }
+
+    inline float randInRange(float from, float to)
+    {
+        return((float)rand()/(float)(RAND_MAX)) * (to - from) + from;
+    }
     
     inline int parseFloat(const char* source)
     {

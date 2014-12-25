@@ -14,6 +14,8 @@
 #include "Game/WObjects/IWorldsObject.hpp"
 #include "Game/Map/GameMap.hpp"
 #include "Game/DrawableScene.hpp"
+
+#include "Game/WObjects/Slug.hpp"
 #include "Game/WObjects/Player.hpp"
 #include "Game/WObjects/Wall.hpp"
 

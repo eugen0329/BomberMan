@@ -10,9 +10,11 @@ void AnimationManager::loadAnimations(xmlElem_t& element)
     int width, heigth, nFrames, offset;
     float timeToFrame;
     std::string animName;
-
+    
     xmlElem_t* it = element.FirstChildElement("animation");
-    for( ;it ; it = it->NextSiblingElement("animation")) {
+
+
+    for( ;it != NULL ; it = it->NextSiblingElement("animation")) {
 
         pos.x       = atoi(it->Attribute("posX")  );
         pos.y       = atoi(it->Attribute("posY")  );

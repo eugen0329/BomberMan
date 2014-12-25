@@ -45,15 +45,6 @@ void Player::throwBomb()
     });
 }
 
-void Player::setSignal(Delegate* delegate, std::string signalName)
-{
-    if(signalName == "destroying") {
-        //this->destroyingSignal = *delegate;
-    } else if(signalName == "create") {
-        createWObject = *delegate;
-    }
-}
-
 void Player::setWorldObjects(WObjects& wObjects_)
 {
     this->wObjects = &wObjects_;
