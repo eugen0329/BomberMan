@@ -9,7 +9,7 @@ CollisionManager::~CollisionManager()
 {
 }
 
-CollisionManager::iterator::iterator(wObjects_t* wObjects, pWObject_t exclude, wObjects_t::iterator it) :
+CollisionManager::iterator::iterator(WObjects* wObjects, IWObjectPtr exclude, WObjects::iterator it) :
 wObjects(wObjects),
 exclude(exclude),
 it(it)
@@ -42,12 +42,12 @@ CollisionManager::iterator CollisionManager::end()
     return iterator(wObjects, owner, wObjects->end());
 }
 
-void CollisionManager::setWObjects(wObjects_t& wObjects)
+void CollisionManager::setWObjects(WObjects& wObjects)
 {
     this->wObjects = & wObjects;
 }
 
-void CollisionManager::setTrackedObj(pWObject_t owner)
+void CollisionManager::setTrackedObj(IWObjectPtr owner)
 {
     this->owner = owner;
 }

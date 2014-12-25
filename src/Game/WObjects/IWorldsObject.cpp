@@ -1,8 +1,7 @@
 #include "Game/WObjects/IWorldsObject.hpp"
 
-IWorldsObject::IWorldsObject(GameMap& map, wObjects_t& wObjV, window_t& window) :
-map(&map), 
-wObjects(&wObjV), 
+IWorldsObject::IWorldsObject(WObjects& wObjects, window_t& window) :
+wObjects(&wObjects), 
 window(&window)
 {
 }
@@ -15,24 +14,14 @@ IWorldsObject::~IWorldsObject()
 {
 }
 
-void IWorldsObject::setMap(GameMap& map)
-{
-    this->map = &map;
-}
-
-void IWorldsObject::setWorldObjects(wObjects_t& wObjects)
+void IWorldsObject::setWorldObjects(WObjects& wObjects)
 {
     this->wObjects = &wObjects;
 }
 
-void IWorldsObject::setRenderWindow(window_t& window)
+void IWorldsObject::setWindow(window_t& window)
 {
     this->window = &window; 
-}
-
-void IWorldsObject::setDeferredPusher(std::function<void(Deferred)>&& deferred)
-{
-    this->pushDeferred = pushDeferred; 
 }
 
 bool IWorldsObject::Attributes::isSolid()
@@ -46,4 +35,9 @@ bool IWorldsObject::Attributes::isHarmful()
 int IWorldsObject::Attributes::getGroupID()
 {
     return groupID;
+}
+
+void IWorldsObject::setFnPushDeferred(pushDef_t&& pushDeferred)
+{
+   this->pushDeferred = pushDeferred;
 }

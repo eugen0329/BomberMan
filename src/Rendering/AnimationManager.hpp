@@ -6,6 +6,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Common/BasicTypes.hpp"
+
 #include "Common/Interfaces/IEventManager.hpp"
 #include "Common/Interfaces/IInitializer.hpp"
 #include "Common/Vec2.hpp"
@@ -15,8 +17,6 @@
 class AnimationManager {
 private:
     typedef std::map<std::string, Animation*> animationsMap_t;
-    typedef sf::Sprite sprite_t;
-    class Initializer;
 
     std::string currAnimation;
     animationsMap_t animations;

@@ -1,30 +1,37 @@
 #include "Game/GameLevel.hpp"
 
-GameLevel::GameLevel() :
-window(NULL)
+GameLevel::GameLevel() : window(NULL)
 {
-
 }
 
-GameLevel::GameLevel(window_t& window) : 
-window(&window)
+GameLevel::GameLevel(window_t& window) : window(&window)
 {
-    levelMap.setRenderWindow(window);
-
+    levelMap.setWindow(window);
     std::string filename("res/WObjectsList.xml");
     TiXmlDocument * xmlFile = alg::openXmlFile(filename);
     TiXmlElement  * wObjectIt = alg::getXmlElem(xmlFile, {"WObjects","object"});
 
-    layers.resize(2);
-    
+    pushDeferred = [&](dererredAct&& fn) { defSt.push(fn);};
+
+    scene.setFnInit([&](IWObjectPtr& ob) {
+        Delegate delegate;
+        delegate.bind(this, & GameLevel::deleteObjectSignal);
+        
+        ob->setWindow(window);
+        ob->setWorldObjects(scene.wObjects);
+        ob->setSignal(&delegate, "destroying");
+        ob->setFnPushDeferred(pushDeferred);  
+        delegate.bind(this, & GameLevel::createItemSignal);
+        ob->setSignal(&delegate, "create");   
+    });
     readObjectsFromXml(wObjectIt);
+
     delete xmlFile;
 } 
 
 GameLevel::~GameLevel()
 {
     while(! signals.empty()) signals.pop();
-    layers.clear();
 }
 
 void GameLevel::readObjectsFromXml(TiXmlElement* xml)
@@ -43,60 +50,79 @@ void GameLevel::readObjectsFromXml(TiXmlElement* xml)
     }
 }
 
-void GameLevel::createActor(pWObject_t newActor)
+
+void GameLevel::setBaseAttributes(IWObjectPtr& wObject)
+{
+    Delegate delegate;
+    delegate.bind(this, & GameLevel::deleteObjectSignal);
+
+    wObject->setWindow(*window);
+    wObject->setWorldObjects(wObjects);
+    wObject->setSignal(&delegate, "destroying");
+    wObject->setFnPushDeferred(pushDeferred);
+    
+    //auto s = std::bind<void>([&](dererredAct&& fn) { defSt.push(fn);});
+    
+    //auto f = [](DrawableScene& scene) {
+    //    scene.add(std::make_shared<IWObjectPtr>(new Bomb))
+    //};
+}
+
+
+void GameLevel::createActor(IWObjectPtr newActor)
 {
     Delegate delegate;
     delegate.bind(this, & GameLevel::createItemSignal);
 
     setBaseAttributes(newActor);
     newActor->setSignal(&delegate, "create");
-    wObjects.push_back(newActor);
-    layers[1].push_back(newActor);
+    scene.add(newActor, 1);
+    //wObjects.push_back(newActor);
+    //layers[1].push_back(newActor);
      
 }
 
-void GameLevel::createItem(pWObject_t newItem)
+void GameLevel::createItem(IWObjectPtr newItem)
 {
     Delegate delegate;
     delegate.bind(this, & GameLevel::createItemSignal);
 
-
     setBaseAttributes(newItem);
     newItem->setSignal(&delegate, "create");
-    wObjects.push_back(newItem);
-    layers[0].push_back(newItem);
+
+    scene.add(newItem, 0);
+    //wObjects.push_back(newItem);
+    //layers[0].push_back(newItem);
 }
 
-void GameLevel::setBaseAttributes(pWObject_t& wObject)
-{
-    Delegate delegate;
-    delegate.bind(this, & GameLevel::deleteObjectSignal);
 
-    wObject->setRenderWindow(*window);
-    wObject->setMap(levelMap);
-    wObject->setWorldObjects(wObjects);
-    wObject->setSignal(&delegate, "destroying");
-}
 
 void GameLevel::handleEvents(const event_t& event)
 {
-    for (unsigned int i = 0; i < wObjects.size(); i++) {
-        wObjects[i]->handleEvents(event);
-    }
+    scene.handleEvents(event);
+    //for (unsigned int i = 0; i < wObjects.size(); i++) {
+    //    wObjects[i]->handleEvents(event);
+    //}
 }
 
 void GameLevel::update(const float& dt)
 {
-    levelMap.update(dt);
+    //levelMap.update(dt);
+    scene.update(dt);
 
-    for(wObjects_t::iterator wObject = wObjects.begin(); wObject != wObjects.end(); wObject++) {
+    for(WObjects::iterator wObject = wObjects.begin(); wObject != wObjects.end(); wObject++) {
        (*wObject)->update(dt);
     }
 
+    while(! defSt.empty()) {
+        defSt.top()(&scene);
+        defSt.pop();
+    }
     while(! signals.empty()) {
         if(signals.front().name == "delete") {
-            deleteObjectFromLayer(signals.front().operand);
-            deleteObjectFromVector(signals.front().operand);
+            scene.remove(signals.front().operand);
+            //deleteObjectFromLayer(signals.front().operand);
+            //deleteObjectFromVector(signals.front().operand);
         } else if(signals.front().name == "create") {
             createItem(signals.front().operand);
         }
@@ -106,29 +132,16 @@ void GameLevel::update(const float& dt)
 
 void GameLevel::draw()
 {
-
     levelMap.draw();
-
-    layers_t::iterator lastLayer = layers.end();
-
-    for(layers_t::iterator layer = layers.begin(); layer != lastLayer; layer++) {
-        wObjects_t::iterator lastWObject = layer->end(); 
-        for(wObjects_t::iterator wObject = layer->begin(); wObject != lastWObject; wObject++) {
-           (*wObject)->draw();
-        }
-    }
+    scene.draw();
 }
 
-void GameLevel::deleteObjectSignal(pWObject_t removable)
-{
-    signals.push(Signal(removable, "delete"));
-}
 
-void GameLevel::deleteObjectFromLayer(pWObject_t removable)
+void GameLevel::deleteObjectFromLayer(IWObjectPtr removable)
 {
     layers_t::iterator lastLayer = layers.end();
     for(layers_t::iterator layer = layers.begin(); layer != lastLayer; layer++) {
-        wObjects_t::iterator lObject = std::find( layer->begin(), layer->end(), removable);
+        WObjects::iterator lObject = std::find( layer->begin(), layer->end(), removable);
         if(lObject != layer->end()) {
             layer->erase(lObject);        
             break;
@@ -136,20 +149,31 @@ void GameLevel::deleteObjectFromLayer(pWObject_t removable)
     }
 }
 
-void GameLevel::deleteObjectFromVector(pWObject_t removable)
+void GameLevel::deleteObjectFromVector(IWObjectPtr removable)
 {
-    wObjects_t::iterator wObject = std::find( wObjects.begin(), wObjects.end(), removable);
+    WObjects::iterator wObject = std::find( wObjects.begin(), wObjects.end(), removable);
     if(wObject != wObjects.end()) {
         wObjects.erase(wObject);        
     }
 }
 
-void GameLevel::createItemSignal( pWObject_t newWObject)
-{
-    signals.push(Signal(newWObject, "create"));
-}
-
-void GameLevel::setRenderWindow(window_t* window)
+void GameLevel::setWindow(window_t* window)
 {
     this->window = window;
+}
+
+
+
+
+
+
+
+void GameLevel::deleteObjectSignal(IWObjectPtr removable)
+{
+    signals.push(Signal(removable, "delete"));
+}
+
+void GameLevel::createItemSignal( IWObjectPtr newWObject)
+{
+    signals.push(Signal(newWObject, "create"));
 }

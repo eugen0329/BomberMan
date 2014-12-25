@@ -17,7 +17,7 @@ Application::Application()
     window.setKeyRepeatEnabled(false);
     window.clear(sf::Color::White);
     
-    globalEventManager.setRenderWindow(window);
+    globalEventManager.setWindow(window);
 
     states.load(window, [&](IDeferred* newDeferred) { deferred.push(newDeferred);} );
     states.push(new MainMenuState);
@@ -46,7 +46,7 @@ void Application::run()
         handleDeferred();       
 
         float fps = timer.getFPS();
-        if(fps < 55) std::cerr << "fps: " << fps << "; ";
+        if(fps < 55) std::cerr << "fps: " << fps << "\n";
     }
 }
 

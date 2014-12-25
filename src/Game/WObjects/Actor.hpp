@@ -16,7 +16,7 @@ protected:
         sprite_t  sprite;
     };
 public:
-    Actor(GameMap &, wObjects_t&, window_t&);
+    Actor(WObjects&, window_t&);
     Actor();
     virtual ~Actor();
 
@@ -27,7 +27,7 @@ public:
     virtual void draw() = 0;
 
     virtual IWorldsObject::Attributes& getAttr() = 0;
-    virtual void setWorldObjects(wObjects_t&) = 0;
+    virtual void setWorldObjects(WObjects&) = 0;
 
 
 };

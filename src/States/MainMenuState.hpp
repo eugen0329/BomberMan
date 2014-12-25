@@ -29,7 +29,7 @@ public:
     virtual void draw();
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);
-    void setWindow(window_t & window);
+    //void setWindow(window_t & window);
 
     void load(window_t &window, StateStack& st, std::function<void(IDeferred*)>& fn);
 };

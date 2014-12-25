@@ -8,50 +8,44 @@
 #include <algorithm>
 #include <exception>
 #include <memory>
+#include "TinyXML/tinyxml.h"
+
 
 #include "Common/Algorithms.hpp"
 
-#include "TinyXML/tinyxml.h"
+
 
 #include "Game/WObjects/IWorldsObject.hpp"
-#include "Game/WObjects/Player.hpp"
-//#include "Game/WObjects/Bomb.hpp"
-#include "Game/WObjects/Fire.hpp"
-#include "Game/WObjects/Wall.hpp"
 #include "Game/Map/GameMap.hpp"
-
-
-
-template<class T>
-bool operator == (std::shared_ptr<T> left, T* right)
-{
-    return left.get() == right;
-}
-
-typedef sf::Event event_t;
-typedef sf::RenderWindow window_t;
-
-typedef std::shared_ptr<IWorldsObject> pWObject_t;
-
-typedef std::vector<pWObject_t> wObjects_t;
+#include "Game/DrawableScene.hpp"
+#include "Game/WObjects/Player.hpp"
+#include "Game/WObjects/Wall.hpp"
 
 class GameLevel {
 private:
     class Signal;
-    typedef std::vector<wObjects_t> layers_t;
+    typedef std::vector<WObjects> layers_t;
     typedef std::queue<Signal> signals_t;
+    typedef std::function<void(DrawableScene*)> dererredAct;
 
     GameMap levelMap;
-    wObjects_t wObjects;
+
+    DrawableScene scene;
+
+    WObjects wObjects;
     layers_t layers;
+
     signals_t signals;
 
     window_t * window;
+
+    std::stack<dererredAct> defSt;
+    std::function<void(dererredAct&&)> pushDeferred;
 public:
     GameLevel();
     GameLevel(window_t& );
     ~GameLevel();
-	void setRenderWindow(window_t*);
+	void setWindow(window_t*);
 
     void readObjectsFromXml(TiXmlElement*);
 
@@ -59,24 +53,24 @@ public:
     void update(const float&);
     void draw();
 
-    void createActor(pWObject_t);
-    void createItem(pWObject_t);
-    void setBaseAttributes(pWObject_t&);
+    void createActor(IWObjectPtr);
+    void createItem(IWObjectPtr);
+    void setBaseAttributes(IWObjectPtr&);
 
-    void deleteObjectSignal( pWObject_t );
-    void deleteObjectFromLayer( pWObject_t );
-    void deleteObjectFromVector(pWObject_t );
+    void deleteObjectSignal( IWObjectPtr );
+    void deleteObjectFromLayer( IWObjectPtr );
+    void deleteObjectFromVector(IWObjectPtr );
 
-    void createItemSignal(pWObject_t);
+    void createItemSignal(IWObjectPtr);
 };
 
 class GameLevel::Signal {
 public:
-    Signal(pWObject_t operand, std::string name) :
+    Signal(IWObjectPtr operand, std::string name) :
     operand(operand),
     name(name)
     {}
-    pWObject_t operand;
+    IWObjectPtr operand;
     std::string name;
 };
 

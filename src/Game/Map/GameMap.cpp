@@ -88,7 +88,7 @@ void GameMap::setSize(size_t x, size_t y)
     grid.setSize(x, y);
 }
 
-void GameMap::setRenderWindow(window_t & window)
+void GameMap::setWindow(window_t & window)
 {
     this->window = &window;
 }

@@ -20,6 +20,7 @@
 #include "Game/CollisionManager.hpp"
 #include "Game/Keyset.hpp"
 #include "Game/WObjects/Bomb.hpp"
+#include "Game/DrawableScene.hpp"
 
 class Player : public Actor {
 protected:
@@ -29,8 +30,8 @@ protected:
     };
 
     typedef TiXmlElement xmlElem_t;
-    typedef std::shared_ptr<IWorldsObject> pWObject_t;
-    typedef std::list<pWObject_t> collisionExcludes_t;
+    typedef std::shared_ptr<IWorldsObject> IWObjectPtr;
+    typedef std::list<IWObjectPtr> collisionExcludes_t;
     class Initializer;
 
     AnimationManager anim;
@@ -38,8 +39,8 @@ protected:
     CollisionManager* collisions;
     collisionExcludes_t collisionExcludes;
 
-    std::function<void(float, float)> move;
-    std::function<void()> throwBomb;
+    void throwBomb();
+    void move(float vx, float vy);
 
     Delegate createWObject;
 
@@ -76,17 +77,16 @@ public:
     void handleCollisions();
     void updateCollisionExcludes();
     
-    IWorldsObject::Attributes& getAttr() 
-    {
-        return attr;
-    }
-    virtual void setWorldObjects(wObjects_t&);
+    virtual IWorldsObject::Attributes& getAttr();
+
+    virtual void setWorldObjects(WObjects&);
     void setSignal(Delegate*, std::string);
     void load(xmlElem_t&);
 
     bool hasSolidCollisions();
     bool isNoLongerExisted(const collisionExcludes_t::iterator&);
-    bool isExclude(pWObject_t);
+    bool isExclude(IWObjectPtr);
+
 
 };
 

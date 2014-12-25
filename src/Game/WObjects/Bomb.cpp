@@ -4,11 +4,11 @@ Bomb::Bomb()
 {
 }
 
-void Bomb::setWorldObjects(wObjects_t& wObjects)
+void Bomb::setWorldObjects(WObjects& wObjects)
 {
     
-    cManager.setWObjects(wObjects);
-    cManager.setTrackedObj(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
+    collisManager.setWObjects(wObjects);
+    collisManager.setTrackedObj(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
     this->wObjects = &wObjects;
 }
 
@@ -61,6 +61,7 @@ Bomb::Bomb(const Vec2<float> pos, int groupId, float lifeTime)
     xmlElem_t * xmlAttr = alg::getXmlElem(xmlFile, {"WObjects", "bomb"});
 
     load(*xmlAttr);
+    delete xmlFile;
 }
 
 void Bomb::load(xmlElem_t& elem)
@@ -99,12 +100,23 @@ void Bomb::update(const float& dt)
     if(attr.actLifeTime >= attr.lifeTime) 
     {
         makeFire();
-        destroyingSignal(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
+        destroyWObject(IWObjectPtr(this, [](IWorldsObject*){}));
+        //destroyingSignal(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
     }
 }
 
-void Bomb::checkCollisions()
+void Bomb::destroyWObject(IWObjectPtr object)
 {
+    pushDeferred([object, this](DrawableScene * scene) {
+        scene->remove(object);
+    });
+}
+
+void Bomb::createWObject(IWObjectPtr object)
+{
+    pushDeferred([object, this](DrawableScene * scene) {
+        scene->add(object, 0);
+    });
 }
 
 void Bomb::draw()
@@ -119,19 +131,16 @@ void Bomb::setSignal(Delegate* delegate, std::string signalName)
     } else if(signalName == "create") {
         this->createSignal = *delegate;        
     }
-
 }
-
 
 void Bomb::makeFire()
 {
-    //pWObject_t newFire = std::make_shared<Fire>(this->attr);
-    pWObject_t newFire = std::make_shared<Fire>(attr.pos, attr.groupID, Fire::STYLE::BLOW);
-    createSignal(newFire);
-
+    createWObject(std::make_shared<Fire>(attr.pos, attr.groupID, Fire::STYLE::BLOW));
     for(Angle angle = 0; angle != Angle(2.f); angle += Angle(0.5)) {
         makeFireWave(angle);
     }
+    
+    //createSignal(std::make_shared<Fire>(attr.pos, attr.groupID, Fire::STYLE::BLOW));
 }
 
 void Bomb::makeFireWave(Angle& angle)
@@ -141,11 +150,12 @@ void Bomb::makeFireWave(Angle& angle)
 
     for(int i = 1; i < waveCount + 1; i++) {
 
-        pWObject_t newFire = std::make_shared<Fire>(attr.pos + Vec2<float>(offset * i, angle), attr.groupID, Fire::STYLE::FLAME);
-        createSignal(newFire);
-        //cManager.setTrackedObj(std::shared_ptr<IWorldsObject>(newFire.get(), [](IWorldsObject*){}));
-        cManager.setTrackedObj(newFire);
-        for(CollisionManager::iterator it = cManager.begin(); it != cManager.end(); ++it) {
+        IWObjectPtr newFire = std::make_shared<Fire>(attr.pos + Vec2<float>(offset * i, angle), attr.groupID, Fire::STYLE::FLAME);
+        createWObject(newFire);
+        //createSignal(newFire);
+        //collisManager.setTrackedObj(std::shared_ptr<IWorldsObject>(newFire.get(), [](IWorldsObject*){}));
+        collisManager.setTrackedObj(newFire);
+        for(CollisionManager::iterator it = collisManager.begin(); it != collisManager.end(); ++it) {
             if(it->getAttr().groupID == 0) it->addCollision(newFire->getAttr());
             if(it->getAttr().isSolid()) return ;
         }
@@ -153,3 +163,7 @@ void Bomb::makeFireWave(Angle& angle)
 }
 
 
+IWorldsObject::Attributes& Bomb::getAttr() 
+{
+    return attr;
+}

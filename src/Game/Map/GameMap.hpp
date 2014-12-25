@@ -39,7 +39,7 @@ public:
     void update(float dt);
 
     void setSize(size_t, size_t);
-    void setRenderWindow(window_t &);
+    void setWindow(window_t &);
     //Matrix<cell_t> & getGridRef();
     Matrix<cell_t> * getGridPtr();
 };

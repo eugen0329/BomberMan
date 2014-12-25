@@ -4,8 +4,8 @@ Item::Item()
 {
 }
 
-Item::Item(GameMap& map, wObjects_t& wObjects, window_t& window) :
-IWorldsObject(map, wObjects, window)
+Item::Item(WObjects& wObjects, window_t& window) :
+IWorldsObject(wObjects, window)
 {
 
 }

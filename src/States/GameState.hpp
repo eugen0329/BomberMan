@@ -6,15 +6,13 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Common/BasicTypes.hpp"
 
 #include "Common/Deferred.hpp"
 #include "Common/Interfaces/IAppState.hpp"
 #include "Game/GameLevel.hpp"
 
 #include "States/GameMenuState.hpp"
-
-typedef sf::Event event_t;
-
 
 class GameState : public IAppState {
 private:

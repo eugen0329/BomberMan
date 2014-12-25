@@ -11,17 +11,17 @@
 
 #include "Game/WObjects/IWorldsObject.hpp"
 
-typedef std::vector<pWObject_t> wObjects_t;
-typedef std::shared_ptr<IWorldsObject> pWObject_t;
+typedef std::vector<IWObjectPtr> WObjects;
+typedef std::shared_ptr<IWorldsObject> IWObjectPtr;
 
 class CollisionManager {
 public:
     class iterator;
 private:
-    pWObject_t owner;
+    IWObjectPtr owner;
 
-    wObjects_t* wObjects;
-    wObjects_t::iterator it;
+    WObjects* wObjects;
+    WObjects::iterator it;
 public:
     CollisionManager();
     ~CollisionManager();
@@ -30,9 +30,9 @@ public:
     iterator end();
 
 
-    void setWObjects(wObjects_t& wObjects);
+    void setWObjects(WObjects& wObjects);
 
-    void setTrackedObj(pWObject_t owner);
+    void setTrackedObj(IWObjectPtr owner);
 
 };
 
@@ -41,15 +41,15 @@ class CollisionManager::iterator {
 private:
     friend class CollisionManager;
 
-    wObjects_t* wObjects;
-    pWObject_t exclude;
-    wObjects_t::iterator it;
+    WObjects* wObjects;
+    IWObjectPtr exclude;
+    WObjects::iterator it;
 
-    inline bool isSameObject(pWObject_t& verifiable) 
+    inline bool isSameObject(IWObjectPtr& verifiable) 
     {
         return verifiable == exclude;
     }
-    inline bool isCollided(pWObject_t& verifiable)
+    inline bool isCollided(IWObjectPtr& verifiable)
     {
         return alg::isCrossing(static_cast<BaseShape>(exclude->getAttr()), 
                                static_cast<BaseShape>(verifiable->getAttr()) )  &&
@@ -57,7 +57,7 @@ private:
     } 
     inline void findNext() 
     {
-        wObjects_t::iterator last = wObjects->end();
+        WObjects::iterator last = wObjects->end();
         while(it != last) {
             if (isCollided(*it) && ! isSameObject(*it) ) {
                 break;
@@ -66,7 +66,7 @@ private:
         }
     }
 public:
-    iterator(wObjects_t* wObjects, pWObject_t exclude, wObjects_t::iterator it);
+    iterator(WObjects* wObjects, IWObjectPtr exclude, WObjects::iterator it);
     iterator();
 
     iterator(const iterator& second );
@@ -77,11 +77,11 @@ public:
         findNext();
         return *this;
     }
-    inline pWObject_t& operator * () 
+    inline IWObjectPtr& operator * () 
     {
         return *it;
     }
-    inline pWObject_t& operator -> () 
+    inline IWObjectPtr& operator -> () 
     {
         return *it;
     }

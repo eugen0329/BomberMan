@@ -13,7 +13,7 @@ Wall::Wall(xmlElem_t& xmlElement)
     }
 }
 
-void Wall::setWorldObjects(wObjects_t& wObjects)
+void Wall::setWorldObjects(WObjects& wObjects)
 {
     this->wObjects = &wObjects;
 }

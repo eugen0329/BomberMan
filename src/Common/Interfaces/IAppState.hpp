@@ -21,7 +21,7 @@ public:
     IAppState(window_t&);
     virtual ~IAppState();
 
-    virtual void setRenderWindow(window_t&);
+    virtual void setWindow(window_t&);
     virtual void load(window_t &window, StateStack&, std::function<void(IDeferred*)>& fn);
 
     virtual void handleEvents(const event_t&) = 0;

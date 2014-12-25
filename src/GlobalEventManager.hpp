@@ -13,7 +13,7 @@ public:
     GlobalEventManager(window_t &);
     virtual ~GlobalEventManager();
 
-    void setRenderWindow(window_t &);
+    void setWindow(window_t &);
     virtual void handleEvents(const event_t & );
 };
 

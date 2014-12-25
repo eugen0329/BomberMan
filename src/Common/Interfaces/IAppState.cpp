@@ -17,7 +17,7 @@ void IAppState::display()
     window->display();      
 }
 
-void IAppState::setRenderWindow(window_t& window)
+void IAppState::setWindow(window_t& window)
 {
     this->window = &window;
 }

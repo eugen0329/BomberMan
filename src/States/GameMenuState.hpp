@@ -5,6 +5,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Common/BasicTypes.hpp"
 #include "Common/Interfaces/IAppState.hpp"
 #include "Common/Deferred.hpp"
 #include "Common/Button.hpp"
@@ -13,7 +14,6 @@
 #include "States/GameState.hpp"
 #include "States/MainMenuState.hpp"
 
-typedef sf::Event event_t;
 
 class MainMenuState;
 
@@ -31,7 +31,6 @@ public:
     virtual void draw();
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);
-    void setWindow(window_t & window);
 
     void load(window_t &window, StateStack& st, std::function<void(IDeferred*)>& fn);
 };

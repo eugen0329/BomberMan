@@ -32,7 +32,7 @@ public:
 
     virtual void addCollision(Collision); 
     
-    virtual void setWorldObjects(wObjects_t&);
+    virtual void setWorldObjects(WObjects&);
 
 };
 

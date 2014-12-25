@@ -9,9 +9,12 @@
 #include "Common/Angle.hpp"
 #include "Common/Algorithms.hpp"
 
+#include "Game/DrawableScene.hpp"
 #include "Game/WObjects/Item.hpp"
 #include "Game/WObjects/Fire.hpp"
 #include "Game/CollisionManager.hpp"
+
+class DrawableScene;
 
 class Bomb : public Item {
 protected:
@@ -25,7 +28,7 @@ protected:
     };
     class Initializer;
 
-    CollisionManager cManager;
+    CollisionManager collisManager;
 
     Bomb::Attributes attr;
     Delegate destroyingSignal;
@@ -43,22 +46,19 @@ public:
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);
     virtual void draw();
-    virtual IWorldsObject::Attributes& getAttr() 
-    {
-        return attr;
-    }
+    virtual IWorldsObject::Attributes& getAttr();
+
+
+    void destroyWObject(IWObjectPtr object);
+    void createWObject(IWObjectPtr object);
 
     virtual void addCollision(Collision);
-    virtual void checkCollisions();
-
-
     virtual void setSignal(Delegate*, std::string);
 
-    virtual void setWorldObjects(wObjects_t&);
+    virtual void setWorldObjects(WObjects&);
 
 
     void load(xmlElem_t&);
-
     void makeFire();
     void makeFireWave(Angle&);
 };

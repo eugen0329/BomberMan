@@ -10,6 +10,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System.hpp>
 
+#include "Common/BasicTypes.hpp"
+
 #include "Common/Algorithms.hpp"
 #include "Common/Vec2.hpp"
 #include "Common/Delegate.hpp"
@@ -17,12 +19,7 @@
 
 
 
-class IWorldsObject;
-
-typedef sf::Event event_t;
-typedef std::shared_ptr<IWorldsObject> pWObject_t;
-typedef std::vector<pWObject_t> wObjects_t;
-typedef sf::RenderWindow window_t;
+class DrawableScene;
 
 class IWorldsObject {
 protected:
@@ -39,25 +36,27 @@ protected:
     };
     typedef  IWorldsObject::Attributes Collision;
 
-    GameMap* map;
-    wObjects_t* wObjects;
+    pushDef_t pushDeferred;
+
+    std::function<void(IWObjectPtr)> deleteWObject; 
+
+
+    WObjects* wObjects;
     window_t * window;
     Delegate destroyingSignal;
 
-    typedef std::function<void()> Deferred;  
-    std::function<void(Deferred)> pushDeferred;
-
 public:
 
-    IWorldsObject(GameMap&, wObjects_t &, window_t &);
+    void setFnPushDeferred(pushDef_t&& pushDeferred);
+
+
+    IWorldsObject(WObjects &, window_t &);
     IWorldsObject();
     virtual ~IWorldsObject();
 
-
-    void setMap(GameMap&);
-    void setRenderWindow(window_t&);
+    void setWindow(window_t&);
     virtual void setSignal(Delegate *, std::string) = 0;
-    virtual void setWorldObjects(wObjects_t&) = 0;
+    virtual void setWorldObjects(WObjects&) = 0;
 
     virtual void addCollision(Collision) = 0;
 
@@ -66,7 +65,7 @@ public:
     virtual void draw() = 0; 
 
     virtual Attributes& getAttr() = 0;
-    virtual void setDeferredPusher(std::function<void(Deferred)>&&);
+
 };
 
 #endif /* end of include guard: _IWORLDSOBJECT_HPP_ */

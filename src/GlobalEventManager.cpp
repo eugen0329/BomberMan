@@ -12,7 +12,7 @@ GlobalEventManager::~GlobalEventManager()
 {
 }
 
-void GlobalEventManager::setRenderWindow(window_t & window)
+void GlobalEventManager::setWindow(window_t & window)
 {
     this->window = &window;
 }

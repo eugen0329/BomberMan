@@ -13,23 +13,12 @@ Player::Player(xmlElem_t& xmlElem) : lastDirection("Down")
     anim.setSprite(attr.sprite);
     anim.loadAnimations(*animationList);
 
-    move = [&](float vx, float vy) {
-        attr.v.x += vx;
-        attr.v.y += vy;      
-    };
-
-    throwBomb = [&]() {
-        pWObject_t newBomb(new Bomb(attr.pos, attr.groupID, 1.0));
-        createWObject(newBomb);
-        collisionExcludes.push_back(newBomb);   
-    };
-
     attr.keys = new Keyset(Keyset::WSDASpace);
-    actBinds[ACTIONS::MOVE_UP]    = std::bind(move, 0.0, -attr.vMax);
-    actBinds[ACTIONS::MOVE_DOWN]  = std::bind(move, 0.0, attr.vMax) ;
-    actBinds[ACTIONS::MOVE_RIGHT] = std::bind(move, attr.vMax, 0.0);
-    actBinds[ACTIONS::MOVE_LEFT]  = std::bind(move, -attr.vMax, 0.0);
-    actBinds[ACTIONS::THROW_BOMB] = std::bind(throwBomb);
+    actBinds[ACTIONS::MOVE_UP]    = std::bind(&Player::move, this, 0.0, -attr.vMax);
+    actBinds[ACTIONS::MOVE_DOWN]  = std::bind(&Player::move, this, 0.0, attr.vMax) ;
+    actBinds[ACTIONS::MOVE_RIGHT] = std::bind(&Player::move, this, attr.vMax, 0.0);
+    actBinds[ACTIONS::MOVE_LEFT]  = std::bind(&Player::move, this, -attr.vMax, 0.0);
+    actBinds[ACTIONS::THROW_BOMB] = std::bind(&Player::throwBomb, this);
 
     keyBinds[attr.keys->up ]   = ACTIONS::MOVE_UP ;
     keyBinds[attr.keys->down]  = ACTIONS::MOVE_DOWN ;
@@ -37,6 +26,24 @@ Player::Player(xmlElem_t& xmlElem) : lastDirection("Down")
     keyBinds[attr.keys->left]  = ACTIONS::MOVE_LEFT ;
     keyBinds[attr.keys->space] = ACTIONS::THROW_BOMB ;
 
+}
+
+void Player::move(float vx, float vy)
+{
+    attr.v.x += vx;
+    attr.v.y += vy;    
+}
+
+void Player::throwBomb()
+{   
+    float lifetime = 1.0;
+    int layerIndex = 0;
+    IWObjectPtr newBomb(new Bomb(attr.pos, attr.groupID, lifetime));
+
+    collisionExcludes.push_back(newBomb); 
+    pushDeferred([newBomb, layerIndex, this](DrawableScene * scene) {
+        scene->add(newBomb, layerIndex);
+    });
 }
 
 void Player::setSignal(Delegate* delegate, std::string signalName)
@@ -48,7 +55,7 @@ void Player::setSignal(Delegate* delegate, std::string signalName)
     }
 }
 
-void Player::setWorldObjects(wObjects_t& wObjects_)
+void Player::setWorldObjects(WObjects& wObjects_)
 {
     this->wObjects = &wObjects_;
     collisions->setWObjects((*this->wObjects));
@@ -141,7 +148,6 @@ void Player::handleCollisions()
     }
 }
 
-
 bool Player::hasSolidCollisions()
 {
     
@@ -155,7 +161,7 @@ bool Player::hasSolidCollisions()
     return false;
 }
 
-bool Player::isExclude(pWObject_t verifiable)
+bool Player::isExclude(IWObjectPtr verifiable)
 {
     if( std::find(collisionExcludes.begin(), collisionExcludes.end(), verifiable) 
         != collisionExcludes.end() ) {
@@ -218,4 +224,9 @@ void Player::load(xmlElem_t& elem)
 Player::Attributes::~Attributes()
 {
     if(keys != nullptr) delete keys;
+}
+
+IWorldsObject::Attributes&  Player::getAttr() 
+{
+    return attr;
 }

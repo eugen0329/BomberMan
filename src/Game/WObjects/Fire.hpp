@@ -7,11 +7,13 @@
 
 #include "Common/Interfaces/IInitializer.hpp"
 
+
 #include "Common/Vec2.hpp"
 #include "Common/Algorithms.hpp"
 #include "Game/WObjects/IWorldsObject.hpp"
 #include "Game/WObjects/Item.hpp"
 
+#include "Game/DrawableScene.hpp"
 #include "Rendering/AnimationManager.hpp"
 
 class Fire : public Item {
@@ -53,11 +55,10 @@ public:
     }
 
     virtual void addCollision(Collision) {}
-    virtual void checkCollisions() {}
 
     virtual void setSignal(Delegate*, std::string);
 
-    virtual void setWorldObjects(wObjects_t&);
+    virtual void setWorldObjects(WObjects&);
     void load(xmlElem_t& elem);
 };
 

@@ -10,10 +10,10 @@ protected:
     };
 public:
     Item();
-    Item(GameMap&, wObjects_t&, window_t&);
+    Item(WObjects&, window_t&);
     virtual ~Item() {}
 
-    virtual void setWorldObjects(wObjects_t&) = 0;
+    virtual void setWorldObjects(WObjects&) = 0;
 
     virtual void addCollision(Collision) = 0;
 

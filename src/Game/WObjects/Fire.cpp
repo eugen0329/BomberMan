@@ -67,7 +67,10 @@ void Fire::update(const float& dt)
     //std::cout <<  attr.actLifeTime;
     if(attr.actLifeTime >= attr.lifeTime) 
     {
-        destroyingSignal(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
+        pushDeferred([this](DrawableScene * scene) {
+            scene->remove(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
+        });
+        //destroyingSignal(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
     }
 }
 
@@ -87,7 +90,7 @@ void Fire::setSignal(Delegate* delegate, std::string signalName)
 }
 
 
-void Fire::setWorldObjects(wObjects_t& wObjects)
+void Fire::setWorldObjects(WObjects& wObjects)
 {
     this->wObjects = &wObjects;
 }

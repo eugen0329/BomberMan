@@ -16,7 +16,7 @@ StateStack::StateStack()
 int StateStack::push(IAppState* newState)
 {
     stateStack.push(newState);
-    //stateStack.top()->setRenderWindow(*window);
+    //stateStack.top()->setWindow(*window);
     stateStack.top()->load(*window, *this, pushDeferred);
 
     return 0;
