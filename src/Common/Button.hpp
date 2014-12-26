@@ -5,14 +5,9 @@
 #include <iostream>
 
 #include <SFML/Graphics.hpp>
-#include "Common/Vec2.hpp"
-#include "Common/Deferred.hpp"
 
-typedef sf::Event event_t;
-typedef sf::Sprite sprite_t;
-typedef sf::Texture texture_t;
-typedef sf::RenderWindow window_t;
-typedef sf::RenderTexture rednTexture;
+#include "Common/BasicTypes.hpp"
+#include "Common/Vec2.hpp"
 
 class Button {
 private:

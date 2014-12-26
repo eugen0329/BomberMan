@@ -12,9 +12,6 @@ GameMenuState::~GameMenuState()
 
 void GameMenuState::handleEvents(const event_t& event)
 {
-    if(event.type == sf::Event::Closed) { 
-        window->close();
-    }
     resumeBtn->handleEvents(event);
     exitBtn->handleEvents(event);
 }
@@ -31,32 +28,24 @@ void GameMenuState::draw()
 }
 
 
-void GameMenuState::load(window_t &window, StateStack& st, std::function<void(IDeferred*)>& fn)
+void GameMenuState::setPushDeferredFn(pushDeferred_t fn)
 {
-    this->window = &window;
-    pushDeferred = fn;
-    stateStack = &st;
+    this->pushDeferred = fn;
 
-    // loading buttons
-    int textHeight = 80;
-    resumeBtn = new Button(window.getSize().x * 0.5, window.getSize().y * 0.35 , 200, textHeight);
-    resumeBtn->setWindow(window);
-    resumeBtn->setText("Resume", "./res/Arcade.ttf", sf::Color(84, 84, 84), textHeight);
+    resumeBtn = new Button(window->getSize().x * 0.5, window->getSize().y * 0.35 , 200, conf::btnTextHeight);
+    resumeBtn->setWindow(*window);
+    resumeBtn->setText("Resume", conf::defaultFontName, conf::btnDefaultColor, conf::btnTextHeight);
     
-    exitBtn = new Button(window.getSize().x * 0.5, window.getSize().y * 0.5 , 300, textHeight);
-    exitBtn->setWindow(window);
-    exitBtn->setText("Exit game", "./res/Arcade.ttf", sf::Color(84, 84, 84), textHeight);
+    exitBtn = new Button(window->getSize().x * 0.5, window->getSize().y * 0.5 , 300, conf::btnTextHeight);
+    exitBtn->setWindow(*window);
+    exitBtn->setText("Exit game", conf::defaultFontName, conf::btnDefaultColor, conf::btnTextHeight);
     
-    resumeBtn->submit( [&]() { 
-        pushDeferred(new Deferred<void>( [&]() {
-            if(typeid(stateStack->top()) == typeid(GameState*)) return ;    
-            stateStack->pop();
-        }));
-    });
+    resumeBtn->submit( std::bind(pushDeferred, [](StateStack* stateStack) {
+        if(typeid(stateStack->top()) == typeid(GameState*)) return ;    
+        stateStack->pop();
+    }));
+    exitBtn->submit(std::bind(pushDeferred, [&](StateStack*) {
+        if(window->isOpen()) window->close();
+    }));
 
-    exitBtn->submit( [&]() { 
-        pushDeferred(new Deferred<void>( [&]() {
-            if(window.isOpen()) window.close();
-        }));
-    });
 }

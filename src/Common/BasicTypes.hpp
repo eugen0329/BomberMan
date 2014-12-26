@@ -11,6 +11,8 @@
 
 class IWorldsObject;
 class DrawableScene;
+class IAppState;
+class StateStack;
 
 typedef sf::Event event_t;
 typedef sf::RenderWindow window_t;
@@ -22,5 +24,9 @@ typedef TiXmlElement xmlElem_t;
 typedef sf::RenderTexture renderableTexture_t;
 typedef sf::Texture texture_t;
 typedef sf::Sprite sprite_t;
+typedef std::shared_ptr<IAppState> IAppStatePtr;
+
+typedef std::function<void(StateStack*)> deferred_t;
+typedef std::function<void(deferred_t)> pushDeferred_t;
 
 #endif /* end of include guard: BASICTYPES_IWGQJS8L */

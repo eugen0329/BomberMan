@@ -49,17 +49,17 @@ void Button::draw()
 {
     window->draw(text);
     window->draw(sprite);
-
 }
 
 void Button::setText(std::string text, std::string fontName, sf::Color color,int charSize)
 {
-    if (!this->font.loadFromFile(fontName)) std::cerr << "wrong font" << fontName << std::endl;
+    if (!this->font.loadFromFile(fontName)) 
+        throw std::invalid_argument(std::string("ERROR: wrong font ") + fontName ); 
     this->textColor = color;
     this->text.setFont(font);
     this->text.setString(text);
     this->text.setColor(textColor);
-     this->text.setOrigin(width / 2, height / 2);
+    this->text.setOrigin(width / 2, height / 2);
     this->text.setPosition(pos.x, pos.y);
 
     this->text.setCharacterSize(charSize);

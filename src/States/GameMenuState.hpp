@@ -6,8 +6,9 @@
 #include <SFML/Graphics.hpp>
 
 #include "Common/BasicTypes.hpp"
+#include "GlobalConf.hpp"
+
 #include "States/IAppState.hpp"
-#include "Common/Deferred.hpp"
 #include "Common/Button.hpp"
 
 #include "States/MainMenuState.hpp"
@@ -21,8 +22,8 @@ class GameMenuState : public IAppState  {
 private:
     Button * exitBtn;
     Button * resumeBtn;
-    sf::Sprite bgSprite;
-    sf::Texture bgTexture;
+    sprite_t bgSprite;
+    texture_t bgTexture;
 
 public:
     GameMenuState();
@@ -31,10 +32,7 @@ public:
     virtual void draw();
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);
-
-    void load(window_t &window, StateStack& st, std::function<void(IDeferred*)>& fn);
+    virtual void setPushDeferredFn(pushDeferred_t);
 };
-
-
 
 #endif /* end of include guard: MAINMENUSTATE_ES88MA91 */

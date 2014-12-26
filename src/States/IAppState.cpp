@@ -22,10 +22,7 @@ void IAppState::setWindow(window_t& window)
     this->window = &window;
 }
 
-void IAppState::load(window_t &window, StateStack& st, std::function<void(IDeferred*)>& fn)
+void IAppState::setPushDeferredFn(pushDeferred_t pushDeferred)
 {
-    this->window = &window;
-    pushDeferred = fn;
-    stateStack = &st;
+	this->pushDeferred = pushDeferred;
 }
-

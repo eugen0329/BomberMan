@@ -15,10 +15,10 @@ void GameState::handleEvents(const event_t& event)
     level->handleEvents(event);
     if(event.type == sf::Event::KeyPressed) {
     	if(event.key.code == sf::Keyboard::Escape) {
-    		pushDeferred(new Deferred<void>([&]() {
-    			if(typeid(stateStack->top()) == typeid(GameMenuState*)) return ;
-    			stateStack->push(new GameMenuState);
-    		}));
+    		pushDeferred( [this] (StateStack* st) {
+    			if(typeid(st->top()) == typeid(GameMenuState*)) return ;
+    			st->push(IAppStatePtr(new GameMenuState));
+    		});
     	}
     }
 }
@@ -26,7 +26,6 @@ void GameState::handleEvents(const event_t& event)
 void GameState::update(const float& dt)
 {
     level->update(dt);
-
 }
 
 void GameState::draw()
@@ -36,10 +35,8 @@ void GameState::draw()
     level->draw();
 }
 
-void GameState::load(window_t &window, StateStack& st, std::function<void(IDeferred*)>& fn)
+void GameState::setWindow(window_t& window)
 {
     this->window = &window;
-    pushDeferred = fn;
-    stateStack = &st;
     level = new GameLevel(window);
 }

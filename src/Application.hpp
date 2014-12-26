@@ -11,13 +11,12 @@
 #include "StateStack.hpp"
 #include "GlobalEventManager.hpp"
 #include "Common/Timer.hpp"
-#include "Common/Deferred.hpp"
 #include "States/MainMenuState.hpp"
 #include "States/GameState.hpp"
 
 class Application {
 private:
-    typedef std::stack<IDeferred*> DeferredActions;
+    //typedef std::stack<IDeferred*> DeferredActions;
     typedef struct {
         unsigned int xSize; 
         unsigned int ySize;
@@ -33,7 +32,7 @@ private:
     GlobalEventManager globalEventManager;
     Timer timer;
 
-    DeferredActions deferred;
+    std::stack<deferred_t> deferred;
 
     void handleEvents();
     void handleDeferred();

@@ -15,7 +15,6 @@ GameMap::GameMap()
     rendTexture.clear(sf::Color::Blue);
     for(unsigned int i = 0; i < size.y; i++) {
         for(unsigned int j = 0; j < size.x; j++) {
-            //grid[i][j].setTile("res/Tiles/stone.gif");
             grid[i][j].sprite.setPosition(j * cellSize.x, i * cellSize.y);
             rendTexture.draw(grid[i][j].sprite);
         }

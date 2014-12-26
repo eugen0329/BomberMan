@@ -27,8 +27,6 @@ protected:
     };
 
     Blow::Attributes attr;
-    Delegate destroyingSignal;
-    Delegate createSignal;
     AnimationManager animationManager;
 public:
     enum class STYLE : std::int8_t {

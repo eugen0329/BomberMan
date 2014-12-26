@@ -6,7 +6,6 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "Common/BasicTypes.hpp"
-#include "Common/Deferred.hpp"
 #include "StateStack.hpp"
 
 
@@ -14,10 +13,8 @@ class StateStack;
 
 class IAppState {
 protected:
-    typedef sf::RenderWindow window_t;
     window_t* window;
-    std::function<void(IDeferred*)> pushDeferred;
-    StateStack* stateStack;
+    pushDeferred_t pushDeferred;
 
 public:
     IAppState();
@@ -25,13 +22,12 @@ public:
     virtual ~IAppState();
 
     virtual void setWindow(window_t&);
-    virtual void load(window_t &window, StateStack&, std::function<void(IDeferred*)>& fn);
 
     virtual void handleEvents(const event_t&) = 0;
     virtual void update(const float&) = 0;
     virtual void draw() = 0;
     virtual void display();
-
+    virtual void setPushDeferredFn(pushDeferred_t);
 };
 
 #endif /* end of include guard: _IAPPSTATE_HPP_ */

@@ -19,26 +19,29 @@ Application::Application()
     
     globalEventManager.setWindow(window);
 
-    states.load(window, [&](IDeferred* newDeferred) { deferred.push(newDeferred);} );
-    states.push(new MainMenuState);
+    states.push = [&](IAppStatePtr newState) {
+        newState->setWindow(window);
+        newState->setPushDeferredFn([&](deferred_t newDeferred) {
+            deferred.push(newDeferred);
+        });
+        states.stack.push(newState);
+    };
+
+    states.push(IAppStatePtr(new MainMenuState));
 }
 
 Application::~Application()
 {
-    states.clearStack();
-    if(window.isOpen()) {
-        window.close();
-    }
-    while(! deferred.empty()) {
-        delete deferred.top(); 
-        deferred.pop();
-    }
+    states.clear();
+    if(window.isOpen()) window.close();
+    while(! deferred.empty()) deferred.pop();
 }
 
 void Application::run()
 {
     while(window.isOpen()) {
         handleEvents();
+
         states.top()->update(timer.getElapsedTime());
         states.top()->draw();
         states.top()->display(); 
@@ -62,8 +65,7 @@ void Application::handleEvents()
 void Application::handleDeferred()
 {
     while(! deferred.empty()) {
-        deferred.top()->call();
-        delete deferred.top(); 
+        deferred.top()(&states);
         deferred.pop();
     }
 }

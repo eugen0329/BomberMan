@@ -14,5 +14,5 @@ Knowing Issues
 ==============
 
 SFML:
-    With some drivers SFML causes some memory leaks and errors.
+    With some drivers SFML causes several memory leaks and errors. It occurs even if the only element has been created and deleted immediately.
 

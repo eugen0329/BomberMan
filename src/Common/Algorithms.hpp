@@ -12,8 +12,6 @@
 #include "Common/BaseShape.hpp"
 #include "Common/Vec2.hpp"
 #include "Common/Angle.hpp"
-#include "Common/Delegate.hpp"
-
 
 namespace alg {
     inline int parseInt(const char* source)
@@ -72,14 +70,6 @@ namespace alg {
         }
         temp.normalize();
         return temp;
-    }
-
-    template<class T, class U> 
-    Delegate* createSignal(T* connectableClass, U connectableMethod)
-    {
-        Delegate* delegate = new Delegate;
-        delegate->bind(connectableClass, connectableMethod);
-        return delegate;
     }
 
     inline TiXmlDocument * openXmlFile(const std::string& filename)

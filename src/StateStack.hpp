@@ -6,42 +6,28 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include "Common/BasicTypes.hpp"
 #include "States/IAppState.hpp"
-#include "Common/Deferred.hpp"
 
 typedef sf::RenderWindow window_t;
 class IAppState;
 
 class StateStack {
-private:
-    window_t* window;
-    std::stack<IAppState*> stateStack;
-    std::function<void(IDeferred*)> pushDeferred;
+    friend class Application;
+    std::stack<IAppStatePtr> stack;
+
 
 public:
-    StateStack(window_t &);
-    virtual ~StateStack();
     StateStack();
+    ~StateStack();
 
-    void load(window_t &window, std::function<void(IDeferred*)>&& fn);
+    std::function<void(IAppStatePtr)> push;
 
-    int push(IAppState*);
-    int pop();
-
-    inline IAppState* top() 
-    {
-        return stateStack.top();
-    }
-    inline bool isEmpty() const 
-    {
-        return stateStack.empty();
-    }
-    inline bool isNotEmpty() const 
-    {
-        return ! stateStack.empty();
-    }
-
-    virtual void clearStack();
+    inline IAppStatePtr top() { return stack.top(); }
+    inline void pop() { stack.pop(); }
+    inline bool empty() const { return stack.empty(); }
+    inline bool notEmpty() const { return stack.empty(); }
+    void clear();
 };
 
 #endif /* end of include guard: _STATESTACK_HPP_ */
