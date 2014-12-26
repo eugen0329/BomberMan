@@ -64,7 +64,7 @@ void DrawableScene::remove(IWObjectPtr removable)
 	} else {
 		return ;
 	}
-			
+			if(notifyRemoval) notifyRemoval(removable->getAttr().groupID);
 	layers_t::iterator layersEnd = layers.end();
 	for (layers_t::iterator l = layers.begin(); l != layersEnd; ++l ) {
 		WObjects::iterator item = find(begin(*l), end(*l), removable);
@@ -73,4 +73,5 @@ void DrawableScene::remove(IWObjectPtr removable)
 			break;
 		}
 	}
+	//
 }	

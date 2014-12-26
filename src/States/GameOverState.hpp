@@ -23,6 +23,7 @@ class GameOverState : public IAppState  {
 private:
     Button * exitBtn;
     Button * restartBtn;
+    Button * mainMenuBtn;
     sprite_t bgSprite;
     texture_t bgTexture;
     sf::Text gameOverText;

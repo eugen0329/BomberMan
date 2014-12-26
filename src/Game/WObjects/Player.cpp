@@ -108,10 +108,8 @@ void Player::updateImmunityState(const float& dt)
 
         } else {
             attr.immunity.timer += dt;
-        }
-            
+        }  
     }
-     
 }
 
 void Player::updateAnimation(const float& dt)
@@ -163,14 +161,18 @@ void Player::handleCollision(Collision & collision)
         if( attr.healthIndicator.getString().getSize() == 1) {
             destroyWObject(IWObjectPtr(this,[](IWorldsObject*){}));
         } else if(! attr.immunity) {
-            sf::String str = attr.healthIndicator.getString();
-            str.erase(str.getSize() - 1);
-            attr.healthIndicator.setString(str);
-            attr.sprite.setColor(sf::Color::Red);
-            attr.immunity.isActive = true;
+            decreaseHalth();
         }
-
     }
+}
+
+void Player::decreaseHalth()
+{
+    sf::String str = attr.healthIndicator.getString();
+    str.erase(str.getSize() - 1);
+    attr.healthIndicator.setString(str);
+    attr.sprite.setColor(sf::Color::Red);
+    attr.immunity.isActive = true;
 }
 
 void Player::addCollision(Collision collision)
@@ -231,13 +233,10 @@ void Player::load(xmlElem_t& elem)
     
     attr.width = alg::parseInt(elem.Attribute("width"));
     attr.heigth = alg::parseInt(elem.Attribute("heigth"));
-
     attr.origin.x =  alg::parseInt(elem.Attribute("origX"));
     attr.origin.y  = alg::parseInt(elem.Attribute("origY"));
 
-    std::string textureName = elem.Attribute("texture");
-
-    attr.texture.loadFromFile(textureName);
+    attr.texture.loadFromFile(elem.Attribute("texture"));
     attr.sprite.setTexture(attr.texture);
     
     attr.immunity.maxTime = alg::parseFloat(elem.Attribute("maxImmunityTime"));
@@ -249,14 +248,12 @@ void Player::load(xmlElem_t& elem)
     std::string indicator;
     int health = alg::parseInt(indAttr->Attribute("health"));
     for(int i = 0; i < health; i++) 
-        indicator.push_back('@');
+        indicator.push_back('X');
     attr.healthIndicator.setString(indicator);
-
-    attr.indicatorFont.loadFromFile(indAttr->Attribute("font"));
-    attr.healthIndicator.setFont(attr.indicatorFont);
+    attr.healthIndicator.setStyle(sf::Text::Bold);
+    attr.healthIndicator.setFont(conf::defaultFont);
     attr.healthIndicator.setColor(sf::Color::Red);
     attr.healthIndicator.setPosition( alg::parseInt(indAttr->Attribute("posX")), alg::parseInt(indAttr->Attribute("posY")) );
-
 
     attr.pos.x = alg::parseInt(elem.Attribute("posX"));
     attr.pos.y = alg::parseInt(elem.Attribute("posY"));

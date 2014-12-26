@@ -11,7 +11,6 @@
 #include "States/IAppState.hpp"
 #include "Common/Button.hpp"
 
-#include "States/MainMenuState.hpp"
 #include "States/GameState.hpp"
 #include "States/MainMenuState.hpp"
 

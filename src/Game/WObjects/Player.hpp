@@ -12,6 +12,9 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "Common/BasicTypes.hpp"
+#include "GlobalConf.hpp"
+
 #include "Rendering/AnimationManager.hpp"
 #include "Common/Algorithms.hpp"
 
@@ -28,7 +31,6 @@ protected:
         float timer;
         float maxTime;
         bool isActive;
-
         operator bool() {
             return isActive;
         }
@@ -40,9 +42,8 @@ protected:
         float maxInvulnerablityTime;
         DamageImmunity immunity;
         sf::Color oldColor;
-        
         sf::Text healthIndicator;
-        sf::Font indicatorFont;
+        
         ~Attributes();
     };
 
@@ -81,6 +82,7 @@ public:
     virtual ~Player();
     virtual void addCollision(Collision);
 
+    void decreaseHalth();
     void handleEvents(const event_t&);
     void handleRealtimeEvents();
     void update(const float&);
@@ -88,10 +90,8 @@ public:
 
     void updateCoordinates(const float&);
     void updateAnimation(const float& dt);
-
     void updateCollisions();
     void handleCollision(Collision & collision);
-
     void updateCollisionExcludes();
     
     virtual IWorldsObject::Attributes& getAttr();

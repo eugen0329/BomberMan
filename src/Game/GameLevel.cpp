@@ -9,6 +9,13 @@ GameLevel::GameLevel(window_t& window) : window(&window)
 
     timeToGenerateEnemy = alg::randInRange(3.f, 5.f);
     timePassed = 0.f;
+    score = 0;
+
+    scoreWidget.setFont(conf::defaultFont);
+    scoreWidget.setColor(sf::Color::Blue);
+    scoreWidget.setStyle(sf::Text::Bold);
+    scoreWidget.setPosition(window.getSize().x * 0.9, 0 );  
+    scoreWidget.setString("0");
 
     levelMap.setWindow(window);
     TiXmlDocument * xmlFile = alg::openXmlFile("res/WObjectsList.xml");
@@ -22,11 +29,19 @@ GameLevel::GameLevel(window_t& window) : window(&window)
         ob->setWorldObjects(scene.wObjects);
         ob->setFnPushDeferred(pushDeferred);  
     });
+    int enemyId = 2;
+    scene.notifyRemoval = [&](int groupID) {if(groupID == 2) increaseScore();};
 
     readObjectsFromXml(elem);
 
     delete xmlFile;
 } 
+
+void GameLevel::increaseScore()
+{
+    int score = alg::parseInt(scoreWidget.getString().toAnsiString()) + 1;
+    scoreWidget.setString(std::to_string(score));
+}
 
 GameLevel::~GameLevel()
 {
@@ -81,7 +96,7 @@ bool GameLevel::playerIsDead()
 {
     using namespace std;
     WObjects objVec = scene.wObjects;
-    WObjects::iterator player = find_if(begin(objVec), end(objVec), [](IWObjectPtr obj) -> bool { return obj->getAttr().groupID == 1;});
+    WObjects::iterator player = find_if(begin(objVec), end(objVec), [](IWObjectPtr obj)->bool{return obj->getAttr().groupID == 1;});
     if(player == objVec.end()) return true;
     return false;
 }
@@ -90,6 +105,7 @@ void GameLevel::draw()
 {
     levelMap.draw();
     scene.draw();
+    window->draw(scoreWidget);
 }
 
 void GameLevel::setWindow(window_t* window)

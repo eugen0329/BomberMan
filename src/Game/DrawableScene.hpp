@@ -20,6 +20,7 @@ class DrawableScene {
 	WObjects wObjects;
 	layers_t layers;
 	std::function<void(IWObjectPtr&)> init;
+	std::function<void(int)> notifyRemoval;
 public:
 	void setFnInit(std::function<void(IWObjectPtr&)> init);
 	DrawableScene(unsigned int nLayers = 2);

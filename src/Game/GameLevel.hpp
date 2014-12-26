@@ -33,9 +33,13 @@ private:
 
     float timePassed;
     float timeToGenerateEnemy;
+    int score;
 
+    sf::Text scoreWidget;
     std::queue<dererredAct> deferredQueue;
     std::function<void(dererredAct&&)> pushDeferred;
+
+    void increaseScore();
 public:
     GameLevel();
     GameLevel(window_t& );

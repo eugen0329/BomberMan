@@ -26,7 +26,7 @@ Blow::Blow(const Vec2<float>& pos, int groupId, STYLE style)
 
     attr.pos.x = pos.x;
     attr.pos.y = pos.y;
-    attr.groupID = groupId;
+    attr.groupID = 0;
 
     load(*xmlAttr);
 

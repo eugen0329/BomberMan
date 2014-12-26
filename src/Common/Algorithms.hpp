@@ -14,15 +14,6 @@
 #include "Common/Angle.hpp"
 
 namespace alg {
-    inline int parseInt(const char* source)
-    {
-        char* endptr;
-        int retVal = strtol(source, &endptr, 10);
-        if(*endptr != '\0') 
-            throw std::invalid_argument(std::string("parseInt: ") + source + " is wrong arg to parse");
-        return retVal;
-    }
-
     inline int randInRange(int from, int to)
     {
         return std::rand() % (to - from) + from;
@@ -33,12 +24,21 @@ namespace alg {
         return((float)rand()/(float)(RAND_MAX)) * (to - from) + from;
     }
     
-    inline float parseFloat(const char* source)
+    inline float parseFloat(const std::string source)
     {
         char* endptr;
-        float retVal = strtof(source, &endptr);
+        float retVal = strtof(source.c_str(), &endptr);
         if(*endptr != '\0') 
             throw std::invalid_argument(std::string("parseFloat: \"") + source + "\" is wrong arg to parse");
+        return retVal;
+    }
+
+    inline int parseInt(const std::string source)
+    {
+        char* endptr;
+        int retVal = strtol(source.c_str(), &endptr, 10);
+        if(*endptr != '\0') 
+            throw std::invalid_argument(std::string("parseInt: ") + source + " is wrong arg to parse");
         return retVal;
     }
 
