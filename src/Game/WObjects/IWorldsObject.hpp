@@ -27,12 +27,16 @@ protected:
         bool harmful;
         int groupID;
         bool interactable;
+        bool invulnerable;
 
-        Attributes(bool solid = true, int groupID = 0) : solid(solid), groupID(groupID) {}
+        Attributes(bool solid = true, int groupID = 0, bool invulnerable = false);
+
         ~Attributes() {}
+
         bool isSolid();
         bool isHarmful();
         int getGroupID();
+        bool isInvulnerable();
     };
     typedef  IWorldsObject::Attributes Collision;
 

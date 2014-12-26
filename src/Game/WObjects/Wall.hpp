@@ -1,9 +1,8 @@
 #ifndef _WALL_HPP_
 #define _WALL_HPP_
 
-#include "Common/Interfaces/IInitializer.hpp"
+#include "Common/BasicTypes.hpp"
 #include "Common/Algorithms.hpp"
-
 #include "Game/WObjects/Item.hpp"
 
 
@@ -30,22 +29,13 @@ public:
         return attr;
     }
 
+    void load(xmlElem_t&);
+
     virtual void addCollision(Collision); 
     
     virtual void setWorldObjects(WObjects&);
 
 };
 
-class Wall::Initializer : public IInitializer {
-private:
-    mutable Wall::Attributes* attr; 
-public:
-    Initializer();
-    Initializer(xmlElem_t&, Wall::Attributes&);
-    virtual ~Initializer();
-    
-    int load() const;
-    
-};
 
 #endif /* end of include guard: _WALL_HPP_ */

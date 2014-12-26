@@ -4,7 +4,7 @@
 #include "Common/Vec2.hpp"
 #include "Common/Angle.hpp"
 
-class BaseShape {
+struct BaseShape {
 public:
     BaseShape() {}
     ~BaseShape() {}

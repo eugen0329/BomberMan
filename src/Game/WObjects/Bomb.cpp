@@ -106,7 +106,7 @@ void Bomb::makeFireWave(Angle& angle)
 
         collisManager.setTrackedObj(newFire);
         for(CollisionManager::iterator it = collisManager.begin(); it != collisManager.end(); ++it) {
-            if(it->getAttr().groupID == 0) it->addCollision(newFire->getAttr());
+            if(it->getAttr().groupID == 0 && ! it->getAttr().isInvulnerable()) it->addCollision(newFire->getAttr());
             if(it->getAttr().isSolid()) return ;
         }
     }

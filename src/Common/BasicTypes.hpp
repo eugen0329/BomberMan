@@ -4,6 +4,10 @@
 #include <functional>
 #include <memory>
 
+#include <SFML/Graphics/RenderWindow.hpp>
+
+#include "tinyxml.h"
+
 class IWorldsObject;
 class DrawableScene;
 
@@ -14,5 +18,6 @@ typedef std::shared_ptr<IWorldsObject> IWObjectPtr;
 typedef std::vector<IWObjectPtr> WObjects;
 typedef std::function<void(DrawableScene*)> dererredAct;
 typedef std::function<void(dererredAct)> pushDef_t;
+typedef TiXmlElement xmlElem_t;
 
 #endif /* end of include guard: BASICTYPES_IWGQJS8L */

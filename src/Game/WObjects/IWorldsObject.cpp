@@ -48,3 +48,15 @@ void IWorldsObject::destroyWObject(IWObjectPtr object)
         scene->remove(object);
     });
 }
+
+bool IWorldsObject::Attributes::isInvulnerable()
+{
+	return invulnerable;
+}
+
+IWorldsObject::Attributes::Attributes(bool solid, int groupID, bool invulnerable) : 
+solid(solid), 
+groupID(groupID), 
+invulnerable(invulnerable) 
+{
+}
