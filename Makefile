@@ -649,6 +649,30 @@ src/States/GameMenuState.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/GameMenuState.cpp.s
 .PHONY : src/States/GameMenuState.cpp.s
 
+src/States/GameOverState.o: src/States/GameOverState.cpp.o
+.PHONY : src/States/GameOverState.o
+
+# target to build an object file
+src/States/GameOverState.cpp.o:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/GameOverState.cpp.o
+.PHONY : src/States/GameOverState.cpp.o
+
+src/States/GameOverState.i: src/States/GameOverState.cpp.i
+.PHONY : src/States/GameOverState.i
+
+# target to preprocess a source file
+src/States/GameOverState.cpp.i:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/GameOverState.cpp.i
+.PHONY : src/States/GameOverState.cpp.i
+
+src/States/GameOverState.s: src/States/GameOverState.cpp.s
+.PHONY : src/States/GameOverState.s
+
+# target to generate assembly for a file
+src/States/GameOverState.cpp.s:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/GameOverState.cpp.s
+.PHONY : src/States/GameOverState.cpp.s
+
 src/States/GameState.o: src/States/GameState.cpp.o
 .PHONY : src/States/GameState.o
 
@@ -819,6 +843,9 @@ help:
 	@echo "... src/States/GameMenuState.o"
 	@echo "... src/States/GameMenuState.i"
 	@echo "... src/States/GameMenuState.s"
+	@echo "... src/States/GameOverState.o"
+	@echo "... src/States/GameOverState.i"
+	@echo "... src/States/GameOverState.s"
 	@echo "... src/States/GameState.o"
 	@echo "... src/States/GameState.i"
 	@echo "... src/States/GameState.s"

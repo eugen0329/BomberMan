@@ -55,7 +55,7 @@ void GameLevel::handleEvents(const event_t& event)
     scene.handleEvents(event);
 }
 
-void GameLevel::update(const float& dt)
+int GameLevel::update(const float& dt)
 {
     timePassed += dt;
     if(timePassed >= timeToGenerateEnemy) {
@@ -73,7 +73,8 @@ void GameLevel::update(const float& dt)
             deferredQueue.pop();
         }        
     }
-    if(playerIsDead()) window->close();
+    if(playerIsDead()) return 1;
+    return 0;
 }
 
 bool GameLevel::playerIsDead()

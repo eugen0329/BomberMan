@@ -46,7 +46,7 @@ public:
     bool playerIsDead();
 
     void handleEvents(const event_t&);
-    void update(const float&);
+    int update(const float&);
     void draw();
 
 };

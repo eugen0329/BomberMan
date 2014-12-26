@@ -24,7 +24,6 @@ void Button::setWindow(window_t & window)
     this->window = &window;
 }
 
-
 void Button::handleEvents(const event_t& event)
 {
     if (event.type == sf::Event::MouseButtonPressed) {
@@ -61,7 +60,6 @@ void Button::setText(std::string text, std::string fontName, sf::Color color,int
     this->text.setColor(textColor);
     this->text.setOrigin(width / 2, height / 2);
     this->text.setPosition(pos.x, pos.y);
-
     this->text.setCharacterSize(charSize);
 }
 

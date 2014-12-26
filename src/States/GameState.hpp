@@ -12,6 +12,7 @@
 #include "Game/GameLevel.hpp"
 
 #include "States/GameMenuState.hpp"
+#include "States/GameOverState.hpp"
 
 class GameState : public IAppState {
 private:

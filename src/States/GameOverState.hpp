@@ -1,5 +1,5 @@
-#ifndef MAINMENUSTATE_ES88MA91
-#define MAINMENUSTATE_ES88MA91
+#ifndef GAMEOVERSTATE_ES88MA91
+#define GAMEOVERSTATE_ES88MA91
 
 #include <functional>
 
@@ -15,18 +15,21 @@
 #include "States/GameState.hpp"
 #include "States/MainMenuState.hpp"
 
+
+
 class MainMenuState;
 
-class GameMenuState : public IAppState  {
+class GameOverState : public IAppState  {
 private:
     Button * exitBtn;
-    Button * resumeBtn;
+    Button * restartBtn;
     sprite_t bgSprite;
     texture_t bgTexture;
+    sf::Text gameOverText;
 
 public:
-    GameMenuState();
-    virtual ~GameMenuState();
+    GameOverState();
+    virtual ~GameOverState();
 
     virtual void draw();
     virtual void handleEvents(const event_t&);
@@ -34,4 +37,4 @@ public:
     virtual void setPushDeferredFn(pushDeferred_t);
 };
 
-#endif /* end of include guard: MAINMENUSTATE_ES88MA91 */
+#endif /* end of include guard: GAMEOVERSTATE_ES88MA91 */

@@ -25,7 +25,12 @@ void GameState::handleEvents(const event_t& event)
 
 void GameState::update(const float& dt)
 {
-    level->update(dt);
+    if(level->update(dt)) {
+        pushDeferred( [this] (StateStack* st) {
+            if(typeid(st->top()) == typeid(GameMenuState*)) return ;
+            st->push(IAppStatePtr(new GameOverState));
+        });
+    }
 }
 
 void GameState::draw()
