@@ -7,8 +7,6 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "States/IAppState.hpp"
-#include "Common/StatesID.hpp"
-
 #include "Common/Deferred.hpp"
 
 typedef sf::RenderWindow window_t;

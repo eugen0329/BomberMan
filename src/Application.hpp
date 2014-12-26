@@ -10,11 +10,8 @@
 
 #include "StateStack.hpp"
 #include "GlobalEventManager.hpp"
-
-#include "Common/StatesID.hpp"
 #include "Common/Timer.hpp"
 #include "Common/Deferred.hpp"
-
 #include "States/MainMenuState.hpp"
 #include "States/GameState.hpp"
 

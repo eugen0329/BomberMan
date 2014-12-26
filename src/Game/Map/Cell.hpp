@@ -1,24 +1,19 @@
 #ifndef _CELL_HPP_
 #define _CELL_HPP_
 
-#include <iostream>
-
+#include <exception>
 #include <SFML/Graphics.hpp>
+#include "Common/BasicTypes.hpp"
 
 class Cell;
 typedef Cell cell_t;
 typedef char cellID_t;
 
-typedef sf::Texture texture_t;
-typedef sf::Sprite sprite_t;
-
 class Cell {
 private:
     cellID_t cellID;
-    
     texture_t texture;
     sprite_t sprite;
-
 public:
     friend class GameMap;
     Cell(cellID_t cellID);

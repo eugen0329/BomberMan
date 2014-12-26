@@ -5,11 +5,13 @@
 
 #include "TinyXML/tinyxml.h"
 
+#include "Common/BasicTypes.hpp"
+
 #include "Common/Vec2.hpp"
 #include "Common/Algorithms.hpp"
+
 #include "Game/WObjects/IWorldsObject.hpp"
 #include "Game/WObjects/Item.hpp"
-
 #include "Game/DrawableScene.hpp"
 #include "Rendering/AnimationManager.hpp"
 

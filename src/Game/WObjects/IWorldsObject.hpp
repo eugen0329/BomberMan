@@ -14,8 +14,6 @@
 
 #include "Common/Algorithms.hpp"
 #include "Common/Vec2.hpp"
-#include "Common/Delegate.hpp"
-#include "Game/Map/GameMap.hpp"
 #include "Game/DrawableScene.hpp"
 
 class DrawableScene;

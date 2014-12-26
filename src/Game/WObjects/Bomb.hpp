@@ -3,6 +3,7 @@
 
 #include "TinyXML/tinyxml.h"
 
+#include "Common/BasicTypes.hpp"
 #include "Common/Vec2.hpp"
 #include "Common/Angle.hpp"
 #include "Common/Algorithms.hpp"
@@ -24,13 +25,9 @@ protected:
         texture_t texture;
         sprite_t  sprite;
     };
-    class Initializer;
 
     CollisionManager collisManager;
-
     Bomb::Attributes attr;
-    Delegate destroyingSignal;
-    Delegate createSignal;
 public:
     Bomb();
     Bomb(const Vec2<float> pos, int groupId, float lifeTime);

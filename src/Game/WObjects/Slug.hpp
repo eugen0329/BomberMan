@@ -65,7 +65,6 @@ public:
     virtual IWorldsObject::Attributes& getAttr();
 
     virtual void setWorldObjects(WObjects&);
-    void setSignal(Delegate*, std::string);
     void load(xmlElem_t&);
 
     bool hasSolidCollisions();
