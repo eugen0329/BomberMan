@@ -40,8 +40,9 @@ protected:
         float maxInvulnerablityTime;
         DamageImmunity immunity;
         sf::Color oldColor;
+        
         sf::Text healthIndicator;
-        sf::Font font;
+        sf::Font indicatorFont;
         ~Attributes();
     };
 

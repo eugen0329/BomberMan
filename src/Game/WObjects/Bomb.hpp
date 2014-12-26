@@ -3,8 +3,6 @@
 
 #include "TinyXML/tinyxml.h"
 
-#include "Common/Interfaces/IInitializer.hpp"
-
 #include "Common/Vec2.hpp"
 #include "Common/Angle.hpp"
 #include "Common/Algorithms.hpp"

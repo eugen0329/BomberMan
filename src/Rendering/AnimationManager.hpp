@@ -9,8 +9,6 @@
 #include "Common/BasicTypes.hpp"
 
 #include "Common/Algorithms.hpp"
-#include "Common/Interfaces/IEventManager.hpp"
-#include "Common/Interfaces/IInitializer.hpp"
 #include "Common/Vec2.hpp"
 
 #include "Rendering/Animation.hpp"

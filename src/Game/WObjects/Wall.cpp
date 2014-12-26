@@ -34,7 +34,6 @@ void Wall::addCollision(Collision collision)
     }
 }
 
-
 void Wall::load(xmlElem_t& elem)
 {
     std::string(elem.Attribute("isSolid")) == "true" ? attr.solid = true : attr.solid = false;

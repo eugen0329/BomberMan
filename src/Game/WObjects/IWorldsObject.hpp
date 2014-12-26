@@ -41,10 +41,7 @@ protected:
     typedef  IWorldsObject::Attributes Collision;
 
     pushDef_t pushDeferred;
-
     std::function<void(IWObjectPtr)> deleteWObject; 
-
-
     WObjects* wObjects;
     window_t * window;
 
@@ -57,10 +54,7 @@ public:
 
     void setWindow(window_t&);
 
-
-
     virtual void addCollision(Collision) = 0;
-
     virtual void handleEvents(const event_t&) = 0;
     virtual void update(const float&) = 0;
     virtual void draw() = 0; 

@@ -252,8 +252,8 @@ void Player::load(xmlElem_t& elem)
         indicator.push_back('@');
     attr.healthIndicator.setString(indicator);
 
-    attr.font.loadFromFile(indAttr->Attribute("font"));
-    attr.healthIndicator.setFont(attr.font);
+    attr.indicatorFont.loadFromFile(indAttr->Attribute("font"));
+    attr.healthIndicator.setFont(attr.indicatorFont);
     attr.healthIndicator.setColor(sf::Color::Red);
     attr.healthIndicator.setPosition( alg::parseInt(indAttr->Attribute("posX")), alg::parseInt(indAttr->Attribute("posY")) );
 

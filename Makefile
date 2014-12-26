@@ -217,54 +217,6 @@ src/Common/Button.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Common/Button.cpp.s
 .PHONY : src/Common/Button.cpp.s
 
-src/Common/Interfaces/IAppState.o: src/Common/Interfaces/IAppState.cpp.o
-.PHONY : src/Common/Interfaces/IAppState.o
-
-# target to build an object file
-src/Common/Interfaces/IAppState.cpp.o:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Common/Interfaces/IAppState.cpp.o
-.PHONY : src/Common/Interfaces/IAppState.cpp.o
-
-src/Common/Interfaces/IAppState.i: src/Common/Interfaces/IAppState.cpp.i
-.PHONY : src/Common/Interfaces/IAppState.i
-
-# target to preprocess a source file
-src/Common/Interfaces/IAppState.cpp.i:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Common/Interfaces/IAppState.cpp.i
-.PHONY : src/Common/Interfaces/IAppState.cpp.i
-
-src/Common/Interfaces/IAppState.s: src/Common/Interfaces/IAppState.cpp.s
-.PHONY : src/Common/Interfaces/IAppState.s
-
-# target to generate assembly for a file
-src/Common/Interfaces/IAppState.cpp.s:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Common/Interfaces/IAppState.cpp.s
-.PHONY : src/Common/Interfaces/IAppState.cpp.s
-
-src/Common/Interfaces/IEventManager.o: src/Common/Interfaces/IEventManager.cpp.o
-.PHONY : src/Common/Interfaces/IEventManager.o
-
-# target to build an object file
-src/Common/Interfaces/IEventManager.cpp.o:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Common/Interfaces/IEventManager.cpp.o
-.PHONY : src/Common/Interfaces/IEventManager.cpp.o
-
-src/Common/Interfaces/IEventManager.i: src/Common/Interfaces/IEventManager.cpp.i
-.PHONY : src/Common/Interfaces/IEventManager.i
-
-# target to preprocess a source file
-src/Common/Interfaces/IEventManager.cpp.i:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Common/Interfaces/IEventManager.cpp.i
-.PHONY : src/Common/Interfaces/IEventManager.cpp.i
-
-src/Common/Interfaces/IEventManager.s: src/Common/Interfaces/IEventManager.cpp.s
-.PHONY : src/Common/Interfaces/IEventManager.s
-
-# target to generate assembly for a file
-src/Common/Interfaces/IEventManager.cpp.s:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Common/Interfaces/IEventManager.cpp.s
-.PHONY : src/Common/Interfaces/IEventManager.cpp.s
-
 src/Game/CollisionManager.o: src/Game/CollisionManager.cpp.o
 .PHONY : src/Game/CollisionManager.o
 
@@ -721,6 +673,30 @@ src/States/GameState.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/GameState.cpp.s
 .PHONY : src/States/GameState.cpp.s
 
+src/States/IAppState.o: src/States/IAppState.cpp.o
+.PHONY : src/States/IAppState.o
+
+# target to build an object file
+src/States/IAppState.cpp.o:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/IAppState.cpp.o
+.PHONY : src/States/IAppState.cpp.o
+
+src/States/IAppState.i: src/States/IAppState.cpp.i
+.PHONY : src/States/IAppState.i
+
+# target to preprocess a source file
+src/States/IAppState.cpp.i:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/IAppState.cpp.i
+.PHONY : src/States/IAppState.cpp.i
+
+src/States/IAppState.s: src/States/IAppState.cpp.s
+.PHONY : src/States/IAppState.s
+
+# target to generate assembly for a file
+src/States/IAppState.cpp.s:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/States/IAppState.cpp.s
+.PHONY : src/States/IAppState.cpp.s
+
 src/States/MainMenuState.o: src/States/MainMenuState.cpp.o
 .PHONY : src/States/MainMenuState.o
 
@@ -789,12 +765,6 @@ help:
 	@echo "... src/Common/Button.o"
 	@echo "... src/Common/Button.i"
 	@echo "... src/Common/Button.s"
-	@echo "... src/Common/Interfaces/IAppState.o"
-	@echo "... src/Common/Interfaces/IAppState.i"
-	@echo "... src/Common/Interfaces/IAppState.s"
-	@echo "... src/Common/Interfaces/IEventManager.o"
-	@echo "... src/Common/Interfaces/IEventManager.i"
-	@echo "... src/Common/Interfaces/IEventManager.s"
 	@echo "... src/Game/CollisionManager.o"
 	@echo "... src/Game/CollisionManager.i"
 	@echo "... src/Game/CollisionManager.s"
@@ -852,6 +822,9 @@ help:
 	@echo "... src/States/GameState.o"
 	@echo "... src/States/GameState.i"
 	@echo "... src/States/GameState.s"
+	@echo "... src/States/IAppState.o"
+	@echo "... src/States/IAppState.i"
+	@echo "... src/States/IAppState.s"
 	@echo "... src/States/MainMenuState.o"
 	@echo "... src/States/MainMenuState.i"
 	@echo "... src/States/MainMenuState.s"

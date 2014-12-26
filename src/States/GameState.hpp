@@ -9,7 +9,7 @@
 #include "Common/BasicTypes.hpp"
 
 #include "Common/Deferred.hpp"
-#include "Common/Interfaces/IAppState.hpp"
+#include "States/IAppState.hpp"
 #include "Game/GameLevel.hpp"
 
 #include "States/GameMenuState.hpp"

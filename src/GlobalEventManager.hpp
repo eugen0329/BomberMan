@@ -2,11 +2,11 @@
 #define _GLOBALEVENTMANAGER_HPP_
 
 #include <SFML/Graphics.hpp>
-#include "Common/Interfaces/IEventManager.hpp"
 
-class GlobalEventManager : public IEventManager {
+#include "Common/BasicTypes.hpp"
+
+class GlobalEventManager {
 private:
-    typedef sf::RenderWindow window_t;
     window_t * window;
 public:
     GlobalEventManager();

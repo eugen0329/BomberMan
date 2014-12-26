@@ -2,11 +2,14 @@
 #define _IAPPSTATE_HPP_
 
 #include <functional>
+
 #include <SFML/Graphics/RenderWindow.hpp>
+
+#include "Common/BasicTypes.hpp"
 #include "Common/Deferred.hpp"
 #include "StateStack.hpp"
 
-typedef sf::Event event_t;
+
 class StateStack;
 
 class IAppState {

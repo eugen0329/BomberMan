@@ -5,9 +5,6 @@
 
 #include "TinyXML/tinyxml.h"
 
-#include "Common/Interfaces/IInitializer.hpp"
-
-
 #include "Common/Vec2.hpp"
 #include "Common/Algorithms.hpp"
 #include "Game/WObjects/IWorldsObject.hpp"
@@ -26,8 +23,6 @@ protected:
         texture_t texture;
         sprite_t  sprite;
     };
-protected:
-    class Initializer;
 
     Blow::Attributes attr;
     Delegate destroyingSignal;

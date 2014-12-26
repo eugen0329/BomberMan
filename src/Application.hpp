@@ -6,14 +6,12 @@
 
 #include <SFML/Graphics.hpp>
 
-
+#include "Common/BasicTypes.hpp"
 
 #include "StateStack.hpp"
 #include "GlobalEventManager.hpp"
 
-
 #include "Common/StatesID.hpp"
-
 #include "Common/Timer.hpp"
 #include "Common/Deferred.hpp"
 
@@ -22,10 +20,7 @@
 
 class Application {
 private:
-    typedef sf::RenderWindow window_t;
-    typedef sf::Event event_t;
     typedef std::stack<IDeferred*> DeferredActions;
-
     typedef struct {
         unsigned int xSize; 
         unsigned int ySize;

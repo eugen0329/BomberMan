@@ -1,4 +1,4 @@
-#include "Common/Interfaces/IAppState.hpp"
+#include "States/IAppState.hpp"
 
 IAppState::IAppState(window_t& window) : window(&window)
 {

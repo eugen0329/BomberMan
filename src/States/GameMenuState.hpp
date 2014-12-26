@@ -6,7 +6,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Common/BasicTypes.hpp"
-#include "Common/Interfaces/IAppState.hpp"
+#include "States/IAppState.hpp"
 #include "Common/Deferred.hpp"
 #include "Common/Button.hpp"
 

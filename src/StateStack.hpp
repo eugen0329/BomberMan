@@ -6,7 +6,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include "Common/Interfaces/IAppState.hpp"
+#include "States/IAppState.hpp"
 #include "Common/StatesID.hpp"
 
 #include "Common/Deferred.hpp"
