@@ -30,8 +30,7 @@ GameLevel::GameLevel(window_t& window) : window(&window)
         ob->setFnPushDeferred(pushDeferred);  
     });
     int enemyId = 2;
-    scene.notifyRemoval = [&](int groupID) {if(groupID == 2) increaseScore();};
-
+    scene.notifyRemoval = [&, enemyId](int groupID) {if(groupID == 2) increaseScore();};
     readObjectsFromXml(elem);
 
     delete xmlFile;
