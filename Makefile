@@ -289,53 +289,29 @@ src/Game/GameLevel.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/GameLevel.cpp.s
 .PHONY : src/Game/GameLevel.cpp.s
 
-src/Game/Map/Cell.o: src/Game/Map/Cell.cpp.o
-.PHONY : src/Game/Map/Cell.o
+src/Game/LevelBackground.o: src/Game/LevelBackground.cpp.o
+.PHONY : src/Game/LevelBackground.o
 
 # target to build an object file
-src/Game/Map/Cell.cpp.o:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Map/Cell.cpp.o
-.PHONY : src/Game/Map/Cell.cpp.o
+src/Game/LevelBackground.cpp.o:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/LevelBackground.cpp.o
+.PHONY : src/Game/LevelBackground.cpp.o
 
-src/Game/Map/Cell.i: src/Game/Map/Cell.cpp.i
-.PHONY : src/Game/Map/Cell.i
-
-# target to preprocess a source file
-src/Game/Map/Cell.cpp.i:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Map/Cell.cpp.i
-.PHONY : src/Game/Map/Cell.cpp.i
-
-src/Game/Map/Cell.s: src/Game/Map/Cell.cpp.s
-.PHONY : src/Game/Map/Cell.s
-
-# target to generate assembly for a file
-src/Game/Map/Cell.cpp.s:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Map/Cell.cpp.s
-.PHONY : src/Game/Map/Cell.cpp.s
-
-src/Game/Map/GameMap.o: src/Game/Map/GameMap.cpp.o
-.PHONY : src/Game/Map/GameMap.o
-
-# target to build an object file
-src/Game/Map/GameMap.cpp.o:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Map/GameMap.cpp.o
-.PHONY : src/Game/Map/GameMap.cpp.o
-
-src/Game/Map/GameMap.i: src/Game/Map/GameMap.cpp.i
-.PHONY : src/Game/Map/GameMap.i
+src/Game/LevelBackground.i: src/Game/LevelBackground.cpp.i
+.PHONY : src/Game/LevelBackground.i
 
 # target to preprocess a source file
-src/Game/Map/GameMap.cpp.i:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Map/GameMap.cpp.i
-.PHONY : src/Game/Map/GameMap.cpp.i
+src/Game/LevelBackground.cpp.i:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/LevelBackground.cpp.i
+.PHONY : src/Game/LevelBackground.cpp.i
 
-src/Game/Map/GameMap.s: src/Game/Map/GameMap.cpp.s
-.PHONY : src/Game/Map/GameMap.s
+src/Game/LevelBackground.s: src/Game/LevelBackground.cpp.s
+.PHONY : src/Game/LevelBackground.s
 
 # target to generate assembly for a file
-src/Game/Map/GameMap.cpp.s:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/Map/GameMap.cpp.s
-.PHONY : src/Game/Map/GameMap.cpp.s
+src/Game/LevelBackground.cpp.s:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/LevelBackground.cpp.s
+.PHONY : src/Game/LevelBackground.cpp.s
 
 src/Game/WObjects/Actor.o: src/Game/WObjects/Actor.cpp.o
 .PHONY : src/Game/WObjects/Actor.o
@@ -798,12 +774,9 @@ help:
 	@echo "... src/Game/GameLevel.o"
 	@echo "... src/Game/GameLevel.i"
 	@echo "... src/Game/GameLevel.s"
-	@echo "... src/Game/Map/Cell.o"
-	@echo "... src/Game/Map/Cell.i"
-	@echo "... src/Game/Map/Cell.s"
-	@echo "... src/Game/Map/GameMap.o"
-	@echo "... src/Game/Map/GameMap.i"
-	@echo "... src/Game/Map/GameMap.s"
+	@echo "... src/Game/LevelBackground.o"
+	@echo "... src/Game/LevelBackground.i"
+	@echo "... src/Game/LevelBackground.s"
 	@echo "... src/Game/WObjects/Actor.o"
 	@echo "... src/Game/WObjects/Actor.i"
 	@echo "... src/Game/WObjects/Actor.s"

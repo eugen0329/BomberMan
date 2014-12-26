@@ -1,10 +1,10 @@
-#include "GameMap.hpp"
+#include "Game/LevelBackground.hpp"
 
-GameMap::GameMap(size_t xSize, size_t ySize) : grid(xSize, ySize)
+LevelBackground::LevelBackground(size_t xSize, size_t ySize) : grid(xSize, ySize)
 {
 }
 
-GameMap::GameMap() 
+LevelBackground::LevelBackground() 
 {
     loadGrid();
 
@@ -26,7 +26,7 @@ GameMap::GameMap()
 
 }
 
-void GameMap::loadGrid()
+void LevelBackground::loadGrid()
 {
     
     size.x = 20;
@@ -45,10 +45,10 @@ void GameMap::loadGrid()
     for(unsigned int i = 0; i < size.y; i++) {
         std::getline(fMapGrid, buffer);
         for(unsigned int j = 0; j < size.x; j++) {
-            grid[i][j].setID(buffer[j]);
-            if( grid[i][j].getID() == 'w') {
+            grid[i][j].cellID = buffer[j];
+            if( grid[i][j].cellID == 'w') {
                 grid[i][j].setTile("res/Tiles/wall.jpg");
-            } else if (grid[i][j].getID() == 'f') {
+            } else if (grid[i][j].cellID == 'f') {
                 grid[i][j].setTile("res/Tiles/floor.gif");
             }
         }
@@ -58,30 +58,35 @@ void GameMap::loadGrid()
 
 }
 
-GameMap::GameMap(const GameMap& second) : grid(second.grid)
+LevelBackground::LevelBackground(const LevelBackground& second) : grid(second.grid)
 {
 }
 
-GameMap::~GameMap()
+LevelBackground::~LevelBackground()
 {
 } 
 
-void GameMap::setSize(size_t x, size_t y)
+void LevelBackground::setSize(size_t x, size_t y)
 {
     grid.setSize(x, y);
 }
 
-void GameMap::setWindow(window_t & window)
+void LevelBackground::setWindow(window_t & window)
 {
     this->window = &window;
 }
 
-void GameMap::draw()
+void LevelBackground::draw()
 {
     window->draw(mapSprite);
 }
 
-void GameMap::update(float dt)
+void LevelBackground::update(float dt)
 {
 }
 
+void LevelBackground::Cell::setTile(std::string textureName)
+{
+    if(! texture.loadFromFile(textureName.c_str()) ) throw std::ios_base::failure("ERROR while loading file " + textureName);
+    sprite.setTexture(texture);
+}

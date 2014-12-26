@@ -12,7 +12,7 @@
 #include "Common/Algorithms.hpp"
 
 #include "Game/WObjects/IWorldsObject.hpp"
-#include "Game/Map/GameMap.hpp"
+#include "Game/LevelBackground.hpp"
 #include "Game/DrawableScene.hpp"
 
 #include "Game/WObjects/Slug.hpp"
@@ -25,7 +25,7 @@ private:
 
     typedef std::function<void(DrawableScene*)> dererredAct;
 
-    GameMap levelMap;
+    LevelBackground levelMap;
     DrawableScene scene;
     WObjects wObjects;
     window_t * window;

@@ -12,14 +12,19 @@
 #include "Common/BasicTypes.hpp"
 #include "Common/Matrix.hpp"
 #include "Common/Vec2.hpp"
-#include "Game/Map/Cell.hpp"
+//#include "Game/Map/Cell.hpp"
 
-class GameMap {
-public:
-    Matrix<cell_t> grid;
+class LevelBackground {
+    struct Cell {
+        texture_t texture;
+        sprite_t sprite;
+        char cellID;
+
+        void setTile(std::string textureName);
+    };
+    Matrix<Cell> grid;
     Vec2<size_t> cellSize;
     Vec2<size_t> size;
-private:
     window_t * window;
     renderableTexture_t rendTexture;
     sprite_t mapSprite;
@@ -28,10 +33,10 @@ private:
     void loadGrid();
 public:
 
-    GameMap();
-    GameMap(size_t xSize, size_t ySize);
-    GameMap(const GameMap&);
-    ~GameMap();
+    LevelBackground();
+    LevelBackground(size_t xSize, size_t ySize);
+    LevelBackground(const LevelBackground&);
+    ~LevelBackground();
     
     void draw();
     void update(float dt);
