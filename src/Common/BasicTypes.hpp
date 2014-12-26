@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <memory>
+#include <vector>
 
 #include <SFML/Graphics.hpp>
 
@@ -21,7 +22,5 @@ typedef TiXmlElement xmlElem_t;
 typedef sf::RenderTexture renderableTexture_t;
 typedef sf::Texture texture_t;
 typedef sf::Sprite sprite_t;
-
-
 
 #endif /* end of include guard: BASICTYPES_IWGQJS8L */
