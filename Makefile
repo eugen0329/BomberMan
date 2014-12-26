@@ -409,6 +409,30 @@ src/Game/WObjects/Actor.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/WObjects/Actor.cpp.s
 .PHONY : src/Game/WObjects/Actor.cpp.s
 
+src/Game/WObjects/Blow.o: src/Game/WObjects/Blow.cpp.o
+.PHONY : src/Game/WObjects/Blow.o
+
+# target to build an object file
+src/Game/WObjects/Blow.cpp.o:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/WObjects/Blow.cpp.o
+.PHONY : src/Game/WObjects/Blow.cpp.o
+
+src/Game/WObjects/Blow.i: src/Game/WObjects/Blow.cpp.i
+.PHONY : src/Game/WObjects/Blow.i
+
+# target to preprocess a source file
+src/Game/WObjects/Blow.cpp.i:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/WObjects/Blow.cpp.i
+.PHONY : src/Game/WObjects/Blow.cpp.i
+
+src/Game/WObjects/Blow.s: src/Game/WObjects/Blow.cpp.s
+.PHONY : src/Game/WObjects/Blow.s
+
+# target to generate assembly for a file
+src/Game/WObjects/Blow.cpp.s:
+	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/WObjects/Blow.cpp.s
+.PHONY : src/Game/WObjects/Blow.cpp.s
+
 src/Game/WObjects/Bomb.o: src/Game/WObjects/Bomb.cpp.o
 .PHONY : src/Game/WObjects/Bomb.o
 
@@ -432,30 +456,6 @@ src/Game/WObjects/Bomb.s: src/Game/WObjects/Bomb.cpp.s
 src/Game/WObjects/Bomb.cpp.s:
 	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/WObjects/Bomb.cpp.s
 .PHONY : src/Game/WObjects/Bomb.cpp.s
-
-src/Game/WObjects/Fire.o: src/Game/WObjects/Fire.cpp.o
-.PHONY : src/Game/WObjects/Fire.o
-
-# target to build an object file
-src/Game/WObjects/Fire.cpp.o:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/WObjects/Fire.cpp.o
-.PHONY : src/Game/WObjects/Fire.cpp.o
-
-src/Game/WObjects/Fire.i: src/Game/WObjects/Fire.cpp.i
-.PHONY : src/Game/WObjects/Fire.i
-
-# target to preprocess a source file
-src/Game/WObjects/Fire.cpp.i:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/WObjects/Fire.cpp.i
-.PHONY : src/Game/WObjects/Fire.cpp.i
-
-src/Game/WObjects/Fire.s: src/Game/WObjects/Fire.cpp.s
-.PHONY : src/Game/WObjects/Fire.s
-
-# target to generate assembly for a file
-src/Game/WObjects/Fire.cpp.s:
-	$(MAKE) -f CMakeFiles/bin.dir/build.make CMakeFiles/bin.dir/src/Game/WObjects/Fire.cpp.s
-.PHONY : src/Game/WObjects/Fire.cpp.s
 
 src/Game/WObjects/IWorldsObject.o: src/Game/WObjects/IWorldsObject.cpp.o
 .PHONY : src/Game/WObjects/IWorldsObject.o
@@ -813,12 +813,12 @@ help:
 	@echo "... src/Game/WObjects/Actor.o"
 	@echo "... src/Game/WObjects/Actor.i"
 	@echo "... src/Game/WObjects/Actor.s"
+	@echo "... src/Game/WObjects/Blow.o"
+	@echo "... src/Game/WObjects/Blow.i"
+	@echo "... src/Game/WObjects/Blow.s"
 	@echo "... src/Game/WObjects/Bomb.o"
 	@echo "... src/Game/WObjects/Bomb.i"
 	@echo "... src/Game/WObjects/Bomb.s"
-	@echo "... src/Game/WObjects/Fire.o"
-	@echo "... src/Game/WObjects/Fire.i"
-	@echo "... src/Game/WObjects/Fire.s"
 	@echo "... src/Game/WObjects/IWorldsObject.o"
 	@echo "... src/Game/WObjects/IWorldsObject.i"
 	@echo "... src/Game/WObjects/IWorldsObject.s"

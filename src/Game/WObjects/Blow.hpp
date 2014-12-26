@@ -16,7 +16,7 @@
 #include "Game/DrawableScene.hpp"
 #include "Rendering/AnimationManager.hpp"
 
-class Fire : public Item {
+class Blow : public Item {
 protected:
     struct  Attributes : public Item::Attributes {
         Vec2<float> origin;
@@ -29,22 +29,21 @@ protected:
 protected:
     class Initializer;
 
-    Fire::Attributes attr;
+    Blow::Attributes attr;
     Delegate destroyingSignal;
     Delegate createSignal;
     AnimationManager animationManager;
 public:
     enum class STYLE : std::int8_t {
         FLAME,
-        BLOW
+        BLOW, 
+        SLUG_BLOW
     };
 
-    Fire();
-
-    Fire(const Vec2<float>& pos, int groupId, STYLE style);
-
-
-    virtual ~Fire();
+    Blow();
+    Blow(const Vec2<float>& pos, int groupId, STYLE style);
+    
+    virtual ~Blow();
     virtual void handleEvents(const event_t&);
     virtual void update(const float&);
     virtual void draw();
@@ -55,9 +54,6 @@ public:
     }
 
     virtual void addCollision(Collision) {}
-
-    virtual void setSignal(Delegate*, std::string);
-
     virtual void setWorldObjects(WObjects&);
     void load(xmlElem_t& elem);
 };

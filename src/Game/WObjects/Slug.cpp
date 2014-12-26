@@ -8,14 +8,13 @@ Slug::Slug(xmlElem_t& xmlElem, Vec2<float> pos)
 {
     load(xmlElem);
 
+    attr.pos  = pos;
     collisions = new CollisionManager;
     xmlElem_t* animationList = xmlElem.FirstChildElement("animations");
     anim.setSprite(attr.sprite);
 
 
     anim.loadAnimations(*animationList);
-
-    //anim.updateCurrentAnimation(0);
 }
 
 void Slug::setWorldObjects(WObjects& wObjects_)
@@ -36,14 +35,13 @@ void Slug::handleRealtimeEvents()
 
 void Slug::chooseTarget()
 {
-    std::cerr << 123;
-    WObjects::iterator object = std::find_if(std::begin(*wObjects), std::end(*wObjects), [](IWObjectPtr ob) -> bool { return ob->getAttr().groupID == 1;});
+    WObjects::iterator object = 
+        std::find_if(std::begin(*wObjects), std::end(*wObjects), [](IWObjectPtr ob) -> bool { return ob->getAttr().groupID == 1;});
     if(object != wObjects->end()) attr.target = *object;
 }
 
 void Slug::update(const float& dt)
 {
-
     attr.v.setComponents(0.0, 0.0);
     if(! attr.target) {
         chooseTarget();
@@ -56,11 +54,11 @@ void Slug::update(const float& dt)
         }
     }
 
-    updateAnimation(dt);
-
     updateCollisionExcludes();
-    updateCoordinates(dt);
     handleCollisions();
+    updateCoordinates(dt);
+
+    updateAnimation(dt);
 }
 
 void Slug::move()
@@ -95,8 +93,14 @@ void Slug::handleCollisions()
     CollisionManager::iterator last = collisions->end();
     for (CollisionManager::iterator it = collisions->begin(); it != last; ++it)
     {
-        if((*it)->getAttr().isHarmful()) {
+        if((*it)->getAttr().groupID == attr.groupID) continue;
+        if((*it)->getAttr().isHarmful() || (*it)->getAttr().groupID == 1) {
             destroyWObject(IWObjectPtr(this, [](IWorldsObject*){}));
+            (*it)->addCollision(attr);
+            IWObjectPtr blow = std::make_shared<Blow>(attr.pos, attr.groupID, Blow::STYLE::SLUG_BLOW);
+            pushDeferred( [blow, this](DrawableScene * scene) {
+                scene->add(blow, 0);
+            });
         }
     }
 }
@@ -141,20 +145,15 @@ bool Slug::isNoLongerExisted(const collisionExcludes_t::iterator& item) {
 
 void Slug::load(xmlElem_t& elem)
 {
-    if(std::string(elem.Attribute("isSolid")) == "true") {
-        attr.solid = true;
-    } else {
-        attr.solid = false;
-    }
-
     attr.groupID = atoi(elem.Attribute("groupID"));
 
+    attr.solid = false;
     attr.harmful = true;
     
     attr.v.x = 0.0;
     attr.v.y = 0.0;
     attr.angle.setPiRadAngle(-0.5);
-    attr.vMax = 200;
+    attr.vMax = alg::parseInt(elem.Attribute("vMax"));;
     
     attr.width = alg::parseInt(elem.Attribute("width"));
     attr.heigth = alg::parseInt(elem.Attribute("heigth"));
@@ -165,8 +164,6 @@ void Slug::load(xmlElem_t& elem)
     attr.texture.loadFromFile(elem.Attribute("texture"));
     attr.sprite.setTexture(attr.texture);
     
-    attr.pos.x = alg::parseInt(elem.Attribute("posX"));
-    attr.pos.y = alg::parseInt(elem.Attribute("posY"));
     attr.sprite.setPosition(attr.pos.x, attr.pos.y );
     attr.sprite.setOrigin(attr.origin.x, attr.origin.y);
 }

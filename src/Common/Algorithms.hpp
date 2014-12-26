@@ -35,7 +35,7 @@ namespace alg {
         return((float)rand()/(float)(RAND_MAX)) * (to - from) + from;
     }
     
-    inline int parseFloat(const char* source)
+    inline float parseFloat(const char* source)
     {
         char* endptr;
         float retVal = strtof(source, &endptr);

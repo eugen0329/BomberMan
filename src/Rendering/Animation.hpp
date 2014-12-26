@@ -28,7 +28,7 @@ public:
         passedMSec += dt;
         if(passedMSec > timeToFrame ) {
             incFrameIndex();
-            passedMSec = 0;
+            passedMSec = 0.f;
         }
         sprite->setTextureRect(frames[frameIndex]);
     }

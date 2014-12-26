@@ -8,7 +8,7 @@ Player::Player(xmlElem_t& xmlElem) : lastDirection("Down")
 {
     load(xmlElem);
 
-    collisions = new CollisionManager;
+    collisManager = new CollisionManager;
     xmlElem_t* animationList = xmlElem.FirstChildElement("animations");
     anim.setSprite(attr.sprite);
     anim.loadAnimations(*animationList);
@@ -48,13 +48,13 @@ void Player::throwBomb()
 void Player::setWorldObjects(WObjects& wObjects_)
 {
     this->wObjects = &wObjects_;
-    collisions->setWObjects((*this->wObjects));
-    collisions->setTrackedObj(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
+    collisManager->setWObjects((*this->wObjects));
+    collisManager->setTrackedObj(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
 }
 
 Player::~Player()
 {
-    delete collisions;
+    delete collisManager;
 }
 void Player::handleEvents(const event_t& event)
 {
@@ -90,12 +90,28 @@ void Player::update(const float& dt)
         attr.v.y /= std::sqrt(2.0);
     }
 
-    updateAnimation(dt);
-
+    updateImmunityState(dt);
     updateCollisionExcludes();
+    updateCollisions();
     updateCoordinates(dt);
-    handleCollisions();
 
+    updateAnimation(dt);
+}
+
+void Player::updateImmunityState(const float& dt)
+{
+    if(attr.immunity) {
+        if(attr.immunity.timer >= attr.immunity.maxTime ) {
+            attr.immunity.isActive = false;
+            attr.immunity.timer = 0.f;
+            attr.sprite.setColor(attr.oldColor);
+
+        } else {
+            attr.immunity.timer += dt;
+        }
+            
+    }
+     
 }
 
 void Player::updateAnimation(const float& dt)
@@ -115,6 +131,7 @@ void Player::updateAnimation(const float& dt)
 void Player::draw() 
 {
     window->draw(attr.sprite);
+    window->draw(attr.healthIndicator);
 }
 
 void Player::updateCoordinates(const float& dt)
@@ -127,22 +144,45 @@ void Player::updateCoordinates(const float& dt)
     attr.sprite.setPosition(attr.pos.x, attr.pos.y);
 }
 
-void Player::handleCollisions()
+void Player::updateCollisions()
 {
-    CollisionManager::iterator last = collisions->end();
-    for (CollisionManager::iterator it = collisions->begin(); it != last; ++it)
-    {
-        if((*it)->getAttr().isHarmful()) {
-            attr.sprite.setColor(sf::Color::Red);
-        }
+    using namespace std;
+    for_each(begin(*collisManager), end(*collisManager), [this](IWObjectPtr & obj) {
+        handleCollision(obj->getAttr());
+    });
+
+    while(! foreignCollisions.empty()) {
+        handleCollision(foreignCollisions.top());
+        foreignCollisions.pop();
     }
+}
+
+void Player::handleCollision(Collision & collision)
+{
+    if(collision.isHarmful()) {
+        if( attr.healthIndicator.getString().getSize() == 1) {
+            destroyWObject(IWObjectPtr(this,[](IWorldsObject*){}));
+        } else if(! attr.immunity) {
+            sf::String str = attr.healthIndicator.getString();
+            str.erase(str.getSize() - 1);
+            attr.healthIndicator.setString(str);
+            attr.sprite.setColor(sf::Color::Red);
+            attr.immunity.isActive = true;
+        }
+
+    }
+}
+
+void Player::addCollision(Collision collision)
+{
+    foreignCollisions.push(collision);
 }
 
 bool Player::hasSolidCollisions()
 {
     
-    CollisionManager::iterator last = collisions->end();
-    for (CollisionManager::iterator it = collisions->begin(); it != last; ++it)
+    CollisionManager::iterator last = collisManager->end();
+    for (CollisionManager::iterator it = collisManager->begin(); it != last; ++it)
     {
         if(! isExclude(*it) && (*it)->getAttr().isSolid()) {
             return true;
@@ -179,12 +219,7 @@ bool Player::isNoLongerExisted(const collisionExcludes_t::iterator& item) {
 
 void Player::load(xmlElem_t& elem)
 {
-    if(std::string(elem.Attribute("isSolid")) == "true") {
-        attr.solid = true;
-    } else {
-        attr.solid = false;
-    }
-
+    attr.solid = false;
     attr.groupID = atoi(elem.Attribute("groupID"));
 
     attr.harmful = false;
@@ -205,10 +240,30 @@ void Player::load(xmlElem_t& elem)
     attr.texture.loadFromFile(textureName);
     attr.sprite.setTexture(attr.texture);
     
+    attr.immunity.maxTime = alg::parseFloat(elem.Attribute("maxImmunityTime"));
+    attr.immunity.timer = 0.f;
+    attr.immunity.isActive = false;
+
+
+    xmlElem_t * indAttr = elem.FirstChildElement("healthIndicator");
+    std::string indicator;
+    int health = alg::parseInt(indAttr->Attribute("health"));
+    for(int i = 0; i < health; i++) 
+        indicator.push_back('@');
+    attr.healthIndicator.setString(indicator);
+
+    attr.font.loadFromFile(indAttr->Attribute("font"));
+    attr.healthIndicator.setFont(attr.font);
+    attr.healthIndicator.setColor(sf::Color::Red);
+    attr.healthIndicator.setPosition( alg::parseInt(indAttr->Attribute("posX")), alg::parseInt(indAttr->Attribute("posY")) );
+
+
     attr.pos.x = alg::parseInt(elem.Attribute("posX"));
     attr.pos.y = alg::parseInt(elem.Attribute("posY"));
     attr.sprite.setPosition(attr.pos.x, attr.pos.y );
     attr.sprite.setOrigin(attr.origin.x, attr.origin.y);
+
+    attr.oldColor = attr.sprite.getColor();
 }
 
 Player::Attributes::~Attributes()

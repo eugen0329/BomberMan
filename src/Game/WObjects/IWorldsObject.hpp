@@ -26,6 +26,7 @@ protected:
         bool solid;
         bool harmful;
         int groupID;
+        bool interactable;
 
         Attributes(bool solid = true, int groupID = 0) : solid(solid), groupID(groupID) {}
         ~Attributes() {}
@@ -44,10 +45,6 @@ protected:
     window_t * window;
 
 public:
-
-
-
-
     IWorldsObject(WObjects &, window_t &);
     IWorldsObject();
     virtual ~IWorldsObject();
@@ -67,7 +64,7 @@ public:
     virtual Attributes& getAttr() = 0;
     virtual void setWorldObjects(WObjects&) = 0;
     void setFnPushDeferred(pushDef_t&& pushDeferred);
-
+    
 };
 
 #endif /* end of include guard: _IWORLDSOBJECT_HPP_ */

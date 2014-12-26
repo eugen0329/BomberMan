@@ -11,7 +11,7 @@
 
 #include "Game/DrawableScene.hpp"
 #include "Game/WObjects/Item.hpp"
-#include "Game/WObjects/Fire.hpp"
+#include "Game/WObjects/Blow.hpp"
 #include "Game/CollisionManager.hpp"
 
 class DrawableScene;
@@ -43,15 +43,11 @@ public:
     virtual void draw();
     virtual IWorldsObject::Attributes& getAttr();
 
-
     void destroyWObject(IWObjectPtr object);
     void createWObject(IWObjectPtr object);
 
     virtual void addCollision(Collision);
-    virtual void setSignal(Delegate*, std::string);
-
     virtual void setWorldObjects(WObjects&);
-
 
     void load(xmlElem_t&);
     void makeFire();

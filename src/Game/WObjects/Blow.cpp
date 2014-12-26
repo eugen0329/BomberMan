@@ -1,20 +1,26 @@
-#include "Game/WObjects/Fire.hpp"
+#include "Game/WObjects/Blow.hpp"
 
-Fire::Fire()
+Blow::Blow()
 {
 }
 
-Fire::Fire(const Vec2<float>& pos, int groupId, STYLE style)
+Blow::Blow(const Vec2<float>& pos, int groupId, STYLE style)
 {
-    TiXmlDocument * xmlFile = alg::openXmlFile("./res/FireAnimation.xml");
-    xmlElem_t * animationList = alg::getXmlElem(xmlFile, {"fire", "animations"});
+    TiXmlDocument * xmlFile = alg::openXmlFile("./res/BlowAnimation.xml");
+    
     xmlElem_t * xmlAttr;
+    xmlElem_t * animationList;
 
     if(style == STYLE::FLAME) {
        xmlAttr = alg::getXmlElem(xmlFile, {"fire"});
+       animationList = alg::getXmlElem(xmlFile, {"fire", "animations"});
     } else if(style == STYLE::BLOW) {
         xmlAttr = alg::getXmlElem(xmlFile, {"blow"});
-    } else {
+        animationList = alg::getXmlElem(xmlFile, {"blow", "animations"});
+    } else if(style == STYLE::SLUG_BLOW) {
+        xmlAttr = alg::getXmlElem(xmlFile, {"slugblow"});
+        animationList = alg::getXmlElem(xmlFile, {"slugblow", "animations"});
+    } else  {
         std::cerr << "err";
     }
 
@@ -30,7 +36,7 @@ Fire::Fire(const Vec2<float>& pos, int groupId, STYLE style)
     delete xmlFile;
 }
 
-void Fire::load(xmlElem_t& elem)
+void Blow::load(xmlElem_t& elem)
 {
     attr.solid = false;
     attr.harmful = true;
@@ -50,46 +56,33 @@ void Fire::load(xmlElem_t& elem)
     attr.sprite.setOrigin(attr.origin.x, attr.origin.y);
 }
 
-Fire::~Fire()
+Blow::~Blow()
 {
 }
 
-void Fire::handleEvents(const event_t&)
+void Blow::handleEvents(const event_t&)
 {
 } 
 
-void Fire::update(const float& dt) 
+void Blow::update(const float& dt) 
 { 
     attr.actLifeTime += dt;
     animationManager.updateCurrentAnimation(dt);
  
-    //std::cout <<  attr.actLifeTime;
     if(attr.actLifeTime >= attr.lifeTime) 
     {
         pushDeferred([this](DrawableScene * scene) {
             scene->remove(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
         });
-        //destroyingSignal(std::shared_ptr<IWorldsObject>(this, [](IWorldsObject*){}));
     }
 }
 
-
-void Fire::draw()
+void Blow::draw()
 {
     window->draw(attr.sprite);
 }
 
-void Fire::setSignal(Delegate* delegate, std::string signalName)
-{
-    if(signalName == "destroying") {
-        this->destroyingSignal = *delegate;
-    } else if(signalName == "create") {
-        this->createSignal = *delegate;        
-    }
-}
-
-
-void Fire::setWorldObjects(WObjects& wObjects)
+void Blow::setWorldObjects(WObjects& wObjects)
 {
     this->wObjects = &wObjects;
 }

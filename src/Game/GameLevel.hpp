@@ -29,6 +29,10 @@ private:
     DrawableScene scene;
     WObjects wObjects;
     window_t * window;
+    TiXmlDocument *defaultWObjAttr;
+
+    float timePassed;
+    float timeToGenerateEnemy;
 
     std::queue<dererredAct> deferredQueue;
     std::function<void(dererredAct&&)> pushDeferred;
@@ -39,6 +43,7 @@ public:
 	void setWindow(window_t*);
 
     void readObjectsFromXml(TiXmlElement*);
+    bool playerIsDead();
 
     void handleEvents(const event_t&);
     void update(const float&);

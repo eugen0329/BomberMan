@@ -15,6 +15,8 @@
 #include "Rendering/AnimationManager.hpp"
 #include "Common/Algorithms.hpp"
 
+
+#include "Game/WObjects/Blow.hpp"
 #include "Game/WObjects/IWorldsObject.hpp"
 #include "Game/WObjects/Actor.hpp"
 #include "Game/CollisionManager.hpp"

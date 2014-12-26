@@ -24,23 +24,30 @@
 
 class Player : public Actor {
 protected:
+    struct DamageImmunity {
+        float timer;
+        float maxTime;
+        bool isActive;
+
+        operator bool() {
+            return isActive;
+        }
+    };
+    
     struct Attributes : public Actor::Attributes {
         Keyset * keys;
+        float damageImunityTime;
+        float maxInvulnerablityTime;
+        DamageImmunity immunity;
+        sf::Color oldColor;
+        sf::Text healthIndicator;
+        sf::Font font;
         ~Attributes();
     };
 
     typedef TiXmlElement xmlElem_t;
     typedef std::shared_ptr<IWorldsObject> IWObjectPtr;
     typedef std::list<IWObjectPtr> collisionExcludes_t;
-    class Initializer;
-
-    AnimationManager anim;
-    Attributes attr;
-    CollisionManager* collisions;
-    collisionExcludes_t collisionExcludes;
-
-    void throwBomb();
-    void move(float vx, float vy);
 
     enum class ACTIONS : std::int8_t {
         MOVE_UP, 
@@ -51,16 +58,27 @@ protected:
         COUNT
     };
     typedef std::function<void(const float&)> action_t;
-    
+
+    AnimationManager anim;
+    Attributes attr;
+    CollisionManager* collisManager;
+    collisionExcludes_t collisionExcludes;
+
+    std::stack<Collision> foreignCollisions;
     std::map<ACTIONS,action_t> actBinds;        // action bindings
     std::map<sf::Keyboard::Key, ACTIONS> keyBinds;
     std::stack<action_t> actions;
     std::string lastDirection;
+
+
+    void updateImmunityState(const float&);
+    void throwBomb();
+    void move(float vx, float vy);
 public:
     Player();
     Player(xmlElem_t&);
     virtual ~Player();
-    virtual void addCollision(Collision) {};
+    virtual void addCollision(Collision);
 
     void handleEvents(const event_t&);
     void handleRealtimeEvents();
@@ -70,7 +88,9 @@ public:
     void updateCoordinates(const float&);
     void updateAnimation(const float& dt);
 
-    void handleCollisions();
+    void updateCollisions();
+    void handleCollision(Collision & collision);
+
     void updateCollisionExcludes();
     
     virtual IWorldsObject::Attributes& getAttr();

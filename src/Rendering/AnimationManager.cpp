@@ -16,13 +16,13 @@ void AnimationManager::loadAnimations(xmlElem_t& element)
 
     for( ;it != NULL ; it = it->NextSiblingElement("animation")) {
 
-        pos.x       = atoi(it->Attribute("posX")  );
-        pos.y       = atoi(it->Attribute("posY")  );
-        width       = atoi(it->Attribute("width") );
-        heigth      = atoi(it->Attribute("heigth"));    
-        offset      = atoi(it->Attribute("offset"));
-        timeToFrame = atof(it->Attribute("timeToFrame"));
-        nFrames     = atoi(it->Attribute("nFrames"));
+        pos.x       = alg::parseInt(it->Attribute("posX")  );
+        pos.y       = alg::parseInt(it->Attribute("posY")  );
+        width       = alg::parseInt(it->Attribute("width") );
+        heigth      = alg::parseInt(it->Attribute("heigth"));    
+        offset      = alg::parseInt(it->Attribute("offset"));
+        timeToFrame = alg::parseFloat(it->Attribute("timeToFrame"));
+        nFrames     = alg::parseInt(it->Attribute("nFrames"));
 
         animName = it->Attribute("name");
         animations[animName] = 

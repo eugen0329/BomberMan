@@ -6,7 +6,7 @@ Animation::Animation(sprite_t & sprite, int x, int y, int width, int heigth, int
     this->frameIndex = 0; 
     this->nFrames = nFrames; 
     this->timeToFrame =  timeToFrame;
-	this->passedMSec = 0;
+	this->passedMSec = 0.f;
 
 	for (int i = 0; i < nFrames; i++) {  
         frames.push_back(sf::IntRect(x + i*offset, y, width, heigth));

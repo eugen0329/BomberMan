@@ -6,10 +6,14 @@ GameLevel::GameLevel() : window(NULL)
 
 GameLevel::GameLevel(window_t& window) : window(&window)
 {
+
+    timeToGenerateEnemy = alg::randInRange(3.f, 5.f);
+    timePassed = 0.f;
+
     levelMap.setWindow(window);
-    std::string filename("res/WObjectsList.xml");
-    TiXmlDocument * xmlFile = alg::openXmlFile(filename);
-    TiXmlElement  * wObjectIt = alg::getXmlElem(xmlFile, {"WObjects","object"});
+    TiXmlDocument * xmlFile = alg::openXmlFile("res/WObjectsList.xml");
+    defaultWObjAttr = alg::openXmlFile("res/DefaultWObjAttr.xml");
+    TiXmlElement  * elem = alg::getXmlElem(xmlFile, {"WObjects","object"});
 
     pushDeferred = [&](dererredAct&& fn) { deferredQueue.push(fn);};
 
@@ -19,13 +23,14 @@ GameLevel::GameLevel(window_t& window) : window(&window)
         ob->setFnPushDeferred(pushDeferred);  
     });
 
-    readObjectsFromXml(wObjectIt);
+    readObjectsFromXml(elem);
 
     delete xmlFile;
 } 
 
 GameLevel::~GameLevel()
 {
+    delete defaultWObjAttr;
 }
 
 void GameLevel::readObjectsFromXml(TiXmlElement* xml)
@@ -38,7 +43,7 @@ void GameLevel::readObjectsFromXml(TiXmlElement* xml)
         } else if(className == "Wall") {
             scene.add(std::make_shared<Wall>(*it), 0);
         } else if(className == "Slug") {
-            scene.add(std::make_shared<Slug>(*it, Vec2<float>(250, 50)), 0); 
+           //scene.add(std::make_shared<Slug>(*it, Vec2<float>(250, 50)), 0); 
         } else {
             std::cerr << "ERROR: wrong class name " << className << std::endl;
         }
@@ -52,12 +57,32 @@ void GameLevel::handleEvents(const event_t& event)
 
 void GameLevel::update(const float& dt)
 {
+    timePassed += dt;
+    if(timePassed >= timeToGenerateEnemy) {
+        int layer = 0;
+        TiXmlElement* elem = alg::getXmlElem(defaultWObjAttr, {"WObjects", "slug"});
+        scene.add( std::make_shared<Slug>(*elem, Vec2<float>(250, 50)), layer);
+        timePassed = 0.f;
+    }
+
     scene.update(dt);
 
-    while(! deferredQueue.empty()) {
-        deferredQueue.front()(&scene);
-        deferredQueue.pop();
+    if(! deferredQueue.empty()) {
+        while(! deferredQueue.empty()) {
+            deferredQueue.front()(&scene);
+            deferredQueue.pop();
+        }        
     }
+    if(playerIsDead()) window->close();
+}
+
+bool GameLevel::playerIsDead()
+{
+    using namespace std;
+    WObjects objVec = scene.wObjects;
+    WObjects::iterator player = find_if(begin(objVec), end(objVec), [](IWObjectPtr obj) -> bool { return obj->getAttr().groupID == 1;});
+    if(player == objVec.end()) return true;
+    return false;
 }
 
 void GameLevel::draw()
