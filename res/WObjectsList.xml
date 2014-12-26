@@ -20,17 +20,17 @@
     <object class="Wall" posX="16" posY="464" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
 
 
-    <object class="Wall" posX="76" posY="112" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="76" posY="112" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="76" posY="144" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="76" posY="176" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="76" posY="208" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="76" posY="240" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="76" posY="272" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="76" posY="304" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="76" posY="336" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="76" posY="368" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="76" posY="368" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="80" posY="112" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="80" posY="112" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="80" posY="144" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="80" posY="176" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="80" posY="208" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="80" posY="240" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="80" posY="272" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="80" posY="304" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="80" posY="336" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="80" posY="368" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="80" posY="368" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
 
     <!-- top-->
     <object class="Wall" posX="48" posY="16"  width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
@@ -53,11 +53,27 @@
     <object class="Wall" posX="592" posY="16" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="624" posY="16" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
 
+
+
+    <object class="Wall" posX="176" posY="144" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="176" posY="176" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="176" posY="112" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="208" posY="112" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="240" posY="112" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="272" posY="112" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="304" posY="112" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="336" posY="112" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="368" posY="112" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="400" posY="112" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="432" posY="112" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="464" posY="112" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="464" posY="144" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="464" posY="176" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+
      <!-- right-->
     <object class="Wall" posX="624" posY="16"  width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="624" posY="48"  width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="624" posY="80"  width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="624" posY="112" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="624" posY="112" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="624" posY="144" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="624" posY="176" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
@@ -66,7 +82,6 @@
     <object class="Wall" posX="624" posY="272" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="624" posY="304" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="624" posY="336" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
-    <object class="Wall" posX="624" posY="368" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="624" posY="368" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="624" posY="400" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="624" posY="432" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
@@ -84,7 +99,9 @@
     <object class="Wall" posX="560" posY="336" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="560" posY="368" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="560" posY="368" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
-png   <!-- bottom -->
+
+
+   <!-- bottom -->
     <object class="Wall" posX="48"  posY="464" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="80"  posY="464" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="112" posY="464" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
@@ -104,6 +121,24 @@ png   <!-- bottom -->
     <object class="Wall" posX="560" posY="464" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="592" posY="464" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
     <object class="Wall" posX="624" posY="464" width="32" heigth="32" texture="res/Tiles/block.brick2.png" origX="16" origY="16" isSolid="true" groupID="0"/>
+
+
+    <object class="Wall" posX="176" posY="272" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="176" posY="304" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="176" posY="336" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="176" posY="336" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="208" posY="336" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="240" posY="336" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="272" posY="336" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="304" posY="336" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="336" posY="336" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="368" posY="336" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="400" posY="336" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="432" posY="336" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="464" posY="336" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="464" posY="272" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="464" posY="304" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
+    <object class="Wall" posX="464" posY="336" width="32" heigth="32" texture="res/Tiles/block.brick1.gif" origX="16" origY="16" isSolid="true" groupID="0"/>
 
 
     <object class="Player" posX="50" posY="50" width="22" heigth="12" vx="200" vy="200" texture="res/Animations/Player2.gif" origX="22" origY="48" isSolid="true"  groupID="1"  maxImmunityTime="1.0" >
