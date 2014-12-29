@@ -1,7 +1,7 @@
 <WObjects>
 	<bomb  width="32" heigth="32" origX="16" origY="16" texture="res/Tiles/bomb1.png" isSolid="true" groupID="0" />
 
-    <slug posX="350" posY="250" width="22" heigth="22" origX="22" origY="22"  vMax="80" texture="res/Animations/Slug.gif" isSolid="true"  groupID="2" >
+    <slug posX="350" posY="250" width="22" heigth="22" origX="28" origY="34"  vMax="80" texture="res/Animations/Slug.gif" isSolid="true"  groupID="2" >
         <animations  nAnimations="1" initialAnimation="move">                                                                 
             <animation name="move" nFrames="5" posX="0" posY="0" width="64" heigth="64" offset="64" timeToFrame="0.1" />
         </animations>                                                                         
