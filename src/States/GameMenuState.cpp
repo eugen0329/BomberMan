@@ -43,8 +43,8 @@ void GameMenuState::setPushDeferredFn(pushDeferred_t fn)
     resumeBtn->submit( std::bind(pushDeferred, [](StateStack* stateStack) {
         if(typeid(stateStack->top()) == typeid(GameState*)) return ;    
         stateStack->pop();
-        stateStack->pop();
-        stateStack->push(IAppStatePtr(new GameState));
+        //stateStack->pop();
+        //stateStack->push(IAppStatePtr(new GameState));
     }) );
     exitBtn->submit( std::bind(pushDeferred, [&](StateStack*) {
         if(window->isOpen()) window->close();
