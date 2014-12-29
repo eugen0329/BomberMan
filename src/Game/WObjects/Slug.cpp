@@ -94,13 +94,14 @@ void Slug::handleCollisions()
     for (CollisionManager::iterator it = collisions->begin(); it != last; ++it)
     {
         if((*it)->getAttr().groupID == attr.groupID) continue;
+
         if((*it)->getAttr().isHarmful() || (*it)->getAttr().groupID == 1) {
-            destroyWObject(IWObjectPtr(this, [](IWorldsObject*){}));
             (*it)->addCollision(attr);
             IWObjectPtr blow = std::make_shared<Blow>(attr.pos, attr.groupID, Blow::STYLE::SLUG_BLOW);
             pushDeferred( [blow, this](DrawableScene * scene) {
                 scene->add(blow, 0);
             });
+            destroyWObject(IWObjectPtr(this, [](IWorldsObject*){}));
         }
     }
 }

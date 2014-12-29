@@ -7,34 +7,51 @@ GameLevel::GameLevel() : window(NULL)
 GameLevel::GameLevel(window_t& window) : window(&window)
 {
 
-    timeToGenerateEnemy = alg::randInRange(3.f, 5.f);
-    timePassed = 0.f;
-    score = 0;
-
-    scoreWidget.setFont(conf::defaultFont);
-    scoreWidget.setColor(sf::Color::Blue);
-    scoreWidget.setStyle(sf::Text::Bold);
-    scoreWidget.setPosition(window.getSize().x * 0.9, 0 );  
-    scoreWidget.setString("0");
-
     levelMap.setWindow(window);
     TiXmlDocument * xmlFile = alg::openXmlFile("res/WObjectsList.xml");
     defaultWObjAttr = alg::openXmlFile("res/DefaultWObjAttr.xml");
-    TiXmlElement  * elem = alg::getXmlElem(xmlFile, {"WObjects","object"});
 
+    loadScene();
+    loadObjects(alg::getXmlElem(xmlFile, {"WObjects","object"}));
+    loadWidgets();
+    loadEnemyGenerator();
+
+
+    delete xmlFile;
+} 
+
+void GameLevel::loadScene()
+{
     pushDeferred = [&](dererredAct&& fn) { deferredQueue.push(fn);};
 
     scene.setFnInit([&](IWObjectPtr& ob) {
-        ob->setWindow(window);
+        ob->setWindow(*window);
         ob->setWorldObjects(scene.wObjects);
         ob->setFnPushDeferred(pushDeferred);  
     });
     int enemyId = 2;
     scene.notifyRemoval = [&, enemyId](int groupID) {if(groupID == 2) increaseScore();};
-    readObjectsFromXml(elem);
+}
 
-    delete xmlFile;
-} 
+void GameLevel::loadWidgets()
+{
+    scoreWidget.setFont(conf::defaultFont);
+    scoreWidget.setColor(sf::Color::Blue);
+    scoreWidget.setStyle(sf::Text::Bold);
+    scoreWidget.setPosition(window->getSize().x * 0.9, 0 );  
+    scoreWidget.setString("0");
+}
+
+void GameLevel::loadEnemyGenerator()
+{
+    createEnemyTimer = alg::randInRange(1.f, 3.f);
+    timePassed = 0.f;
+    score = 0;
+
+    slugHoles.push_back(Vec2<float>(250, 50));
+    slugHoles.push_back(Vec2<float>(250, 400));
+    slugHoles.push_back(Vec2<float>(50, 400));
+}
 
 void GameLevel::increaseScore()
 {
@@ -47,7 +64,7 @@ GameLevel::~GameLevel()
     delete defaultWObjAttr;
 }
 
-void GameLevel::readObjectsFromXml(TiXmlElement* xml)
+void GameLevel::loadObjects(TiXmlElement* xml)
 {
     for (TiXmlElement* it = xml; it != NULL; it = it->NextSiblingElement("object")) {
 
@@ -72,11 +89,10 @@ void GameLevel::handleEvents(const event_t& event)
 int GameLevel::update(const float& dt)
 {
     timePassed += dt;
-    if(timePassed >= timeToGenerateEnemy) {
-        int layer = 0;
-        TiXmlElement* elem = alg::getXmlElem(defaultWObjAttr, {"WObjects", "slug"});
-        scene.add( std::make_shared<Slug>(*elem, Vec2<float>(250, 50)), layer);
+    if(timePassed >= createEnemyTimer) {
+        createEnemy();
         timePassed = 0.f;
+        createEnemyTimer = alg::randInRange(0.5f, 1.5f);
     }
 
     scene.update(dt);
@@ -89,6 +105,15 @@ int GameLevel::update(const float& dt)
     }
     if(playerIsDead()) return 1;
     return 0;
+}
+
+void GameLevel::createEnemy()
+{
+    TiXmlElement* elem = alg::getXmlElem(defaultWObjAttr, {"WObjects", "slug"});
+
+    Vec2<float> pos = *alg::randElem(slugHoles.begin(), slugHoles.end());
+    int layer = 0;
+    scene.add( std::make_shared<Slug>(*elem, pos), layer);
 }
 
 bool GameLevel::playerIsDead()

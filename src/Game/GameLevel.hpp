@@ -32,21 +32,28 @@ private:
     TiXmlDocument *defaultWObjAttr;
 
     float timePassed;
-    float timeToGenerateEnemy;
+    float createEnemyTimer;
     int score;
 
     sf::Text scoreWidget;
     std::queue<dererredAct> deferredQueue;
     std::function<void(dererredAct&&)> pushDeferred;
 
+    std::vector<Vec2<float>> slugHoles;
+
     void increaseScore();
+    void createEnemy();
 public:
     GameLevel();
     GameLevel(window_t& );
     ~GameLevel();
 	void setWindow(window_t*);
 
-    void readObjectsFromXml(TiXmlElement*);
+    void loadObjects(TiXmlElement*);
+    void loadWidgets();
+    void loadEnemyGenerator();
+    void loadScene();
+
     bool playerIsDead();
 
     void handleEvents(const event_t&);

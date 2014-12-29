@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
+#include <algorithm>
 
 #include "TinyXML/tinyxml.h"
 
@@ -32,6 +33,14 @@ namespace alg {
             throw std::invalid_argument(std::string("parseFloat: \"") + source + "\" is wrong arg to parse");
         return retVal;
     }
+
+    template <typename I>
+    I randElem(I&& begin, I&& end)
+    {
+        I retVal = begin;
+        std::advance(retVal, randInRange(0, std::distance(begin, end)));
+        return retVal;
+    } 
 
     inline int parseInt(const std::string source)
     {
